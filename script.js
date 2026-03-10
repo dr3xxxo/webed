@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Elements DOM ---
-    const searchInput = document.getElementById('searchInput');
+    const navHomeBtn = document.getElementById('navHomeBtn');
 
     // Modals & Paramètres
     const settingsBtn = document.getElementById('settingsBtn');
@@ -267,19 +267,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }, duration);
     }
 
-    // --- Fonctionnalité de la barre de recherche ---
-    searchInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            const query = searchInput.value.trim();
-            if (query) {
-                searchInput.blur();
-                const alertMsg = currentLang === 'fr'
-                    ? `Fonctionnalité de recherche active. Vous avez cherché : "${query}"`
-                    : `Search functionality active. You searched for: "${query}"`;
-                showNotification(alertMsg, 'info');
-            }
-        }
-    });
+    // --- Bouton Accueil dans la Navbar ---
+    if (navHomeBtn) {
+        navHomeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            navigateHome();
+        });
+    }
 
     const heroView = document.querySelector('.hero');
     const heroConvertBtn = document.getElementById('heroConvertBtn');
