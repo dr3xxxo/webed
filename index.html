@@ -366,11 +366,11 @@
 
             <div class="games-grid">
 
-                <!-- Forza Horizon 5 Card -->
+                <!-- Rust Card -->
                 <div class="script-card"
                     style="position: relative; overflow: hidden; justify-content: flex-end; padding: 16px; border: 1px solid rgba(255,255,255,0.1); min-height: 180px; box-shadow: 0 8px 24px rgba(0,0,0,0.4);">
                     <!-- Image Fond -->
-                    <div style="position: absolute; inset: 0; background: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1551360/header.jpg') center/cover; z-index: 0; transition: transform 0.3s ease;"
+                    <div style="position: absolute; inset: 0; background: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/252490/header.jpg') center/cover; z-index: 0; transition: transform 0.3s ease;"
                         class="hover-zoom-bg"></div>
                     <!-- Dégradé Sombre -->
                     <div
@@ -379,19 +379,16 @@
 
                     <div class="script-card-content"
                         style="position: relative; z-index: 2; flex: none; display: flex; flex-direction: column; width: 100%;">
-                        <h3 data-i18n="forza_title"
+                        <h3 data-i18n="rust_title"
                             style="color: #ffffff; font-size: 1.35rem; font-weight: 700; text-shadow: 0 2px 6px rgba(0,0,0,0.8); margin-bottom: 4px;">
-                            Forza Horizon 5</h3>
-                        <p data-i18n="forza_desc"
+                            Rust</h3>
+                        <p data-i18n="rust_desc"
                             style="color: #cbd5e1; text-shadow: 0 1px 3px rgba(0,0,0,0.8); margin-bottom: 12px; font-size: 0.9rem;">
                             Jeu complet avec multijoueur fonctionnel.</p>
                         <div class="script-card-actions" style="flex-wrap: wrap; gap: 8px;">
-                            <a href="https://www.clictune.com/hv1g" target="_blank" class="btn btn-signup"
+                            <a href="https://www.dlink8.com/mmpZ" target="_blank" class="btn btn-signup"
                                 style="padding: 6px 14px; font-size: 0.85rem;" data-i18n="download">Télécharger</a>
-                            <button class="btn btn-login btn-usage" id="tutoVideoBtn" data-i18n="tuto_video_btn"
-                                style="padding: 6px 14px; font-size: 0.85rem; background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.1);">Tuto
-                                Vidéo</button>
-                            <button class="btn btn-login btn-usage" id="tutoForzaBtn" data-i18n="tuto_btn"
+                            <button class="btn btn-login btn-usage" id="tutoRustBtn" data-i18n="tuto_btn"
                                 style="padding: 6px 14px; font-size: 0.85rem; background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.1);">Tuto</button>
                         </div>
                     </div>
@@ -706,12 +703,12 @@
 
 
 
-    <!-- Modal Tuto Forza Horizon 5 -->
-    <div id="forzaTutoModal" class="modal-overlay">
+    <!-- Modal Tuto Rust -->
+    <div id="rustTutoModal" class="modal-overlay">
         <div class="modal-content auth-modal" style="max-width: 600px;">
             <div class="modal-header">
-                <h2 data-i18n="forza_tuto_title">Tutoriel Forza Horizon 5</h2>
-                <button class="close-modal" id="closeForzaTutoModal" aria-label="Fermer">
+                <h2 data-i18n="rust_tuto_title">Tutoriel Rust</h2>
+                <button class="close-modal" id="closeRustTutoModal" aria-label="Fermer">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -721,63 +718,55 @@
             </div>
             <div class="modal-body usage-steps" style="max-height: 70vh; overflow-y: auto;">
                 <h3 style="color: var(--text-primary); margin-bottom: 15px; font-size: 1.1rem;"
-                    data-i18n="forza_tuto_intro">Voici comment lancer Forza Horizon 5:</h3>
+                    data-i18n="rust_tuto_intro">Voici comment lancer Rust:</h3>
 
                 <div class="usage-step">
                     <span class="step-number">1</span>
-                    <p><span data-i18n="forza_tuto_step1">Téléchargez le fichier ➡️</span> <a
-                            href="https://www.clictune.com/hv1g" target="_blank"
-                            style="color: var(--accent-color); text-decoration: none;">https://www.clictune.com/hv1g</a>
-                    </p>
+                    <p data-i18n="rust_tuto_step1">Lancez le jeu via Launcher.exe</p>
                 </div>
                 <div class="usage-step">
                     <span class="step-number">2</span>
-                    <p data-i18n="forza_tuto_step2">Ensuite, ouvrez votre .rar et déplacez les fichiers dans le dossier
-                        du jeu Forza Horizon 5</p>
+                    <p data-i18n="rust_tuto_step2">En bas à gauche, cliquez sur le drapeau "russe" et choisissez
+                        "English"</p>
                 </div>
                 <div class="usage-step">
                     <span class="step-number">3</span>
-                    <p data-i18n="forza_tuto_step3">Vérifiez bien que Steam est ouvert en fond</p>
+                    <p data-i18n="rust_tuto_step3">Connectez-vous avec votre compte Steam (redirection navigateur)</p>
                 </div>
                 <div class="usage-step">
                     <span class="step-number">4</span>
-                    <p data-i18n="forza_tuto_step4">Toujours lancer le jeu en Admin</p>
+                    <p data-i18n="rust_tuto_step4">Si un bouton jaune Update Game apparaît, cliquez dessus et attendez
+                        la fin</p>
                 </div>
                 <div class="usage-step">
                     <span class="step-number">5</span>
-                    <p data-i18n="forza_tuto_step5">Connectez-vous avec votre compte Microsoft/Xbox</p>
+                    <p data-i18n="rust_tuto_step5">Choisissez un serveur dans la liste (ne pas prendre un serveur qui
+                        colorer) → cliquez sur Copy IP</p>
                 </div>
                 <div class="usage-step">
                     <span class="step-number">6</span>
-                    <p data-i18n="forza_tuto_step6">Pour inviter vos amis, exécutez le fichier Enable_Invites_FH5.bat en
-                        administrateur</p>
+                    <p data-i18n="rust_tuto_step6">Cliquez sur Play, laissez Rust dans Launch parameters, puis cliquez
+                        sur Launch</p>
                 </div>
                 <div class="usage-step">
                     <span class="step-number">7</span>
-                    <p data-i18n="forza_tuto_step7">Pour jouer en multijoueur avec vos amis, vous devez les avoir en ami
-                        sur Xbox et les inviter via Xbox.</p>
+                    <p data-i18n="rust_tuto_step7">En cas d’erreur, fermez-la et cliquez à nouveau sur Launch</p>
+                </div>
+                <div class="usage-step">
+                    <span class="step-number">8</span>
+                    <p data-i18n="rust_tuto_step8">Dans le menu principal du jeu, appuyez sur F1, collez l’IP copiée et
+                        validez</p>
                 </div>
 
                 <div
-                    style="margin-top: 25px; margin-bottom: 15px; padding-top: 15px; border-top: 1px solid var(--border-subtle);">
-                    <h3 style="color: var(--text-primary); margin-bottom: 15px; font-size: 1.1rem;"
-                        data-i18n="forza_tuto_prob_title">Problème de connexion avec votre compte Microsoft ?</h3>
-                    <ul
-                        style="color: var(--text-secondary); padding-left: 20px; line-height: 1.6; margin-bottom: 15px;">
-                        <li data-i18n="forza_tuto_prob1">Cliquez sur l'option : Ajouter un autre compte</li>
-                        <li data-i18n="forza_tuto_prob2">Entrez ici les informations de votre compte Microsoft</li>
-                    </ul>
-                </div>
-
-                <div
-                    style="background: rgba(245, 158, 11, 0.1); border-left: 4px solid #f59e0b; padding: 15px; border-radius: 4px; color: var(--text-primary);">
-                    <p style="margin: 0; font-weight: 500; text-align: center;" data-i18n="forza_tuto_warning">⚠️ Forza
-                        Horizon 5 fonctionne avec tout le monde, que ce soit ma version ou la version officielle ⚠️</p>
+                    style="background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; padding: 15px; border-radius: 4px; color: var(--text-primary); margin-top: 20px;">
+                    <p style="margin: 0; font-weight: 500; text-align: center;" data-i18n="rust_tuto_warning">⚠️ Si une
+                        erreur apparaît lors de la connexion, essayez un autre serveur ⚠️</p>
                 </div>
             </div>
             <div class="modal-footer"
                 style="padding: 20px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;">
-                <button class="btn btn-signup" id="closeForzaTutoBtn" data-i18n="close">Fermer</button>
+                <button class="btn btn-signup" id="closeRustTutoBtn" data-i18n="close">Fermer</button>
             </div>
         </div>
     </div>
