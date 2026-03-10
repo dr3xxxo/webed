@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Elements DOM ---
     const navHomeBtn = document.getElementById('navHomeBtn');
+    const logoHomeBtn = document.getElementById('logoHomeBtn');
 
     // Modals & Paramètres
     const settingsBtn = document.getElementById('settingsBtn');
@@ -268,12 +269,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Bouton Accueil dans la Navbar ---
+    const goHomeHandler = (e) => {
+        if (e) e.preventDefault();
+        navigateHome();
+    };
+
     if (navHomeBtn) {
-        navHomeBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            navigateHome();
-            window.location.hash = ''; // Clear hash for visual cue
-        });
+        navHomeBtn.addEventListener('click', goHomeHandler);
+    }
+
+    if (logoHomeBtn) {
+        logoHomeBtn.addEventListener('click', goHomeHandler);
     }
 
     const heroView = document.querySelector('.hero');
@@ -319,9 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function navigateHome() {
-        if (window.location.hash) {
-            history.pushState(null, '', window.location.pathname);
-        }
+        window.location.hash = ''; // Trigger hashchange and reset url visually safely
         hideAllAdminViews();
         if (heroView) heroView.style.display = 'flex';
     }

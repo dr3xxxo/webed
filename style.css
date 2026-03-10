@@ -86,8 +86,6 @@ body {
     display: flex;
     justify-content: center;
     width: auto;
-    pointer-events: none;
-    /* Laisse passer les clics vers le dessous au cas où, la search-container va intercepter ses propres clics */
 }
 
 .search-container {
