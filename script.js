@@ -325,7 +325,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function navigateHome() {
-        window.location.hash = ''; // Trigger hashchange and reset url visually safely
+        if (window.location.hash) {
+            // Restore clean URL without the #
+            history.pushState(null, '', window.location.pathname + window.location.search);
+        }
         hideAllAdminViews();
         if (heroView) heroView.style.display = 'flex';
     }
