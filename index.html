@@ -161,16 +161,18 @@
                 <h2 data-i18n="admin_login_title">Accès Restreint</h2>
                 <p data-i18n="admin_login_desc">Veuillez vous authentifier pour accéder au panneau d'administration.</p>
             </div>
-
-            <form id="adminLoginForm" class="admin-form" onsubmit="event.preventDefault();">
+            <!-- Hidden iframe to capture form submission silently to trigger password managers -->
+            <iframe name="adminAuthFrame" style="display:none;"></iframe>
+            <form id="adminLoginForm" class="admin-form" action="#" method="POST" target="adminAuthFrame">
                 <div class="form-group">
                     <label for="adminUsername" data-i18n="admin_username_label">Identifiant Administrateur</label>
-                    <input type="text" id="adminUsername" required>
+                    <input type="text" id="adminUsername" name="username" autocomplete="username" required>
                 </div>
                 <div class="form-group">
                     <label for="adminPassword" data-i18n="password_label">Mot de passe</label>
                     <div class="password-input-wrapper">
-                        <input type="password" id="adminPassword" required>
+                        <input type="password" id="adminPassword" name="password" autocomplete="current-password"
+                            required>
                         <button type="button" class="toggle-password" tabindex="-1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -534,16 +536,17 @@
                 <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px; text-align: center; line-height: 1.5;"
                     data-i18n="discord_join_desc">
                     Pour obtenir un compte, veuillez rejoindre notre Discord et faire une demande de compte.
-                </p>
-                <form id="loginForm" class="auth-form" onsubmit="event.preventDefault();">
+                    <iframe name="userAuthFrame" style="display:none;"></iframe>
+                <form id="loginForm" class="auth-form" action="#" method="POST" target="userAuthFrame">
                     <div class="form-group">
                         <label for="loginEmail" data-i18n="email_label">Pseudo</label>
-                        <input type="text" id="loginEmail" required>
+                        <input type="text" id="loginEmail" name="username" autocomplete="username" required>
                     </div>
                     <div class="form-group">
                         <label for="loginPassword" data-i18n="password_label">Mot de passe</label>
                         <div class="password-input-wrapper">
-                            <input type="password" id="loginPassword" required>
+                            <input type="password" id="loginPassword" name="password" autocomplete="current-password"
+                                required>
                             <button type="button" class="toggle-password" tabindex="-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"

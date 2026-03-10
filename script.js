@@ -323,40 +323,79 @@ document.addEventListener('DOMContentLoaded', () => {
         if (gamesView) gamesView.style.display = 'none';
     }
 
+    function navigateHome() {
+        if (window.location.hash) {
+            history.pushState(null, '', window.location.pathname);
+        }
+        hideAllAdminViews();
+        if (heroView) heroView.style.display = 'flex';
+    }
+
+    function navigateTo(hash, viewElem) {
+        history.pushState(null, '', hash);
+        if (heroView) heroView.style.display = 'none';
+        hideAllAdminViews();
+        if (viewElem) viewElem.style.display = 'flex';
+    }
+
+    window.addEventListener('hashchange', () => {
+        const hash = window.location.hash;
+        hideAllAdminViews();
+
+        if (hash === '#convert' && convertView) {
+            if (heroView) heroView.style.display = 'none';
+            convertView.style.display = 'flex';
+        } else if (hash === '#script' && scriptView) {
+            if (heroView) heroView.style.display = 'none';
+            scriptView.style.display = 'flex';
+        } else if (hash === '#games' && gamesView) {
+            if (heroView) heroView.style.display = 'none';
+            gamesView.style.display = 'flex';
+        } else if (hash === '#admin' && adminView) {
+            if (heroView) heroView.style.display = 'none';
+            adminView.style.display = 'flex';
+        } else if (hash === '#accounts' && adminAccountsView) {
+            if (heroView) heroView.style.display = 'none';
+            adminAccountsView.style.display = 'flex';
+        } else if (hash === '#dashboard' && adminDashboardView) {
+            if (heroView) heroView.style.display = 'none';
+            adminDashboardView.style.display = 'flex';
+        } else {
+            if (heroView) heroView.style.display = 'flex';
+        }
+    });
+
+    window.addEventListener('load', () => {
+        if (window.location.hash) {
+            window.dispatchEvent(new Event('hashchange'));
+        }
+    });
+
     if (adminPanelBtn) {
         adminPanelBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            if (heroView) heroView.style.display = 'none';
-            if (adminView) adminView.style.display = 'flex';
+            navigateTo('#admin', adminView);
         });
     }
 
-    if (backToHomeFromAdminBtn) {
-        backToHomeFromAdminBtn.addEventListener('click', () => {
-            hideAllAdminViews();
-            if (heroView) heroView.style.display = 'flex';
-        });
-    }
+    const goBack = (e) => {
+        if (e) e.preventDefault();
+        navigateHome();
+    };
 
-    if (backFromDashboardBtn) {
-        backFromDashboardBtn.addEventListener('click', () => {
-            hideAllAdminViews();
-            if (heroView) heroView.style.display = 'flex';
-        });
-    }
+    if (backToHomeFromAdminBtn) backToHomeFromAdminBtn.addEventListener('click', goBack);
+    if (backFromDashboardBtn) backFromDashboardBtn.addEventListener('click', goBack);
 
     if (openAccountsBtn) {
         openAccountsBtn.addEventListener('click', () => {
-            hideAllAdminViews();
             renderAccountsList();
-            if (adminAccountsView) adminAccountsView.style.display = 'flex';
+            navigateTo('#accounts', adminAccountsView);
         });
     }
 
     if (backToDashboardBtn) {
         backToDashboardBtn.addEventListener('click', () => {
-            hideAllAdminViews();
-            if (adminDashboardView) adminDashboardView.style.display = 'flex';
+            navigateTo('#dashboard', adminDashboardView);
         });
     }
 
@@ -510,16 +549,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (heroConvertBtn) {
         heroConvertBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            if (heroView) heroView.style.display = 'none';
-            if (convertView) convertView.style.display = 'flex';
+            navigateTo('#convert', convertView);
             showNotification(currentLang === 'fr' ? "Mode Convert Ouvert !" : "Convert Mode Opened!", 'success');
         });
     }
 
     if (backFromConvertBtn) {
         backFromConvertBtn.addEventListener('click', () => {
-            if (convertView) convertView.style.display = 'none';
-            if (heroView) heroView.style.display = 'flex';
+            navigateHome();
             // Reset state
             youtubeUrlInput.value = '';
             conversionStatus.style.display = 'none';
@@ -588,8 +625,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (heroScriptBtn) {
         heroScriptBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            if (heroView) heroView.style.display = 'none';
-            if (scriptView) scriptView.style.display = 'flex';
+            navigateTo('#script', scriptView);
             showNotification(currentLang === 'fr' ? "Mode Script / macro Ouvert !" : "Script / macro Mode Opened!", 'success');
         });
     }
@@ -597,24 +633,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (heroGamesBtn) {
         heroGamesBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            if (heroView) heroView.style.display = 'none';
-            if (gamesView) gamesView.style.display = 'flex';
+            navigateTo('#games', gamesView);
             showNotification(currentLang === 'fr' ? "Games Ouvert !" : "Games Mode Opened!", 'success');
         });
     }
 
     if (backFromScriptBtn) {
-        backFromScriptBtn.addEventListener('click', () => {
-            if (scriptView) scriptView.style.display = 'none';
-            if (heroView) heroView.style.display = 'flex';
-        });
+        backFromScriptBtn.addEventListener('click', goBack);
     }
 
     if (backFromGamesBtn) {
-        backFromGamesBtn.addEventListener('click', () => {
-            if (gamesView) gamesView.style.display = 'none';
-            if (heroView) heroView.style.display = 'flex';
-        });
+        backFromGamesBtn.addEventListener('click', goBack);
     }
 
     if (closeLoginModal) closeLoginModal.addEventListener('click', () => closeModal(loginModal));
