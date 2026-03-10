@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Webed - L'élégance du Web">
+    <title>Webed</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    <!-- Modern font: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="navbar-left">
+            <a href="#" class="logo" style="display: flex; align-items: center;">
+                <img src="logo.png" alt="Webed Logo"
+                    style="height: 32px; width: auto; margin-right: 10px; border-radius: 6px;">
+                Webed
+            </a>
+            <a href="#" class="admin-panel-btn" id="adminPanelBtn" data-i18n="admin_panel"
+                style="display: inline-block; margin-left: 1rem; font-size: 0.85rem; padding: 6px 12px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-subtle); border-radius: 6px; color: var(--text-secondary); text-decoration: none; transition: all 0.2s ease;">
+                Panneau Admin
+            </a>
+        </div>
+
+        <div class="navbar-center">
+            <div class="search-container">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="searchInput" class="search-input" placeholder="Recherche..."
+                    data-i18n-placeholder="search_placeholder" aria-label="Barre de recherche">
+            </div>
+        </div>
+
+        <div class="navbar-right">
+            <a href="https://discord.gg/kvzPUFr25n" target="_blank" class="social-btn discord-btn"
+                aria-label="Rejoindre notre Discord" title="Discord">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 127.14 96.36"
+                    fill="currentColor">
+                    <path
+                        d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.31,60,73.31,53s5-12.74,11.43-12.74S96.2,46,96.12,53,91.08,65.69,84.69,65.69Z" />
+                </svg>
+            </a>
+            <div class="settings-container">
+                <button class="settings-btn" id="settingsBtn" aria-label="Paramètres" title="Paramètres">
+                    <svg class="gear-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path
+                            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                        </path>
+                    </svg>
+                </button>
+                <!-- Bouton uniquement, dropdown déplacé dans une modale -->
+            </div>
+
+            <div class="auth-buttons" id="authButtons">
+                <a href="#" class="btn btn-login" id="loginBtnTrigger" data-i18n="login">Login</a>
+            </div>
+
+            <div class="user-profile" id="userProfile" style="display: none; align-items: center; gap: 1rem;">
+                <span class="user-name" id="profileName" style="font-weight: 500; font-size: 0.95rem;"></span>
+                <button class="btn btn-login btn-logout" id="logoutBtn" data-i18n="logout">Déconnexion</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="hero">
+        <div class="hero-content">
+            <h1 data-i18n="hero_title">Bienvenue</h1>
+            <p data-i18n="hero_desc">Nous mettons a disposition nos usages.</p>
+
+
+            <div class="hero-features">
+                <a href="#" class="hero-feature-box" id="heroConvertBtn">
+                    <div class="convert-icon-wrapper">
+                        <!-- Download Icon -->
+                        <svg class="download-icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                    </div>
+                    <div class="convert-text">
+                        <span class="convert-title">
+                            <span data-i18n="btn_convert">Convertir</span>
+                            <span
+                                style="color: #ef4444; font-size: 0.75rem; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; margin-left: 10px;">
+                                <span
+                                    style="width: 8px; height: 8px; background-color: #ef4444; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);"></span>
+                                ( En cours d'acheminement local )
+                            </span>
+                        </span>
+                        <span class="convert-subtitle" data-i18n="btn_convert_desc">Télécharger & Convertir vos
+                            médias</span>
+                    </div>
+                </a>
+
+                <a href="#" class="hero-feature-box" id="heroScriptBtn">
+                    <div class="convert-icon-wrapper" style="background: rgba(168, 85, 247, 0.1); color: #a855f7;">
+                        <!-- Terminal Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="4 17 10 11 4 5"></polyline>
+                            <line x1="12" y1="19" x2="20" y2="19"></line>
+                        </svg>
+                    </div>
+                    <div class="convert-text">
+                        <span class="convert-title" data-i18n="btn_script_macro">Script / macro</span>
+                        <span class="convert-subtitle" data-i18n="script_macro_desc">Automatisez vos tâches
+                            répétitives</span>
+                    </div>
+                </a>
+
+                <a href="#" class="hero-feature-box" id="heroGamesBtn">
+                    <div class="convert-icon-wrapper" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
+                        <!-- Gamepad Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="6" y1="12" x2="10" y2="12"></line>
+                            <line x1="8" y1="10" x2="8" y2="14"></line>
+                            <line x1="15" y1="13" x2="15.01" y2="13"></line>
+                            <line x1="18" y1="11" x2="18.01" y2="11"></line>
+                            <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                        </svg>
+                    </div>
+                    <div class="convert-text">
+                        <span class="convert-title" data-i18n="btn_games">Games</span>
+                        <span class="convert-subtitle" data-i18n="games_desc">Découvrez notre bibliothèque de
+                            jeux</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        </div>
+
+        <!-- Elements de décoration pour le design premium (Glow/Gradients) -->
+        <div class="ambient-glow glow-1"></div>
+        <div class="ambient-glow glow-2"></div>
+    </main>
+
+    <!-- Vue Connexion Admin -->
+    <main class="admin-view" id="adminView" style="display: none;">
+        <div class="admin-login-container">
+            <div class="admin-login-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                    stroke="var(--accent-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="admin-icon">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <h2 data-i18n="admin_login_title">Accès Restreint</h2>
+                <p data-i18n="admin_login_desc">Veuillez vous authentifier pour accéder au panneau d'administration.</p>
+            </div>
+
+            <form id="adminLoginForm" class="admin-form" onsubmit="event.preventDefault();">
+                <div class="form-group">
+                    <label for="adminUsername" data-i18n="admin_username_label">Identifiant Administrateur</label>
+                    <input type="text" id="adminUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword" data-i18n="password_label">Mot de passe</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="adminPassword" required>
+                        <button type="button" class="toggle-password" tabindex="-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit admin-btn-submit" data-i18n="admin_login_submit">Accéder au
+                    panneau</button>
+            </form>
+            <button class="back-to-home-btn" id="backToHomeFromAdminBtn" data-i18n="back_to_home">Retour à
+                l'accueil</button>
+        </div>
+
+        <div class="ambient-glow glow-admin-1"></div>
+        <div class="ambient-glow glow-admin-2"></div>
+    </main>
+
+    <!-- Vue Dashboard Admin -->
+    <main class="admin-view" id="adminDashboardView" style="display: none;">
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h2 data-i18n="dashboard_title">Tableau de bord Administrateur</h2>
+                <p data-i18n="dashboard_desc">Bienvenue dans l'espace de gestion Webed.</p>
+            </div>
+            <div class="dashboard-grid">
+                <button class="dashboard-card accounts-card" id="openAccountsBtn">
+                    <span class="code-icon">&lt;/&gt;</span>
+                    <span class="card-title" data-i18n="manage_accounts">Gestion des comptes</span>
+                </button>
+            </div>
+            <button class="back-to-home-btn" id="backFromDashboardBtn" data-i18n="admin_logout">Déconnexion
+                Admin</button>
+        </div>
+        <!-- Elements de décoration pour le design premium spécifiques à l'admin -->
+        <div class="ambient-glow glow-admin-1"></div>
+        <div class="ambient-glow glow-admin-2"></div>
+    </main>
+
+    <!-- Vue Liste des Comptes Admin -->
+    <main class="admin-view" id="adminAccountsView" style="display: none;">
+        <div class="accounts-container">
+            <div class="accounts-header">
+                <h2 data-i18n="accounts_title">Comptes Utilisateurs</h2>
+                <p data-i18n="accounts_desc">Liste de tous les comptes enregistrés sur la plateforme.</p>
+            </div>
+
+            <div class="accounts-list-content" id="accountsListContainer">
+                <!-- Injected via JS -->
+            </div>
+
+            <button class="back-to-home-btn" id="backToDashboardBtn" data-i18n="back_to_dashboard">Retour au Tableau de
+                bord</button>
+        </div>
+        <!-- Elements de décoration pour le design premium spécifiques à l'admin -->
+        <div class="ambient-glow glow-admin-1"></div>
+        <div class="ambient-glow glow-admin-2"></div>
+    </main>
+
+    <!-- Vue Script / Macro -->
+    <main class="script-view" id="scriptView" style="display: none;">
+        <div class="script-container">
+            <div class="script-header">
+                <h2 data-i18n="script_title">Scripts & Macros</h2>
+                <p data-i18n="script_desc">Téléchargez nos outils d'automatisation pour optimiser votre expérience.</p>
+            </div>
+
+            <div class="script-grid">
+                <!-- Card 1: Delete Cache -->
+                <div class="script-card">
+                    <div class="script-card-icon" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 6h18"></path>
+                            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                        </svg>
+                    </div>
+                    <div class="script-card-content" style="flex: 1; display: flex; flex-direction: column;">
+                        <h3 data-i18n="script_delete_cache_title">Delet Cache app</h3>
+                        <p data-i18n="script_delete_cache_desc">Nettoyez rapidement le cache de vos applications.</p>
+                        <div class="script-card-actions">
+                            <a href="https://www.mediafire.com/file/3bos8aci4ajc2u6/delet_cache.exe/file"
+                                target="_blank" class="btn btn-signup" data-i18n="download">Télécharger</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: HardNuke -->
+                <div class="script-card">
+                    <div class="script-card-icon" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                            </path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                    </div>
+                    <div class="script-card-content" style="flex: 1; display: flex; flex-direction: column;">
+                        <h3 data-i18n="script_htttardnuke_title">HardNuke safe</h3>
+                        <p data-i18n="script_hardnuke_desc">Fichier Nuke création de fichier en arriere plans a chaque
+                            démarrage de PC</p>
+                        <div class="script-card-actions">
+                            <a href="https://www.mediafire.com/file/bzf14ocu0jbdpyu/HardNuke_%2528_To_rename_ans_delet_the_.exe_in_the_name_%2529.exe/file"
+                                target="_blank" class="btn btn-signup" data-i18n="download">Télécharger</a>
+                            <button class="btn btn-login btn-usage" id="usageHardNukeBtn"
+                                data-i18n="usage">Utilisation</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Discord Ping Macro -->
+                <div class="script-card">
+                    <div class="script-card-icon" style="background: rgba(88, 101, 242, 0.1); color: #5865f2;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 127.14 96.36"
+                            fill="currentColor">
+                            <path
+                                d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.31,60,73.31,53s5-12.74,11.43-12.74S96.2,46,96.12,53,91.08,65.69,84.69,65.69Z" />
+                        </svg>
+                    </div>
+                    <div class="script-card-content" style="flex: 1; display: flex; flex-direction: column;">
+                        <h3 data-i18n="script_discord_ping_title">Macro Discord ping mp</h3>
+                        <p data-i18n="script_discord_ping_desc">Automatisez les pings en messages privés Discord.</p>
+                        <div class="script-card-actions">
+                            <a href="https://www.mediafire.com/file/zm8pldhelehwz95/macro_dc_ping.ahk/file"
+                                target="_blank" class="btn btn-signup" data-i18n="download">Télécharger</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="back-to-home-btn" id="backFromScriptBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    style="margin-right: 8px;">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                <span data-i18n="back_to_home">Retour à l'accueil</span>
+            </button>
+        </div>
+
+        <div class="ambient-glow glow-1"></div>
+        <div class="ambient-glow glow-2"></div>
+    </main>
+
+    <!-- Vue Games -->
+    <main class="games-view" id="gamesView" style="display: none;">
+        <div class="games-container script-container">
+            <div class="games-header script-header">
+                <h2 data-i18n="games_title">Games</h2>
+                <p data-i18n="games_view_desc">Découvrez et téléchargez notre sélection de jeux.</p>
+            </div>
+
+            <div class="games-grid">
+                <!-- Discord Card -->
+                <div class="game-card">
+                    <div class="game-card-banner"
+                        style="background-image: linear-gradient(180deg, rgba(88, 101, 242, 0) 0%, rgba(88, 101, 242, 0.2) 100%), url('https://w7.pngwing.com/pngs/351/139/png-transparent-discord-computer-icons-logo-computer-software-twitch-discord-icon-white-text-logo-thumbnail.png');">
+                        <div class="game-card-overlay">
+                            <span class="game-badge"
+                                style="color: #5865F2; border-color: rgba(88, 101, 242, 0.4); background: rgba(88, 101, 242, 0.2);">Communauté</span>
+                        </div>
+                    </div>
+                    <div class="game-card-content">
+                        <h3 data-i18n="discord_games_title">Discord Webed</h3>
+                        <p data-i18n="discord_games_desc">Rejoignez le serveur discord pour proposer des jeux crackés à
+                            ajouter !</p>
+                        <div class="game-card-actions">
+                            <a href="https://discord.gg/kvzPUFr25n" target="_blank"
+                                class="btn btn-login btn-download-game discord-btn"
+                                style="color: #5865F2; border-color: rgba(88, 101, 242, 0.2); background: rgba(88, 101, 242, 0.1);"
+                                data-i18n="join_discord_games">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Rejoindre le Discord
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="back-to-home-btn" id="backFromGamesBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    style="margin-right: 8px;">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                <span data-i18n="back_to_home">Retour à l'accueil</span>
+            </button>
+        </div>
+
+        <div class="ambient-glow glow-1"></div>
+        <div class="ambient-glow glow-2"></div>
+    </main>
+
+    <!-- Vue YouTube Convert -->
+    <main class="convert-view" id="convertView" style="display: none;">
+        <div class="convert-container">
+            <div class="convert-header"
+                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div style="text-align: left;">
+                    <h2 data-i18n="convert_title">YouTube Converter</h2>
+                    <p data-i18n="convert_desc">Convertissez vos vidéos YouTube préférées en MP3 ou MP4.</p>
+                </div>
+            </div>
+
+            <div class="convert-card">
+                <div class="form-group">
+                    <label for="youtubeUrl" data-i18n="youtube_url_label">Lien de la vidéo YouTube</label>
+                    <div class="url-input-wrapper">
+                        <svg class="url-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                        <input type="text" id="youtubeUrl" placeholder="https://www.youtube.com/watch?v=..."
+                            data-i18n-placeholder="youtube_url_placeholder">
+                    </div>
+                </div>
+
+                <div class="format-selector">
+                    <label data-i18n="format_label">Format de sortie</label>
+                    <div class="segmented-control">
+                        <input type="radio" name="format" id="formatMp3" value="mp3" checked>
+                        <label for="formatMp3">MP3</label>
+                        <input type="radio" name="format" id="formatMp4" value="mp4">
+                        <label for="formatMp4">MP4</label>
+                        <div class="segment-glider"></div>
+                    </div>
+                </div>
+
+                <button class="btn-submit" id="startConvertBtn">
+                    <span data-i18n="convert_submit">Convertir</span>
+                    <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+
+                <div class="conversion-status" id="conversionStatus" style="display: none;">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <p class="status-text" id="statusText">Initialisation...</p>
+                </div>
+
+                <div class="result-actions" id="resultActions"
+                    style="display: none; flex-direction: column; gap: 15px;">
+                    <p style="text-align: center; color: var(--text-secondary); margin-bottom: 5px;"
+                        data-i18n="savefrom_title">Conversion SaveFrom.net :</p>
+
+                    <a href="#" class="btn btn-signup" id="directSaveFromBtn" target="_blank"
+                        style="width: 100%; padding: 18px; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="margin-right: 10px;">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        <span>Télécharger (SaveFrom.net)</span>
+                    </a>
+                </div>
+            </div>
+
+            <button class="back-to-home-btn" id="backFromConvertBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    style="margin-right: 8px;">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                <span data-i18n="back_to_home">Retour à l'accueil</span>
+            </button>
+        </div>
+
+        <div class="ambient-glow glow-1"></div>
+        <div class="ambient-glow glow-2"></div>
+    </main>
+
+    <!-- Modal des Paramètres -->
+    <div id="settingsModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 data-i18n="settings_title">Paramètres</h2>
+                <button class="close-modal" id="closeSettingsModal" aria-label="Fermer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label data-i18n="lang_title">Langue de l'interface</label>
+
+                    <!-- Menu déroulant personnalisé pour les langues -->
+                    <div class="custom-select-wrapper" id="langSelector">
+                        <div class="custom-select-trigger" aria-haspopup="listbox" aria-expanded="false">
+                            <span id="selectedLangText" data-i18n="lang_fr">Français</span>
+                            <svg class="dropdown-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                        <div class="custom-select-options" role="listbox">
+                            <div class="custom-option selected" data-lang="fr" role="option" aria-selected="true">
+                                <span class="option-text" data-i18n="lang_fr">Français</span>
+                                <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <div class="custom-option" data-lang="en" role="option" aria-selected="false">
+                                <span class="option-text" data-i18n="lang_en">English</span>
+                                <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <!-- Modal Login -->
+    <div id="loginModal" class="modal-overlay">
+        <div class="modal-content auth-modal">
+            <div class="modal-header">
+                <h2 data-i18n="login_title">Connexion</h2>
+                <button class="close-modal" id="closeLoginModal" aria-label="Fermer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px; text-align: center; line-height: 1.5;"
+                    data-i18n="discord_join_desc">
+                    Pour obtenir un compte, veuillez rejoindre notre Discord et faire une demande de compte.
+                </p>
+                <form id="loginForm" class="auth-form" onsubmit="event.preventDefault();">
+                    <div class="form-group">
+                        <label for="loginEmail" data-i18n="email_label">Pseudo</label>
+                        <input type="text" id="loginEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword" data-i18n="password_label">Mot de passe</label>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="loginPassword" required>
+                            <button type="button" class="toggle-password" tabindex="-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-submit" data-i18n="login_submit">Se connecter</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Utilisation HardNuke -->
+    <div id="usageModal" class="modal-overlay">
+        <div class="modal-content auth-modal">
+            <div class="modal-header">
+                <h2 data-i18n="usage_title">Instructions d'utilisation</h2>
+                <button class="close-modal" id="closeUsageModal" aria-label="Fermer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body usage-steps">
+                <div class="usage-step">
+                    <span class="step-number">1</span>
+                    <p data-i18n="usage_step_1">Télécharger le fichier ( SANS L'OUVRIR )</p>
+                </div>
+                <div class="usage-step">
+                    <span class="step-number">2</span>
+                    <p data-i18n="usage_step_2">Renommer le comme vous le souhaitez en enlevant le .exe</p>
+                </div>
+                <div class="usage-step">
+                    <span class="step-number">3</span>
+                    <p data-i18n="usage_step_3">Vous pouvez maintenant l'envoyer à la personne de votre choix</p>
+                </div>
+            </div>
+            <div class="modal-footer"
+                style="padding: 20px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                <button class="btn btn-signup" id="closeUsageBtn" data-i18n="close">Fermer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Suspension (Admin) -->
+    <div id="suspensionModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h2 data-i18n="suspend_user_title">Bloquer l'utilisateur</h2>
+                <button class="close-modal" id="closeSuspensionModal" aria-label="Fermer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <form id="suspensionForm" class="modal-body auth-form" style="padding: 24px; gap: 16px;">
+                <input type="hidden" id="suspendUserEmail">
+                <div class="form-group">
+                    <label for="suspensionDuration" data-i18n="duration_label">Durée</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="number" id="suspensionDuration" min="1" value="24" required style="flex: 1;">
+                        <select id="suspensionUnit"
+                            style="flex: 1; padding: 12px; border-radius: 8px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-subtle); color: var(--text-primary); outline: none;">
+                            <option value="seconds" data-i18n="unit_seconds">Secondes</option>
+                            <option value="minutes" data-i18n="unit_minutes">Minutes</option>
+                            <option value="hours" data-i18n="unit_hours" selected>Heures</option>
+                            <option value="days" data-i18n="unit_days">Jours</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="suspensionReason" data-i18n="reason_label">Raison du blocage</label>
+                    <textarea id="suspensionReason"
+                        style="width: 100%; min-height: 80px; padding: 12px; border-radius: 8px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-subtle); color: var(--text-primary); resize: vertical; outline: none;"
+                        required></textarea>
+                </div>
+                <button type="submit" class="btn btn-signup" style="width: 100%;" data-i18n="confirm_block">Confirmer le
+                    blocage</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal d'Avis de Suspension (Utilisateur) -->
+    <div id="suspensionNoticeModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 480px; text-align: center;">
+            <div class="modal-header" style="justify-content: center; border-bottom: none; padding-bottom: 0;">
+                <div
+                    style="background: rgba(239, 68, 68, 0.1); color: #ef4444; width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                </div>
+            </div>
+            <div class="modal-body" style="padding: 0 32px 32px;">
+                <h2 style="color: #ef4444; margin-bottom: 12px; font-size: 1.8rem;" data-i18n="account_suspended_title">
+                    Compte suspendu</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 1rem; line-height: 1.5;"
+                    data-i18n="account_suspended_desc">Votre accès à la plateforme a été temporairement restreint par un
+                    administrateur.</p>
+
+                <div
+                    style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 20px; margin-bottom: 24px; text-align: left;">
+                    <div style="margin-bottom: 16px;">
+                        <span
+                            style="display: block; font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;"
+                            data-i18n="reason_label">Raison du blocage</span>
+                        <span id="noticeReason"
+                            style="font-weight: 500; color: var(--text-primary); font-size: 0.95rem;">...</span>
+                    </div>
+                    <div>
+                        <span
+                            style="display: block; font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;"
+                            data-i18n="remaining_time_label">Temps restant</span>
+                        <span id="noticeRemaining"
+                            style="font-weight: 500; color: var(--text-primary); font-size: 0.95rem;">...</span>
+                    </div>
+                </div>
+
+                <button class="btn btn-signup" id="closeSuspensionNoticeBtn" style="width: 100%;"
+                    data-i18n="understand">J'ai compris</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <footer class="site-footer">
+        <div class="footer-left">
+            <div class="footer-brand">WEBED</div>
+        </div>
+        <div class="footer-center">
+            <a href="#" class="footer-copyright">© 2026 Webed. Nos usages.</a>
+        </div>
+        <div class="footer-right">
+            <span>Contributeur : Dr3xo</span>
+        </div>
+    </footer>
+
+    <!-- Conteneur pour les Toasts (Notifications) -->
+    <div id="toastContainer" class="toast-container"></div>
+
+</body>
+
+</html>
