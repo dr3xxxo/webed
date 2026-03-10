@@ -264,20 +264,40 @@ body {
     color: #fff;
 }
 
+.hero-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+    .hero-features {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-features {
+        grid-template-columns: 1fr;
+    }
+}
+
 .hero-feature-box {
     display: flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
+    background: #141517;
+    /* Dark background as per mockup */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    /* Subtle border */
+    border-radius: 16px;
     padding: 24px 28px;
     gap: 24px;
     text-decoration: none;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     width: 100%;
-    max-width: 420px;
     position: relative;
     overflow: hidden;
 }
@@ -300,10 +320,10 @@ body {
 }
 
 .hero-feature-box:hover:not(.disabled) {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(56, 189, 248, 0.5);
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(56, 189, 248, 0.2);
+    background: #1a1b1e;
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
 }
 
 .hero-feature-box.disabled {
@@ -380,7 +400,8 @@ body {
 .hero-content {
     position: relative;
     z-index: 10;
-    max-width: 800px;
+    max-width: 1200px;
+    width: 100%;
     animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
@@ -1109,10 +1130,31 @@ body {
     margin-bottom: 24px;
 }
 
+.discord-banner-link:hover .discord-slim-banner {
+    background: rgba(88, 101, 242, 0.15);
+    border-color: rgba(88, 101, 242, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.discord-banner-link:hover .discord-banner-btn {
+    background: #5865F2;
+    color: #ffffff;
+}
+
+.discord-banner-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.discord-banner-link:hover .discord-banner-btn svg {
+    transform: translateX(3px);
+}
+
 .games-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 24px;
     width: 100%;
 }
 
@@ -1839,4 +1881,91 @@ body {
     background: rgba(255, 255, 255, 0.05);
     color: var(--text-primary);
     border-color: var(--text-secondary);
+}
+
+/* --- Horizontal Game Card (Steam Style) --- */
+.horizontal-game-card {
+    display: flex;
+    align-items: center;
+    background: #31354b;
+    border-radius: 4px;
+    padding: 0;
+    gap: 16px;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.horizontal-game-card:hover {
+    background: #3a3f58;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.script-card:hover .hover-zoom-bg {
+    transform: scale(1.05);
+}
+
+.hgc-image {
+    width: 140px;
+    height: 65px;
+    object-fit: cover;
+    display: block;
+}
+
+.hgc-title {
+    flex: 1;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.hgc-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-right: 16px;
+}
+
+.hgc-btn,
+.hgc-btn-prime {
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 4px;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+.hgc-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: none;
+}
+
+.hgc-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.hgc-btn-prime {
+    background: var(--accent-color);
+    color: #fff;
+    border: none;
+}
+
+.hgc-btn-prime:hover {
+    background: #2563eb;
+}
+
+.hgc-multiplayer-icon {
+    color: #ffffff;
+    opacity: 0.9;
+    margin-left: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

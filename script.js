@@ -20,6 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeUsageModal = document.getElementById('closeUsageModal');
     const closeUsageBtn = document.getElementById('closeUsageBtn');
 
+    // Forza Tuto Modal
+    const forzaTutoModal = document.getElementById('forzaTutoModal');
+    const closeForzaTutoModal = document.getElementById('closeForzaTutoModal');
+    const closeForzaTutoBtn = document.getElementById('closeForzaTutoBtn');
+    const tutoForzaBtn = document.getElementById('tutoForzaBtn');
+
     const authButtons = document.getElementById('authButtons');
     const userProfile = document.getElementById('userProfile');
     const profileName = document.getElementById('profileName');
@@ -120,7 +126,24 @@ document.addEventListener('DOMContentLoaded', () => {
             games_view_desc: "Découvrez et téléchargez notre sélection de jeux.",
             discord_games_title: "Discord Webed",
             discord_games_desc: "Rejoignez le serveur discord pour proposer des jeux crackés à ajouter !",
-            join_discord_games: "Rejoindre le Discord"
+            join_discord_games: "Rejoindre le Discord",
+            forza_title: "Forza Horizon 5",
+            forza_desc: "Jeu complet avec multijoueur fonctionnel.",
+            tuto_btn: "Tuto",
+            forza_tuto_title: "Tutoriel Forza Horizon 5",
+            forza_tuto_intro: "Voici comment lancer Forza Horizon 5:",
+            forza_tuto_step1: "Téléchargez le fichier ➡️",
+            forza_tuto_step2: "Ensuite, ouvrez votre .rar et déplacez les fichiers dans le dossier du jeu Forza Horizon 5",
+            forza_tuto_step3: "Vérifiez bien que Steam est ouvert en fond",
+            forza_tuto_step4: "Toujours lancer le jeu en Admin",
+            forza_tuto_step5: "Connectez-vous avec votre compte Microsoft/Xbox",
+            forza_tuto_step6: "Pour inviter vos amis, exécutez le fichier Enable_Invites_FH5.bat en administrateur",
+            forza_tuto_step7: "Pour jouer en multijoueur avec vos amis, vous devez les avoir en ami sur Xbox et les inviter via Xbox.",
+            forza_tuto_prob_title: "Problème de connexion avec votre compte Microsoft ?",
+            forza_tuto_prob1: "Cliquez sur l'option : Ajouter un autre compte",
+            forza_tuto_prob2: "Entrez ici les informations de votre compte Microsoft",
+            forza_tuto_warning: "⚠️ Forza Horizon 5 fonctionne avec tout le monde, que ce soit ma version ou la version officielle ⚠️",
+            tuto_video_btn: "Tuto Vidéo"
         },
         en: {
             search_placeholder: "Search...",
@@ -210,7 +233,24 @@ document.addEventListener('DOMContentLoaded', () => {
             games_view_desc: "Discover and download our selection of games.",
             discord_games_title: "Discord Webed",
             discord_games_desc: "Join the Discord server to propose cracked games to add!",
-            join_discord_games: "Join Discord"
+            join_discord_games: "Join Discord",
+            forza_title: "Forza Horizon 5",
+            forza_desc: "Full game with working multiplayer.",
+            tuto_btn: "Tutorial",
+            forza_tuto_title: "Forza Horizon 5 Tutorial",
+            forza_tuto_intro: "Here is how to launch Forza Horizon 5:",
+            forza_tuto_step1: "Download the file ➡️",
+            forza_tuto_step2: "Then, open your .rar and move the files into the Forza Horizon 5 game folder",
+            forza_tuto_step3: "Make sure Steam is open in the background",
+            forza_tuto_step4: "Always launch the game as Admin",
+            forza_tuto_step5: "Log in with your Microsoft/Xbox account",
+            forza_tuto_step6: "To invite friends, run the Enable_Invites_FH5.bat file as administrator",
+            forza_tuto_step7: "To play multiplayer with friends, you must have them as Xbox friends and invite them via Xbox.",
+            forza_tuto_prob_title: "Connection problem with your Microsoft account?",
+            forza_tuto_prob1: "Click on the option: Add another account",
+            forza_tuto_prob2: "Enter your Microsoft account information here",
+            forza_tuto_warning: "⚠️ Forza Horizon 5 works with everyone, whether it's my version or the official version ⚠️",
+            tuto_video_btn: "Video Tutorial"
         }
     };
 
@@ -652,8 +692,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (closeUsageModal) closeUsageModal.addEventListener('click', () => closeModal(usageModal));
     if (closeUsageBtn) closeUsageBtn.addEventListener('click', () => closeModal(usageModal));
 
+    if (tutoForzaBtn) tutoForzaBtn.addEventListener('click', () => openModal(forzaTutoModal));
+    if (closeForzaTutoModal) closeForzaTutoModal.addEventListener('click', () => closeModal(forzaTutoModal));
+    if (closeForzaTutoBtn) closeForzaTutoBtn.addEventListener('click', () => closeModal(forzaTutoModal));
+
     // Fermer les modales en cliquant à l'extérieur
-    [settingsModal, loginModal, usageModal].forEach(modal => {
+    [settingsModal, loginModal, usageModal, forzaTutoModal].forEach(modal => {
         if (!modal) return;
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {

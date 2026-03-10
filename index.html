@@ -91,14 +91,12 @@
                         </svg>
                     </div>
                     <div class="convert-text">
-                        <span class="convert-title">
-                            <span data-i18n="btn_convert">Convertir</span>
+                        <span class="convert-title" data-i18n="btn_convert">Convertir</span>
+                        <span
+                            style="color: #ef4444; font-size: 0.75rem; font-weight: 500; display: flex; align-items: center; gap: 6px; margin-top: 4px; margin-bottom: 2px;">
                             <span
-                                style="color: #ef4444; font-size: 0.75rem; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; margin-left: 10px;">
-                                <span
-                                    style="width: 8px; height: 8px; background-color: #ef4444; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);"></span>
-                                ( En cours d'acheminement local )
-                            </span>
+                                style="width: 8px; height: 8px; background-color: #ef4444; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);"></span>
+                            ( En cours d'acheminement local )
                         </span>
                         <span class="convert-subtitle" data-i18n="btn_convert_desc">Télécharger & Convertir vos
                             médias</span>
@@ -334,50 +332,75 @@
                 <p data-i18n="games_view_desc">Découvrez et téléchargez notre sélection de jeux.</p>
             </div>
 
-            <div class="games-grid">
-                <!-- Discord Card -->
-                <div class="game-card">
-                    <div class="game-card-banner"
-                        style="background-image: linear-gradient(180deg, rgba(88, 101, 242, 0) 0%, rgba(88, 101, 242, 0.2) 100%), url('https://w7.pngwing.com/pngs/351/139/png-transparent-discord-computer-icons-logo-computer-software-twitch-discord-icon-white-text-logo-thumbnail.png');">
-                        <div class="game-card-overlay">
-                            <span class="game-badge"
-                                style="color: #5865F2; border-color: rgba(88, 101, 242, 0.4); background: rgba(88, 101, 242, 0.2);">Communauté</span>
+            <a href="https://discord.gg/kvzPUFr25n" target="_blank" class="discord-banner-link"
+                style="text-decoration: none;">
+                <div class="discord-slim-banner"
+                    style="background: rgba(88, 101, 242, 0.1); border: 1px solid rgba(88, 101, 242, 0.3); border-radius: 12px; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; transition: all 0.3s ease;">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div
+                            style="background: #5865F2; border-radius: 8px; padding: 8px; display: flex; align-items: center; justify-content: center;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 127.14 96.36"
+                                fill="#ffffff">
+                                <path
+                                    d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.31,60,73.31,53s5-12.74,11.43-12.74S96.2,46,96.12,53,91.08,65.69,84.69,65.69Z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 data-i18n="discord_games_title"
+                                style="color: #ffffff; font-size: 1.1rem; margin: 0 0 4px 0;">Discord Webed</h3>
+                            <p data-i18n="discord_games_desc" style="color: #cbd5e1; font-size: 0.85rem; margin: 0;">
+                                Rejoignez le serveur pour proposer des jeux crackés !</p>
                         </div>
                     </div>
-                    <div class="game-card-content">
-                        <h3 data-i18n="discord_games_title">Discord Webed</h3>
-                        <p data-i18n="discord_games_desc">Rejoignez le serveur discord pour proposer des jeux crackés à
-                            ajouter !</p>
-                        <div class="game-card-actions">
-                            <a href="https://discord.gg/kvzPUFr25n" target="_blank"
-                                class="btn btn-login btn-download-game discord-btn"
-                                style="color: #5865F2; border-color: rgba(88, 101, 242, 0.2); background: rgba(88, 101, 242, 0.1);"
-                                data-i18n="join_discord_games">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                                </svg>
-                                Rejoindre le Discord
-                            </a>
+                    <div class="discord-banner-btn"
+                        style="background: rgba(88, 101, 242, 0.2); color: #5865F2; padding: 8px 16px; border-radius: 6px; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+                        <span data-i18n="join_discord_games">Rejoindre</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </a>
+
+            <div class="games-grid">
+
+                <!-- Forza Horizon 5 Card -->
+                <div class="script-card"
+                    style="position: relative; overflow: hidden; justify-content: flex-end; padding: 16px; border: 1px solid rgba(255,255,255,0.1); min-height: 180px; box-shadow: 0 8px 24px rgba(0,0,0,0.4);">
+                    <!-- Image Fond -->
+                    <div style="position: absolute; inset: 0; background: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1551360/header.jpg') center/cover; z-index: 0; transition: transform 0.3s ease;"
+                        class="hover-zoom-bg"></div>
+                    <!-- Dégradé Sombre -->
+                    <div
+                        style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,17,21,0.95) 0%, rgba(15,17,21,0.4) 60%, transparent 100%); z-index: 1;">
+                    </div>
+
+                    <div class="script-card-content"
+                        style="position: relative; z-index: 2; flex: none; display: flex; flex-direction: column; width: 100%;">
+                        <h3 data-i18n="forza_title"
+                            style="color: #ffffff; font-size: 1.35rem; font-weight: 700; text-shadow: 0 2px 6px rgba(0,0,0,0.8); margin-bottom: 4px;">
+                            Forza Horizon 5</h3>
+                        <p data-i18n="forza_desc"
+                            style="color: #cbd5e1; text-shadow: 0 1px 3px rgba(0,0,0,0.8); margin-bottom: 12px; font-size: 0.9rem;">
+                            Jeu complet avec multijoueur fonctionnel.</p>
+                        <div class="script-card-actions" style="flex-wrap: wrap; gap: 8px;">
+                            <a href="https://www.clictune.com/hv1g" target="_blank" class="btn btn-signup"
+                                style="padding: 6px 14px; font-size: 0.85rem;" data-i18n="download">Télécharger</a>
+                            <button class="btn btn-login btn-usage" id="tutoVideoBtn" data-i18n="tuto_video_btn"
+                                style="padding: 6px 14px; font-size: 0.85rem; background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.1);">Tuto
+                                Vidéo</button>
+                            <button class="btn btn-login btn-usage" id="tutoForzaBtn" data-i18n="tuto_btn"
+                                style="padding: 6px 14px; font-size: 0.85rem; background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.1);">Tuto</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <button class="back-to-home-btn" id="backFromGamesBtn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    style="margin-right: 8px;">
-                    <line x1="19" y1="12" x2="5" y2="12"></line>
-                    <polyline points="12 19 5 12 12 5"></polyline>
-                </svg>
-                <span data-i18n="back_to_home">Retour à l'accueil</span>
-            </button>
+            <div class="ambient-glow glow-1"></div>
+            <div class="ambient-glow glow-2"></div>
         </div>
-
-        <div class="ambient-glow glow-1"></div>
-        <div class="ambient-glow glow-2"></div>
     </main>
 
     <!-- Vue YouTube Convert -->
@@ -682,6 +705,82 @@
     </div>
 
 
+
+    <!-- Modal Tuto Forza Horizon 5 -->
+    <div id="forzaTutoModal" class="modal-overlay">
+        <div class="modal-content auth-modal" style="max-width: 600px;">
+            <div class="modal-header">
+                <h2 data-i18n="forza_tuto_title">Tutoriel Forza Horizon 5</h2>
+                <button class="close-modal" id="closeForzaTutoModal" aria-label="Fermer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body usage-steps" style="max-height: 70vh; overflow-y: auto;">
+                <h3 style="color: var(--text-primary); margin-bottom: 15px; font-size: 1.1rem;"
+                    data-i18n="forza_tuto_intro">Voici comment lancer Forza Horizon 5:</h3>
+
+                <div class="usage-step">
+                    <span class="step-number">1</span>
+                    <p><span data-i18n="forza_tuto_step1">Téléchargez le fichier ➡️</span> <a
+                            href="https://www.clictune.com/hv1g" target="_blank"
+                            style="color: var(--accent-color); text-decoration: none;">https://www.clictune.com/hv1g</a>
+                    </p>
+                </div>
+                <div class="usage-step">
+                    <span class="step-number">2</span>
+                    <p data-i18n="forza_tuto_step2">Ensuite, ouvrez votre .rar et déplacez les fichiers dans le dossier
+                        du jeu Forza Horizon 5</p>
+                </div>
+                <div class="usage-step">
+                    <span class="step-number">3</span>
+                    <p data-i18n="forza_tuto_step3">Vérifiez bien que Steam est ouvert en fond</p>
+                </div>
+                <div class="usage-step">
+                    <span class="step-number">4</span>
+                    <p data-i18n="forza_tuto_step4">Toujours lancer le jeu en Admin</p>
+                </div>
+                <div class="usage-step">
+                    <span class="step-number">5</span>
+                    <p data-i18n="forza_tuto_step5">Connectez-vous avec votre compte Microsoft/Xbox</p>
+                </div>
+                <div class="usage-step">
+                    <span class="step-number">6</span>
+                    <p data-i18n="forza_tuto_step6">Pour inviter vos amis, exécutez le fichier Enable_Invites_FH5.bat en
+                        administrateur</p>
+                </div>
+                <div class="usage-step">
+                    <span class="step-number">7</span>
+                    <p data-i18n="forza_tuto_step7">Pour jouer en multijoueur avec vos amis, vous devez les avoir en ami
+                        sur Xbox et les inviter via Xbox.</p>
+                </div>
+
+                <div
+                    style="margin-top: 25px; margin-bottom: 15px; padding-top: 15px; border-top: 1px solid var(--border-subtle);">
+                    <h3 style="color: var(--text-primary); margin-bottom: 15px; font-size: 1.1rem;"
+                        data-i18n="forza_tuto_prob_title">Problème de connexion avec votre compte Microsoft ?</h3>
+                    <ul
+                        style="color: var(--text-secondary); padding-left: 20px; line-height: 1.6; margin-bottom: 15px;">
+                        <li data-i18n="forza_tuto_prob1">Cliquez sur l'option : Ajouter un autre compte</li>
+                        <li data-i18n="forza_tuto_prob2">Entrez ici les informations de votre compte Microsoft</li>
+                    </ul>
+                </div>
+
+                <div
+                    style="background: rgba(245, 158, 11, 0.1); border-left: 4px solid #f59e0b; padding: 15px; border-radius: 4px; color: var(--text-primary);">
+                    <p style="margin: 0; font-weight: 500; text-align: center;" data-i18n="forza_tuto_warning">⚠️ Forza
+                        Horizon 5 fonctionne avec tout le monde, que ce soit ma version ou la version officielle ⚠️</p>
+                </div>
+            </div>
+            <div class="modal-footer"
+                style="padding: 20px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                <button class="btn btn-signup" id="closeForzaTutoBtn" data-i18n="close">Fermer</button>
+            </div>
+        </div>
+    </div>
 
     <footer class="site-footer">
         <div class="footer-left">
