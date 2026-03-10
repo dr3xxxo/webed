@@ -839,9 +839,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (adminLoginForm) {
         adminLoginForm.addEventListener('submit', (e) => {
-            // Let the form submit to the hidden iframe for password managers, but do logic here.
-            // DO NOT preventDefault completely if we want to trigger manager (or use iframe hack which handles it native way)
-            // Actually, with target="iframe", we don't need preventDefault(), the browser handles the POST silently.
+            // Restore preventDefault to stop page reload in SPA
+            e.preventDefault();
 
             const username = document.getElementById('adminUsername').value;
             const password = document.getElementById('adminPassword').value;
@@ -862,7 +861,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
-            // Again, no preventDefault to let the iframe target capture standard form POST 
+            // Restore preventDefault to stop page reload in SPA
+            e.preventDefault();
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
 
