@@ -141,7 +141,8 @@ document.addEventListener('DOMContentLoaded', () => {
             rust_tuto_step7: "En cas d’erreur, fermez-la et cliquez à nouveau sur Launch",
             rust_tuto_step8: "Dans le menu principal du jeu, appuyez sur F1, collez l’IP copiée et validez",
             rust_tuto_warning: "⚠️ Si une erreur apparaît lors de la connexion, essayez un autre serveur ⚠️",
-            tuto_video_btn: "Tuto Vidéo"
+            tuto_video_btn: "Tuto Vidéo",
+            pre_dl_tuto_btn: "Tuto Préparation avant téléchargement"
         },
         en: {
             search_placeholder: "Search...",
@@ -246,7 +247,8 @@ document.addEventListener('DOMContentLoaded', () => {
             rust_tuto_step7: "In case of error, close it and click Launch again",
             rust_tuto_step8: "In the game's main menu, press F1, paste the copied IP and validate",
             rust_tuto_warning: "⚠️ If an error appears during connection, try another server ⚠️",
-            tuto_video_btn: "Video Tutorial"
+            tuto_video_btn: "Video Tutorial",
+            pre_dl_tuto_btn: "Pre-download Preparation Tutorial"
         }
     };
 
