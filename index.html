@@ -81,7 +81,7 @@
             <div class="hero-features">
 
 
-                <a href="#" class="hero-feature-box" id="heroScriptBtn">
+                <a href="#" class="hero-feature-box disabled" id="heroScriptBtn">
                     <div class="convert-icon-wrapper" style="background: rgba(168, 85, 247, 0.1); color: #a855f7;">
                         <!-- Terminal Icon -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
@@ -95,6 +95,11 @@
                         <span class="convert-subtitle" data-i18n="script_macro_desc">Automatisez vos tâches
                             répétitives</span>
                     </div>
+                    <svg class="lock-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
                 </a>
 
                 <a href="#" class="hero-feature-box" id="heroGamesBtn">
@@ -116,7 +121,7 @@
                     </div>
                 </a>
 
-                <a href="#" class="hero-feature-box disabled" id="heroAutocBtn">
+                <a href="#" class="hero-feature-box" id="heroAutocBtn">
                     <div class="convert-icon-wrapper" style="background: rgba(234, 179, 8, 0.1); color: #eab308;">
                         <!-- Mouse Click Icon -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
@@ -129,11 +134,21 @@
                         <span class="convert-title" data-i18n="btn_autoc">AutoC</span>
                         <span class="convert-subtitle" data-i18n="autoc_desc">Outils de clics automatiques</span>
                     </div>
-                    <svg class="lock-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                    </svg>
+                </a>
+
+                <a href="#" class="hero-feature-box" id="heroApexBtn">
+                    <div class="convert-icon-wrapper" style="background: rgba(217, 70, 239, 0.1); color: #d946ef;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                    </div>
+                    <div class="convert-text">
+                        <span class="convert-title" data-i18n="btn_apex">Apex Legends property screen stretch</span>
+                        <span class="convert-subtitle" data-i18n="apex_desc">Ajustez la résolution de l'écran</span>
+                    </div>
                 </a>
 
                 <a href="#" class="hero-feature-box" id="heroYtdlpBtn">
@@ -494,6 +509,51 @@
         <div class="ambient-glow glow-2"></div>
     </main>
 
+    <!-- Vue Apex -->
+    <main class="script-view" id="apexView" style="display: none;">
+        <div class="script-container">
+            <div class="script-header">
+                <h2 data-i18n="btn_apex">Apex Legends property screen stretch</h2>
+                <p data-i18n="apex_view_desc">Découvrez et téléchargez l'outil pour changer la résolution.</p>
+            </div>
+
+            <div class="script-grid">
+                <!-- Apex Card -->
+                <div class="script-card">
+                    <div class="script-card-icon" style="background: rgba(217, 70, 239, 0.1); color: #d946ef;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                    </div>
+                    <div class="script-card-content" style="flex: 1; display: flex; flex-direction: column;">
+                        <h3 data-i18n="btn_apex">Apex Legends property screen stretch</h3>
+                        <p data-i18n="apex_desc">Ajustez la résolution de l'écran.</p>
+                        <div class="script-card-actions">
+                            <a href="https://www.mediafire.com/file/o1btzlnhm0fkghb/Apex_Legends_property_screen_stretch_.txt/file" target="_blank" class="btn btn-signup" data-i18n="download" style="padding: 6px 14px; font-size: 0.85rem;">Télécharger</a>
+                            <button class="btn btn-login btn-usage" id="tutoApexBtn" data-i18n="tuto_btn" style="padding: 6px 14px; font-size: 0.85rem; background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.1);">Tuto</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="back-to-home-btn" id="backFromApexBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    style="margin-right: 8px;">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                <span data-i18n="back_to_home">Retour à l'accueil</span>
+            </button>
+        </div>
+
+        <div class="ambient-glow glow-1"></div>
+        <div class="ambient-glow glow-2"></div>
+    </main>
+
     <!-- Vue YouTube Downloader Script -->
     <main class="script-view" id="ytdlpView" style="display: none;">
         <div class="script-container">
@@ -723,6 +783,85 @@
         </div>
     </div>
 
+    <!-- Modal Tuto Apex -->
+    <div id="apexTutoModal" class="modal-overlay">
+        <div class="modal-content auth-modal" style="max-width: 850px; width: 95%;">
+            <div class="modal-header">
+                <h2 data-i18n="apex_tuto_title">Tutoriel d’installation</h2>
+                <button class="close-modal" id="closeApexTutoModal" aria-label="Fermer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body usage-steps" style="max-height: 70vh; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding: 30px;">
+                <div class="usage-step" style="display: flex; align-items: center; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                    <span class="step-number" style="min-width: 28px; height: 28px; font-size: 0.9rem;">1</span>
+                    <p data-i18n="apex_tuto_step1" style="margin: 0; padding-left: 12px; font-size: 1rem;">Téléchargez le fichier .txt.</p>
+                </div>
+                <div class="usage-step" style="display: flex; align-items: center; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                    <span class="step-number" style="min-width: 28px; height: 28px; font-size: 0.9rem;">2</span>
+                    <p data-i18n="apex_tuto_step2" style="margin: 0; padding-left: 12px; font-size: 1rem;">Ouvrez le fichier et copiez tout le texte à l’intérieur (sans rien oublier).</p>
+                </div>
+                <div class="usage-step" style="display: flex; align-items: center; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                    <span class="step-number" style="min-width: 28px; height: 28px; font-size: 0.9rem;">3</span>
+                    <p data-i18n="apex_tuto_step3" style="margin: 0; padding-left: 12px; font-size: 1rem;">Ouvrez Steam et allez dans votre bibliothèque de jeux.</p>
+                </div>
+                <div class="usage-step" style="display: flex; align-items: center; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                    <span class="step-number" style="min-width: 28px; height: 28px; font-size: 0.9rem;">4</span>
+                    <p data-i18n="apex_tuto_step4" style="margin: 0; padding-left: 12px; font-size: 1rem;">Faites clic droit sur Apex Legends, puis cliquez sur Propriétés. Collez ensuite le texte dans la section Options de lancement.</p>
+                </div>
+                <div class="usage-step" style="display: flex; align-items: center; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                    <span class="step-number" style="min-width: 28px; height: 28px; font-size: 0.9rem;">5</span>
+                    <p data-i18n="apex_tuto_step5" style="margin: 0; padding-left: 12px; font-size: 1rem;">Fermez la fenêtre pour enregistrer les modifications.</p>
+                </div>
+                <div class="usage-step" style="display: flex; align-items: center; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                    <span class="step-number" style="min-width: 28px; height: 28px; font-size: 0.9rem;">6</span>
+                    <p data-i18n="apex_tuto_step6" style="margin: 0; padding-left: 12px; font-size: 1rem;">Appuyez sur la touche Windows, puis recherchez Respawn.</p>
+                </div>
+                <div class="usage-step" style="display: flex; align-items: center; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                    <span class="step-number" style="min-width: 28px; height: 28px; font-size: 0.9rem;">7</span>
+                    <p data-i18n="apex_tuto_step7" style="margin: 0; padding-left: 12px; font-size: 1rem;">Ouvrez le dossier et suivez ce chemin : Respawn → Apex → Local</p>
+                </div>
+                <div class="usage-step" style="display: flex; align-items: center; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                    <span class="step-number" style="min-width: 28px; height: 28px; font-size: 0.9rem;">8</span>
+                    <p data-i18n="apex_tuto_step8" style="margin: 0; padding-left: 12px; font-size: 1rem;">Dans ce dossier, trouvez le fichier videoconfig.txt. Faites clic gauche dessus, puis clic droit → Propriétés.</p>
+                </div>
+                <div class="usage-step" style="display: flex; align-items: center; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                    <span class="step-number" style="min-width: 28px; height: 28px; font-size: 0.9rem;">9</span>
+                    <p data-i18n="apex_tuto_step9" style="margin: 0; padding-left: 12px; font-size: 1rem;">Décochez la case "Lecture seule", puis cliquez sur Appliquer et OK.</p>
+                </div>
+                <div class="usage-step" style="display: flex; align-items: center; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                    <span class="step-number" style="min-width: 28px; height: 28px; font-size: 0.9rem;">10</span>
+                    <p data-i18n="apex_tuto_step10" style="margin: 0; padding-left: 12px; font-size: 1rem;">Faites de nouveau clic droit sur le fichier, puis cliquez sur Modifier avec le Bloc-notes.</p>
+                </div>
+                <div class="usage-step" style="display: flex; align-items: center; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                    <span class="step-number" style="min-width: 28px; height: 28px; font-size: 0.9rem;">11</span>
+                    <p data-i18n="apex_tuto_step11" style="margin: 0; padding-left: 12px; font-size: 1rem;">Recherchez les valeurs "1920" et "1080", puis remplacez-les par votre résolution d’écran. Exemple : "1440" "1080".</p>
+                </div>
+                <div class="usage-step" style="display: flex; align-items: center; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                    <span class="step-number" style="min-width: 28px; height: 28px; font-size: 0.9rem;">12</span>
+                    <p data-i18n="apex_tuto_step12" style="margin: 0; padding-left: 12px; font-size: 1rem;">Cliquez sur Fichier en haut à gauche, puis sur Enregistrer.</p>
+                </div>
+                <div class="usage-step" style="display: flex; align-items: center; padding: 12px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 8px;">
+                    <span class="step-number" style="min-width: 28px; height: 28px; font-size: 0.9rem; background: #10b981; color: white;">✓</span>
+                    <p data-i18n="apex_tuto_step13" style="margin: 0; padding-left: 12px; font-size: 1rem;">C’est terminé ! Vous pouvez maintenant lancer le jeu.</p>
+                </div>
+                <div class="usage-step" style="display: flex; align-items: center; padding: 12px; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 8px;">
+                    <span class="step-number" style="min-width: 28px; height: 28px; font-size: 0.9rem; background: #ef4444; color: white;">!</span>
+                    <p data-i18n="apex_tuto_step14" style="margin: 0; padding-left: 12px; font-size: 1rem; color: #fca5a5;">Si vous rencontrez un problème, ouvrez un ticket sur notre Discord :</p>
+                    <a href="https://discord.com/invite/kvzPUFr25n" target="_blank" class="btn btn-signup" style="padding: 6px 16px; font-size: 0.85rem; background-color: #5865F2; margin-left: auto; white-space: nowrap;">Discord</a>
+                </div>
+            </div>
+            <div class="modal-footer"
+                style="padding: 20px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                <button class="btn btn-signup" id="closeApexTutoBtn" data-i18n="close">Fermer</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal de Suspension (Admin) -->
     <div id="suspensionModal" class="modal-overlay">
         <div class="modal-content" style="max-width: 400px;">
@@ -855,6 +994,24 @@
             <span>Contributeur : Dr3xo</span>
         </div>
     </footer>
+
+    <!-- Discord Ad Panel -->
+    <div class="discord-ad-panel">
+        <div class="discord-ad-content">
+            <div class="discord-ad-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/>
+                </svg>
+            </div>
+            <div class="discord-ad-text">
+                <h4 data-i18n="discord_ad_title">Serveur Discord Ouvert</h4>
+                <p data-i18n="discord_ad_desc">Notre Discord est ouvert mais pas encore finalisé. N'hésitez pas à nous rejoindre !</p>
+                <a href="https://discord.com/invite/kvzPUFr25n" target="_blank" class="btn-discord-join">
+                    <span data-i18n="discord_ad_btn">Rejoindre</span>
+                </a>
+            </div>
+        </div>
+    </div>
 
     <!-- Conteneur pour les Toasts (Notifications) -->
     <div id="toastContainer" class="toast-container"></div>

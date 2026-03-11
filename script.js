@@ -26,6 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeRustTutoBtn = document.getElementById('closeRustTutoBtn');
     const tutoRustBtn = document.getElementById('tutoRustBtn');
 
+    // Apex Tuto Modal
+    const apexTutoModal = document.getElementById('apexTutoModal');
+    const closeApexTutoModal = document.getElementById('closeApexTutoModal');
+    const closeApexTutoBtn = document.getElementById('closeApexTutoBtn');
+    const tutoApexBtn = document.getElementById('tutoApexBtn');
+
     const authButtons = document.getElementById('authButtons');
     const userProfile = document.getElementById('userProfile');
     const profileName = document.getElementById('profileName');
@@ -147,7 +153,28 @@ document.addEventListener('DOMContentLoaded', () => {
             autoc_title: "AutoClickers",
             autoc_view_desc: "Découvrez et téléchargez nos autoclickers.",
             autoc_mc_title: "AutoClicker For Mc",
-            autoc_mc_desc: "AutoClicker optimisé pour Minecraft."
+            autoc_mc_desc: "AutoClicker optimisé pour Minecraft.",
+            btn_apex: "Apex Legends property screen stretch",
+            apex_desc: "Étirez votre écran pour Apex Legends",
+            apex_view_desc: "Découvrez et téléchargez l'outil de stretch screen pour Apex Legends.",
+            apex_tuto_title: "Tutoriel d’installation",
+            apex_tuto_step1: "Téléchargez le fichier .txt.",
+            apex_tuto_step2: "Ouvrez le fichier et copiez tout le texte à l’intérieur (sans rien oublier).",
+            apex_tuto_step3: "Ouvrez Steam et allez dans votre bibliothèque de jeux.",
+            apex_tuto_step4: "Faites clic droit sur Apex Legends, puis cliquez sur Propriétés. Collez ensuite le texte dans la section Options de lancement.",
+            apex_tuto_step5: "Fermez la fenêtre pour enregistrer les modifications.",
+            apex_tuto_step6: "Appuyez sur la touche Windows, puis recherchez Respawn.",
+            apex_tuto_step7: "Ouvrez le dossier et suivez ce chemin : Respawn → Apex → Local",
+            apex_tuto_step8: "Dans ce dossier, trouvez le fichier videoconfig.txt. Faites clic gauche dessus, puis clic droit → Propriétés.",
+            apex_tuto_step9: "Décochez la case \"Lecture seule\", puis cliquez sur Appliquer et OK.",
+            apex_tuto_step10: "Faites de nouveau clic droit sur le fichier, puis cliquez sur Modifier avec le Bloc-notes.",
+            apex_tuto_step11: "Recherchez les valeurs \"1920\" et \"1080\", puis remplacez-les par votre résolution d’écran. Exemple : \"1440\" \"1080\".",
+            apex_tuto_step12: "Cliquez sur Fichier en haut à gauche, puis sur Enregistrer.",
+            apex_tuto_step13: "C’est terminé ! Vous pouvez maintenant lancer le jeu.",
+            apex_tuto_step14: "Si vous rencontrez un problème, ouvrez un ticket sur notre Discord :",
+            discord_ad_title: "Serveur Discord Ouvert",
+            discord_ad_desc: "Notre Discord est ouvert mais pas encore finalisé. N'hésitez pas à nous rejoindre !",
+            discord_ad_btn: "Rejoindre"
         },
         en: {
             search_placeholder: "Search...",
@@ -260,7 +287,28 @@ document.addEventListener('DOMContentLoaded', () => {
             autoc_mc_title: "AutoClicker For Mc",
             autoc_mc_desc: "AutoClicker optimized for Minecraft.",
             ytdlp_view_desc: "Download YouTube videos or playlists in high quality using yt-dlp.",
-            ping_view_desc: "Check your ping and test your network automatically."
+            ping_view_desc: "Check your ping and test your network automatically.",
+            btn_apex: "Apex Legends property screen stretch",
+            apex_desc: "Stretch your screen for Apex Legends",
+            apex_view_desc: "Discover and download the screen stretch tool for Apex Legends.",
+            apex_tuto_title: "Installation Tutorial",
+            apex_tuto_step1: "Download the .txt file.",
+            apex_tuto_step2: "Open the file and copy all the text inside (without forgetting anything).",
+            apex_tuto_step3: "Open Steam and go to your game library.",
+            apex_tuto_step4: "Right-click on Apex Legends, then click Properties. Then paste the text into the Launch Options section.",
+            apex_tuto_step5: "Close the window to save the changes.",
+            apex_tuto_step6: "Press the Windows key, then search for Respawn.",
+            apex_tuto_step7: "Open the folder and follow this path: Respawn → Apex → Local",
+            apex_tuto_step8: "In this folder, find the videoconfig.txt file. Left-click it, then right-click → Properties.",
+            apex_tuto_step9: "Uncheck the \"Read-only\" box, then click Apply and OK.",
+            apex_tuto_step10: "Right-click the file again, then click Edit with Notepad.",
+            apex_tuto_step11: "Search for the values \"1920\" and \"1080\", then replace them with your screen resolution. Example: \"1440\" \"1080\".",
+            apex_tuto_step12: "Click File at the top left, then Save.",
+            apex_tuto_step13: "It's done! You can now launch the game.",
+            apex_tuto_step14: "If you encounter a problem, open a ticket on our Discord:",
+            discord_ad_title: "Discord Server Open",
+            discord_ad_desc: "Our Discord is open but not yet finalized. Feel free to join us!",
+            discord_ad_btn: "Join"
         }
     };
 
@@ -336,6 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroScriptBtn = document.getElementById('heroScriptBtn');
     const heroGamesBtn = document.getElementById('heroGamesBtn');
     const heroAutocBtn = document.getElementById('heroAutocBtn');
+    const heroApexBtn = document.getElementById('heroApexBtn');
     const heroYtdlpBtn = document.getElementById('heroYtdlpBtn');
     const heroPingBtn = document.getElementById('heroPingBtn');
     const adminView = document.getElementById('adminView');
@@ -355,6 +404,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const autocView = document.getElementById('autocView');
     const backFromAutocBtn = document.getElementById('backFromAutocBtn');
 
+    const apexView = document.getElementById('apexView');
+    const backFromApexBtn = document.getElementById('backFromApexBtn');
+
     const ytdlpView = document.getElementById('ytdlpView');
     const backFromYtdlpBtn = document.getElementById('backFromYtdlpBtn');
 
@@ -368,6 +420,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (scriptView) scriptView.style.display = 'none';
         if (gamesView) gamesView.style.display = 'none';
         if (autocView) autocView.style.display = 'none';
+        if (apexView) apexView.style.display = 'none';
         if (ytdlpView) ytdlpView.style.display = 'none';
         if (pingView) pingView.style.display = 'none';
     }
@@ -401,6 +454,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (hash === '#autoc' && autocView) {
             if (heroView) heroView.style.display = 'none';
             autocView.style.display = 'flex';
+        } else if (hash === '#apex' && apexView) {
+            if (heroView) heroView.style.display = 'none';
+            apexView.style.display = 'flex';
         } else if (hash === '#ytdlp' && ytdlpView) {
             if (heroView) heroView.style.display = 'none';
             ytdlpView.style.display = 'flex';
@@ -605,6 +661,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (heroScriptBtn) {
         heroScriptBtn.addEventListener('click', (e) => {
             e.preventDefault();
+            if (heroScriptBtn.classList.contains('disabled')) {
+                showNotification(currentLang === 'fr' ? "Connexion requise pour accéder à Script / macro." : "Login required to access Script / macro.", 'error');
+                return;
+            }
             navigateTo('#script', scriptView);
             showNotification(currentLang === 'fr' ? "Mode Script / macro Ouvert !" : "Script / macro Mode Opened!", 'success');
         });
@@ -637,12 +697,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (heroAutocBtn) {
         heroAutocBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            if (heroAutocBtn.classList.contains('disabled')) {
-                showNotification(currentLang === 'fr' ? "Connexion requise pour accéder à AutoC." : "Login required to access AutoC.", 'error');
-                return;
-            }
             navigateTo('#autoc', autocView);
             showNotification(currentLang === 'fr' ? "AutoC Ouvert !" : "AutoC Mode Opened!", 'success');
+        });
+    }
+
+    if (heroApexBtn) {
+        heroApexBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            navigateTo('#apex', apexView);
+            showNotification(currentLang === 'fr' ? "Outil Ouvert !" : "Tool Opened!", 'success');
         });
     }
 
@@ -656,6 +720,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (backFromAutocBtn) {
         backFromAutocBtn.addEventListener('click', goBack);
+    }
+
+    if (backFromApexBtn) {
+        backFromApexBtn.addEventListener('click', goBack);
     }
 
     if (backFromYtdlpBtn) {
@@ -797,8 +865,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (closeRustTutoModal) closeRustTutoModal.addEventListener('click', () => closeModal(rustTutoModal));
     if (closeRustTutoBtn) closeRustTutoBtn.addEventListener('click', () => closeModal(rustTutoModal));
 
+    if (tutoApexBtn) tutoApexBtn.addEventListener('click', () => openModal(apexTutoModal));
+    if (closeApexTutoModal) closeApexTutoModal.addEventListener('click', () => closeModal(apexTutoModal));
+    if (closeApexTutoBtn) closeApexTutoBtn.addEventListener('click', () => closeModal(apexTutoModal));
+
     // Fermer les modales en cliquant à l'extérieur
-    [settingsModal, loginModal, usageModal, rustTutoModal].forEach(modal => {
+    [settingsModal, loginModal, usageModal, rustTutoModal, apexTutoModal].forEach(modal => {
         if (!modal) return;
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
@@ -892,9 +964,9 @@ document.addEventListener('DOMContentLoaded', () => {
             selectedLangText.textContent = i18n[lang][`lang_${lang}`];
         }
 
-        const autocBtn = document.getElementById('heroAutocBtn');
-        if (autocBtn && autocBtn.classList.contains('disabled')) {
-            autocBtn.setAttribute('title', lang === 'fr' ? 'Connexion requise' : 'Login required');
+        const scriptBtn = document.getElementById('heroScriptBtn');
+        if (scriptBtn && scriptBtn.classList.contains('disabled')) {
+            scriptBtn.setAttribute('title', lang === 'fr' ? 'Connexion requise' : 'Login required');
         }
 
         // Mettre à jour l'attribut lang du tag HTML
@@ -973,9 +1045,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 profileName.textContent = activeUser.name || activeUser.email.split('@')[0];
             }
             if (adminPanelBtn) adminPanelBtn.style.display = 'inline-block';
+            if (heroScriptBtn) {
+                heroScriptBtn.classList.remove('disabled');
+                heroScriptBtn.removeAttribute('title');
+            }
             if (heroAutocBtn) {
                 heroAutocBtn.classList.remove('disabled');
                 heroAutocBtn.removeAttribute('title');
+            }
+            if (heroApexBtn) {
+                heroApexBtn.classList.remove('disabled');
+                heroApexBtn.removeAttribute('title');
             }
             if (heroYtdlpBtn) {
                 heroYtdlpBtn.classList.remove('disabled');
@@ -989,9 +1069,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (authButtons) authButtons.style.display = 'flex';
             if (userProfile) userProfile.style.display = 'none';
             if (adminPanelBtn) adminPanelBtn.style.display = 'inline-block';
-            if (heroAutocBtn) {
-                heroAutocBtn.classList.add('disabled');
-                heroAutocBtn.setAttribute('title', currentLang === 'fr' ? 'Connexion requise' : 'Login required');
+            if (heroScriptBtn) {
+                heroScriptBtn.classList.add('disabled');
+                heroScriptBtn.setAttribute('title', currentLang === 'fr' ? 'Connexion requise' : 'Login required');
             }
         }
     }
