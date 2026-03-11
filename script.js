@@ -135,7 +135,13 @@ document.addEventListener('DOMContentLoaded', () => {
             rust_tuto_step1: "Regarder le Tuto Préparation avant téléchargement",
             rust_tuto_step2: "Regarder le Tuto Vidéo du jeu",
             tuto_video_btn: "Tuto Vidéo",
-            pre_dl_tuto_btn: "Tuto Préparation avant téléchargement"
+            pre_dl_tuto_btn: "Tuto Préparation avant téléchargement",
+            btn_autoc: "AutoC",
+            autoc_desc: "Outils de clics automatiques",
+            autoc_title: "AutoClickers",
+            autoc_view_desc: "Découvrez et téléchargez nos autoclickers.",
+            autoc_mc_title: "AutoClicker For Mc",
+            autoc_mc_desc: "AutoClicker optimisé pour Minecraft."
         },
         en: {
             search_placeholder: "Search...",
@@ -234,7 +240,13 @@ document.addEventListener('DOMContentLoaded', () => {
             rust_tuto_step1: "Watch the Pre-download Preparation Tutorial",
             rust_tuto_step2: "Watch the Video Tutorial of the game",
             tuto_video_btn: "Video Tutorial",
-            pre_dl_tuto_btn: "Pre-download Preparation Tutorial"
+            pre_dl_tuto_btn: "Pre-download Preparation Tutorial",
+            btn_autoc: "AutoC",
+            autoc_desc: "Auto-clicking tools",
+            autoc_title: "AutoClickers",
+            autoc_view_desc: "Discover and download our autoclickers.",
+            autoc_mc_title: "AutoClicker For Mc",
+            autoc_mc_desc: "AutoClicker optimized for Minecraft."
         }
     };
 
@@ -310,6 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroConvertBtn = document.getElementById('heroConvertBtn');
     const heroScriptBtn = document.getElementById('heroScriptBtn');
     const heroGamesBtn = document.getElementById('heroGamesBtn');
+    const heroAutocBtn = document.getElementById('heroAutocBtn');
     const adminView = document.getElementById('adminView');
     const adminDashboardView = document.getElementById('adminDashboardView');
     const adminAccountsView = document.getElementById('adminAccountsView');
@@ -323,6 +336,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const gamesView = document.getElementById('gamesView');
     const backFromGamesBtn = document.getElementById('backFromGamesBtn');
+
+    const autocView = document.getElementById('autocView');
+    const backFromAutocBtn = document.getElementById('backFromAutocBtn');
 
     // Convert View Elements
     const convertView = document.getElementById('convertView');
@@ -346,6 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (scriptView) scriptView.style.display = 'none';
         if (convertView) convertView.style.display = 'none';
         if (gamesView) gamesView.style.display = 'none';
+        if (autocView) autocView.style.display = 'none';
     }
 
     function navigateHome() {
@@ -377,6 +394,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (hash === '#games' && gamesView) {
             if (heroView) heroView.style.display = 'none';
             gamesView.style.display = 'flex';
+        } else if (hash === '#autoc' && autocView) {
+            if (heroView) heroView.style.display = 'none';
+            autocView.style.display = 'flex';
         } else if (hash === '#admin' && adminView) {
             if (heroView) heroView.style.display = 'none';
             adminView.style.display = 'flex';
@@ -664,12 +684,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    if (heroAutocBtn) {
+        heroAutocBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (heroAutocBtn.classList.contains('disabled')) {
+                showNotification(currentLang === 'fr' ? "Connexion requise pour accéder à AutoC." : "Login required to access AutoC.", 'error');
+                return;
+            }
+            navigateTo('#autoc', autocView);
+            showNotification(currentLang === 'fr' ? "AutoC Ouvert !" : "AutoC Mode Opened!", 'success');
+        });
+    }
+
     if (backFromScriptBtn) {
         backFromScriptBtn.addEventListener('click', goBack);
     }
 
     if (backFromGamesBtn) {
         backFromGamesBtn.addEventListener('click', goBack);
+    }
+
+    if (backFromAutocBtn) {
+        backFromAutocBtn.addEventListener('click', goBack);
     }
 
     if (closeLoginModal) closeLoginModal.addEventListener('click', () => closeModal(loginModal));
@@ -780,6 +816,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (convertBtn && convertBtn.classList.contains('disabled')) {
             convertBtn.setAttribute('title', lang === 'fr' ? 'Connexion requise' : 'Login required');
         }
+        const autocBtn = document.getElementById('heroAutocBtn');
+        if (autocBtn && autocBtn.classList.contains('disabled')) {
+            autocBtn.setAttribute('title', lang === 'fr' ? 'Connexion requise' : 'Login required');
+        }
 
         // Mettre à jour l'attribut lang du tag HTML
         document.documentElement.lang = lang;
@@ -857,10 +897,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 profileName.textContent = activeUser.name || activeUser.email.split('@')[0];
             }
             if (adminPanelBtn) adminPanelBtn.style.display = 'inline-block';
+            if (heroAutocBtn) {
+                heroAutocBtn.classList.remove('disabled');
+                heroAutocBtn.removeAttribute('title');
+            }
         } else {
             if (authButtons) authButtons.style.display = 'flex';
             if (userProfile) userProfile.style.display = 'none';
             if (adminPanelBtn) adminPanelBtn.style.display = 'inline-block';
+            if (heroAutocBtn) {
+                heroAutocBtn.classList.add('disabled');
+                heroAutocBtn.setAttribute('title', currentLang === 'fr' ? 'Connexion requise' : 'Login required');
+            }
         }
     }
     updateAuthState(); // Run on load
