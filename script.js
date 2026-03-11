@@ -102,6 +102,12 @@ document.addEventListener('DOMContentLoaded', () => {
             usage_step_3: "Vous pouvez maintenant l'envoyer à la personne de votre choix",
             script_discord_ping_title: "Macro Discord ping mp",
             script_discord_ping_desc: "Automatisez les pings en messages privés Discord.",
+            script_ytdlp_title: "Téléchargeur de vidéos/audio",
+            script_ytdlp_desc: "Un script basé sur yt-dlp pour récupérer des vidéos YouTube ou des playlists en haute qualité.",
+            script_ping_title: "Testeur de connexion",
+            script_ping_desc: "Vérifie ton ping et ta vitesse toutes les heures et enregistre les résultats (idéal pour râler auprès de son opérateur).",
+            script_price_title: "Veilleur de prix",
+            script_price_desc: "Surveiller une page produit et t'envoyer une notification quand le prix baisse.",
             download: "Télécharger",
             usage: "Utilisation",
             usage_title: "Instructions d'utilisation",
@@ -203,6 +209,12 @@ document.addEventListener('DOMContentLoaded', () => {
             usage_step_3: "You can now send it to the person of your choice",
             script_discord_ping_title: "Discord ping DM macro",
             script_discord_ping_desc: "Automate pings in Discord private messages.",
+            script_ytdlp_title: "Video/Audio Downloader",
+            script_ytdlp_desc: "A script based on yt-dlp to download YouTube videos or playlists in high quality.",
+            script_ping_title: "Connection Tester",
+            script_ping_desc: "Checks your ping and speed every hour and logs the results (great for complaining to your ISP).",
+            script_price_title: "Price Tracker",
+            script_price_desc: "Monitor a product page and send you a notification when the price drops.",
             download: "Download",
             usage: "Usage",
             usage_title: "Usage Instructions",
@@ -246,7 +258,9 @@ document.addEventListener('DOMContentLoaded', () => {
             autoc_title: "AutoClickers",
             autoc_view_desc: "Discover and download our autoclickers.",
             autoc_mc_title: "AutoClicker For Mc",
-            autoc_mc_desc: "AutoClicker optimized for Minecraft."
+            autoc_mc_desc: "AutoClicker optimized for Minecraft.",
+            ytdlp_view_desc: "Download YouTube videos or playlists in high quality using yt-dlp.",
+            ping_view_desc: "Check your ping and test your network automatically."
         }
     };
 
@@ -323,6 +337,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroScriptBtn = document.getElementById('heroScriptBtn');
     const heroGamesBtn = document.getElementById('heroGamesBtn');
     const heroAutocBtn = document.getElementById('heroAutocBtn');
+    const heroYtdlpBtn = document.getElementById('heroYtdlpBtn');
+    const heroPingBtn = document.getElementById('heroPingBtn');
     const adminView = document.getElementById('adminView');
     const adminDashboardView = document.getElementById('adminDashboardView');
     const adminAccountsView = document.getElementById('adminAccountsView');
@@ -339,6 +355,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const autocView = document.getElementById('autocView');
     const backFromAutocBtn = document.getElementById('backFromAutocBtn');
+
+    const ytdlpView = document.getElementById('ytdlpView');
+    const backFromYtdlpBtn = document.getElementById('backFromYtdlpBtn');
+
+    const pingView = document.getElementById('pingView');
+    const backFromPingBtn = document.getElementById('backFromPingBtn');
 
     // Convert View Elements
     const convertView = document.getElementById('convertView');
@@ -363,6 +385,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (convertView) convertView.style.display = 'none';
         if (gamesView) gamesView.style.display = 'none';
         if (autocView) autocView.style.display = 'none';
+        if (ytdlpView) ytdlpView.style.display = 'none';
+        if (pingView) pingView.style.display = 'none';
     }
 
     function navigateHome() {
@@ -397,6 +421,12 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (hash === '#autoc' && autocView) {
             if (heroView) heroView.style.display = 'none';
             autocView.style.display = 'flex';
+        } else if (hash === '#ytdlp' && ytdlpView) {
+            if (heroView) heroView.style.display = 'none';
+            ytdlpView.style.display = 'flex';
+        } else if (hash === '#ping' && pingView) {
+            if (heroView) heroView.style.display = 'none';
+            pingView.style.display = 'flex';
         } else if (hash === '#admin' && adminView) {
             if (heroView) heroView.style.display = 'none';
             adminView.style.display = 'flex';
@@ -684,6 +714,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    if (heroYtdlpBtn) {
+        heroYtdlpBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            navigateTo('#ytdlp', ytdlpView);
+            showNotification(currentLang === 'fr' ? "YT-DLP Ouvert !" : "YT-DLP Mode Opened!", 'success');
+        });
+    }
+
+    if (heroPingBtn) {
+        heroPingBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            navigateTo('#ping', pingView);
+            showNotification(currentLang === 'fr' ? "Testeur de Ping Ouvert !" : "Ping Tester Mode Opened!", 'success');
+        });
+    }
+
     if (heroAutocBtn) {
         heroAutocBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -706,6 +752,111 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (backFromAutocBtn) {
         backFromAutocBtn.addEventListener('click', goBack);
+    }
+
+    if (backFromYtdlpBtn) {
+        backFromYtdlpBtn.addEventListener('click', goBack);
+    }
+
+    if (backFromPingBtn) {
+        backFromPingBtn.addEventListener('click', goBack);
+    }
+
+    // --- YT Downloader Logic ---
+    const ytUrlInput = document.getElementById('ytUrlInput');
+    const ytFetchBtn = document.getElementById('ytFetchBtn');
+    const ytResultArea = document.getElementById('ytResultArea');
+    const ytThumbnail = document.getElementById('ytThumbnail');
+    const ytTitle = document.getElementById('ytTitle');
+    const ytDownloadMp4 = document.getElementById('ytDownloadMp4');
+    const ytDownloadMp3 = document.getElementById('ytDownloadMp3');
+
+    if (ytFetchBtn) {
+        ytFetchBtn.addEventListener('click', async () => {
+            const url = ytUrlInput.value.trim();
+            if (!url) {
+                showNotification(currentLang === 'fr' ? 'Veuillez entrer un lien YouTube.' : 'Please enter a YouTube link.', 'error');
+                return;
+            }
+            
+            const originalText = ytFetchBtn.innerText;
+            ytFetchBtn.innerText = currentLang === 'fr' ? 'Recherche en cours...' : 'Searching...';
+            ytFetchBtn.disabled = true;
+            ytResultArea.style.display = 'none';
+            
+            try {
+                // Fetch yt metadata via noembed
+                const res = await fetch(`https://noembed.com/embed?url=${encodeURIComponent(url)}`);
+                const data = await res.json();
+                
+                if (data.error) {
+                    showNotification(currentLang === 'fr' ? 'Lien invalide ou vidéo introuvable.' : 'Invalid link or video not found.', 'error');
+                } else {
+                    ytThumbnail.src = data.thumbnail_url;
+                    ytTitle.innerText = data.title;
+                    ytResultArea.style.display = 'block';
+                    
+                    // Utilisation de cobalt.tools ou services similaires via redirection
+                    ytDownloadMp4.onclick = () => window.open(`https://cobalt.tools/?u=${encodeURIComponent(url)}`, '_blank');
+                    ytDownloadMp3.onclick = () => window.open(`https://cobalt.tools/?u=${encodeURIComponent(url)}&a=true`, '_blank');
+                    
+                    showNotification(currentLang === 'fr' ? 'Vidéo trouvée !' : 'Video found!', 'success');
+                }
+            } catch (e) {
+                showNotification(currentLang === 'fr' ? 'Erreur de connexion.' : 'Connection error.', 'error');
+            } finally {
+                ytFetchBtn.innerText = originalText;
+                ytFetchBtn.disabled = false;
+            }
+        });
+    }
+
+    // --- Ping & Speedtest Logic ---
+    const startSpeedTestBtn = document.getElementById('startSpeedTestBtn');
+    const pingResult = document.getElementById('pingResult');
+    const speedResult = document.getElementById('speedResult');
+
+    if (startSpeedTestBtn) {
+        startSpeedTestBtn.addEventListener('click', async () => {
+            pingResult.innerText = '...';
+            speedResult.innerText = '...';
+            startSpeedTestBtn.disabled = true;
+            startSpeedTestBtn.innerText = currentLang === 'fr' ? 'Test en cours...' : 'Testing...';
+            
+            // Test Ping
+            let pingTimes = [];
+            for (let i = 0; i < 3; i++) {
+                const start = performance.now();
+                try {
+                    await fetch(`https://cloudflare.com/cdn-cgi/trace?t=${new Date().getTime()}`, { mode: 'no-cors' });
+                    const end = performance.now();
+                    pingTimes.push(end - start);
+                } catch (e) {
+                    // ignore
+                }
+            }
+            const avgPing = pingTimes.length > 0 ? Math.round(pingTimes.reduce((a, b) => a + b) / pingTimes.length) : 'Err';
+            pingResult.innerText = avgPing;
+            
+            // Test Speed (Téléchargement de ~10MB)
+            const downloadSize = 10000000;
+            const speedStart = performance.now();
+            try {
+                const response = await fetch(`https://speed.cloudflare.com/__down?bytes=${downloadSize}`);
+                await response.blob(); 
+                const speedEnd = performance.now();
+                const durationSec = (speedEnd - speedStart) / 1000;
+                const bitsLoaded = downloadSize * 8;
+                const bps = bitsLoaded / durationSec;
+                const mbps = (bps / 1024 / 1024).toFixed(2);
+                speedResult.innerText = mbps;
+            } catch (e) {
+                 speedResult.innerText = 'Err';
+            }
+            
+            startSpeedTestBtn.disabled = false;
+            startSpeedTestBtn.innerText = currentLang === 'fr' ? 'Relancer le test' : 'Restart test';
+        });
     }
 
     if (closeLoginModal) closeLoginModal.addEventListener('click', () => closeModal(loginModal));
@@ -900,6 +1051,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (heroAutocBtn) {
                 heroAutocBtn.classList.remove('disabled');
                 heroAutocBtn.removeAttribute('title');
+            }
+            if (heroYtdlpBtn) {
+                heroYtdlpBtn.classList.remove('disabled');
+                heroYtdlpBtn.removeAttribute('title');
+            }
+            if (heroPingBtn) {
+                heroPingBtn.classList.remove('disabled');
+                heroPingBtn.removeAttribute('title');
             }
         } else {
             if (authButtons) authButtons.style.display = 'flex';
