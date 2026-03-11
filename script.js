@@ -333,7 +333,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const heroView = document.querySelector('.hero');
-    const heroConvertBtn = document.getElementById('heroConvertBtn');
     const heroScriptBtn = document.getElementById('heroScriptBtn');
     const heroGamesBtn = document.getElementById('heroGamesBtn');
     const heroAutocBtn = document.getElementById('heroAutocBtn');
@@ -362,27 +361,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const pingView = document.getElementById('pingView');
     const backFromPingBtn = document.getElementById('backFromPingBtn');
 
-    // Convert View Elements
-    const convertView = document.getElementById('convertView');
-    const backFromConvertBtn = document.getElementById('backFromConvertBtn');
-    const startConvertBtn = document.getElementById('startConvertBtn');
-    const youtubeUrlInput = document.getElementById('youtubeUrl');
-    const conversionStatus = document.getElementById('conversionStatus');
-    const progressBar = document.getElementById('progressBar');
-    const statusText = document.getElementById('statusText');
-    const resultActions = document.getElementById('resultActions');
-    const converterWrapper = document.getElementById('converterWrapper');
-    const directSaveFromBtn = document.getElementById('directSaveFromBtn');
-    const savefromIndicator = document.getElementById('savefromIndicator');
-    const fallbackActions = document.getElementById('fallbackActions'); // Assuming this element exists
-    const fallbackBtn = document.getElementById('fallbackBtn'); // Assuming this element exists
-
     function hideAllAdminViews() {
         if (adminView) adminView.style.display = 'none';
         if (adminDashboardView) adminDashboardView.style.display = 'none';
         if (adminAccountsView) adminAccountsView.style.display = 'none';
         if (scriptView) scriptView.style.display = 'none';
-        if (convertView) convertView.style.display = 'none';
         if (gamesView) gamesView.style.display = 'none';
         if (autocView) autocView.style.display = 'none';
         if (ytdlpView) ytdlpView.style.display = 'none';
@@ -409,10 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const hash = window.location.hash;
         hideAllAdminViews();
 
-        if (hash === '#convert' && convertView) {
-            if (heroView) heroView.style.display = 'none';
-            convertView.style.display = 'flex';
-        } else if (hash === '#script' && scriptView) {
+        if (hash === '#script' && scriptView) {
             if (heroView) heroView.style.display = 'none';
             scriptView.style.display = 'flex';
         } else if (hash === '#games' && gamesView) {
@@ -622,82 +602,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (heroConvertBtn) {
-        heroConvertBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            navigateTo('#convert', convertView);
-            showNotification(currentLang === 'fr' ? "Mode Convert Ouvert !" : "Convert Mode Opened!", 'success');
-        });
-    }
-
-    if (backFromConvertBtn) {
-        backFromConvertBtn.addEventListener('click', () => {
-            navigateHome();
-            // Reset state
-            youtubeUrlInput.value = '';
-            conversionStatus.style.display = 'none';
-            resultActions.style.display = 'none';
-            if (progressBar) progressBar.style.width = '0%';
-        });
-    }
-
-    if (startConvertBtn) {
-        startConvertBtn.addEventListener('click', async () => {
-            const url = youtubeUrlInput.value.trim();
-
-            const videoIdMatch = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-
-            if (!videoIdMatch || !videoIdMatch[1]) {
-                showNotification(i18n[currentLang].error_invalid_url, 'error');
-                return;
-            }
-
-            const videoId = videoIdMatch[1];
-
-            startConvertBtn.disabled = true;
-            conversionStatus.style.display = 'flex';
-            resultActions.style.display = 'none';
-
-            let progress = 0;
-            const steps = [
-                { p: 10, t: 'status_init' },
-                { p: 40, t: 'status_downloading' },
-                { p: 75, t: 'status_converting' },
-                { p: 95, t: 'status_finalizing' },
-                { p: 100, t: 'status_done' }
-            ];
-
-            let currentStep = 0;
-            const interval = setInterval(async () => {
-                progress += Math.random() * 5;
-                if (progress >= steps[currentStep].p) {
-                    statusText.textContent = i18n[currentLang][steps[currentStep].t];
-                    if (currentStep < steps.length - 1) currentStep++;
-                }
-
-                if (progress >= 100) {
-                    progress = 100;
-                    clearInterval(interval);
-                    startConvertBtn.disabled = false;
-
-                    const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
-
-                    // Always use SaveFrom fallback as requested
-                    if (directSaveFromBtn) {
-                        directSaveFromBtn.href = `https://en.savefrom.net/1-youtube-video-downloader-360/${videoUrl}`;
-                        const btnSpan = directSaveFromBtn.querySelector('span');
-                        if (btnSpan) btnSpan.textContent = currentLang === 'fr' ? "Télécharger via SaveFrom.net" : "Download via SaveFrom.net";
-                        directSaveFromBtn.style.background = '';
-                    }
-
-                    resultActions.style.display = 'flex';
-                    showNotification(i18n[currentLang].status_done, 'success');
-                }
-                if (progressBar) progressBar.style.width = `${progress}%`;
-            }, 100);
-        });
-    }
-
     if (heroScriptBtn) {
         heroScriptBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -763,51 +667,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- YT Downloader Logic ---
-    const ytUrlInput = document.getElementById('ytUrlInput');
-    const ytFetchBtn = document.getElementById('ytFetchBtn');
-    const ytResultArea = document.getElementById('ytResultArea');
-    const ytThumbnail = document.getElementById('ytThumbnail');
-    const ytTitle = document.getElementById('ytTitle');
-    const ytDownloadMp4 = document.getElementById('ytDownloadMp4');
-    const ytDownloadMp3 = document.getElementById('ytDownloadMp3');
+    const ytRedirectBtn = document.getElementById('ytRedirectBtn');
 
-    if (ytFetchBtn) {
-        ytFetchBtn.addEventListener('click', async () => {
-            const url = ytUrlInput.value.trim();
-            if (!url) {
-                showNotification(currentLang === 'fr' ? 'Veuillez entrer un lien YouTube.' : 'Please enter a YouTube link.', 'error');
-                return;
-            }
-            
-            const originalText = ytFetchBtn.innerText;
-            ytFetchBtn.innerText = currentLang === 'fr' ? 'Recherche en cours...' : 'Searching...';
-            ytFetchBtn.disabled = true;
-            ytResultArea.style.display = 'none';
-            
-            try {
-                // Fetch yt metadata via noembed
-                const res = await fetch(`https://noembed.com/embed?url=${encodeURIComponent(url)}`);
-                const data = await res.json();
-                
-                if (data.error) {
-                    showNotification(currentLang === 'fr' ? 'Lien invalide ou vidéo introuvable.' : 'Invalid link or video not found.', 'error');
-                } else {
-                    ytThumbnail.src = data.thumbnail_url;
-                    ytTitle.innerText = data.title;
-                    ytResultArea.style.display = 'block';
-                    
-                    // Utilisation de cobalt.tools ou services similaires via redirection
-                    ytDownloadMp4.onclick = () => window.open(`https://cobalt.tools/?u=${encodeURIComponent(url)}`, '_blank');
-                    ytDownloadMp3.onclick = () => window.open(`https://cobalt.tools/?u=${encodeURIComponent(url)}&a=true`, '_blank');
-                    
-                    showNotification(currentLang === 'fr' ? 'Vidéo trouvée !' : 'Video found!', 'success');
-                }
-            } catch (e) {
-                showNotification(currentLang === 'fr' ? 'Erreur de connexion.' : 'Connection error.', 'error');
-            } finally {
-                ytFetchBtn.innerText = originalText;
-                ytFetchBtn.disabled = false;
-            }
+    if (ytRedirectBtn) {
+        ytRedirectBtn.addEventListener('click', () => {
+            window.open('https://notube.net/fr/youtube-app-v102', '_blank');
         });
     }
 
@@ -815,13 +679,72 @@ document.addEventListener('DOMContentLoaded', () => {
     const startSpeedTestBtn = document.getElementById('startSpeedTestBtn');
     const pingResult = document.getElementById('pingResult');
     const speedResult = document.getElementById('speedResult');
+    const ipResult = document.getElementById('ipResult');
+    const ispResult = document.getElementById('ispResult');
+    const locResult = document.getElementById('locResult');
+    const testStepText = document.getElementById('testStepText');
+    const testPercentage = document.getElementById('testPercentage');
+    const testProgressBar = document.getElementById('testProgressBar');
 
     if (startSpeedTestBtn) {
         startSpeedTestBtn.addEventListener('click', async () => {
             pingResult.innerText = '...';
             speedResult.innerText = '...';
             startSpeedTestBtn.disabled = true;
-            startSpeedTestBtn.innerText = currentLang === 'fr' ? 'Test en cours...' : 'Testing...';
+            
+            // Initialization
+            testProgressBar.style.width = '10%';
+            testPercentage.innerText = '10%';
+            testStepText.innerText = currentLang === 'fr' ? 'Recherche d\'IP...' : 'Fetching IP...';
+            testProgressBar.style.background = 'linear-gradient(90deg, #3b82f6, #10b981)';
+            
+            // Fetch IP Info
+            try {
+                const ipRes = await fetch('https://ipapi.co/json/');
+                if (!ipRes.ok) throw new Error('ipapi.co failed');
+                const ipData = await ipRes.json();
+                if (ipData && ipData.ip) {
+                    ipResult.innerText = ipData.ip || 'Inconnu';
+                    ispResult.innerText = ipData.org || ipData.asn || 'Inconnu';
+                    locResult.innerText = `${ipData.city || ''}, ${ipData.country_name || ''}`;
+                } else {
+                    throw new Error('Invalid data');
+                }
+            } catch(e) {
+                try {
+                    // Fallback to ipinfo.io
+                    const ipRes2 = await fetch('https://ipinfo.io/json');
+                    const ipData2 = await ipRes2.json();
+                    if (ipData2 && ipData2.ip) {
+                        ipResult.innerText = ipData2.ip || 'Inconnu';
+                        ispResult.innerText = ipData2.org || 'Inconnu';
+                        locResult.innerText = `${ipData2.city || ''}, ${ipData2.country || ''}`;
+                    } else {
+                        throw new Error('Invalid data');
+                    }
+                } catch(e2) {
+                    try {
+                        // Fallback to ipwho.is
+                        const ipRes3 = await fetch('https://ipwho.is/');
+                        const ipData3 = await ipRes3.json();
+                        if (ipData3 && ipData3.success) {
+                            ipResult.innerText = ipData3.ip || 'Inconnu';
+                            ispResult.innerText = ipData3.connection?.isp || ipData3.connection?.org || 'Inconnu';
+                            locResult.innerText = `${ipData3.city || ''}, ${ipData3.country || ''}`;
+                        } else {
+                            throw new Error('Invalid data');
+                        }
+                    } catch(e3) {
+                        ipResult.innerText = 'Erreur';
+                        ispResult.innerText = 'Erreur';
+                        locResult.innerText = 'Erreur';
+                    }
+                }
+            }
+            
+            testProgressBar.style.width = '40%';
+            testPercentage.innerText = '40%';
+            testStepText.innerText = currentLang === 'fr' ? 'Test du Ping...' : 'Testing Ping...';
             
             // Test Ping
             let pingTimes = [];
@@ -837,6 +760,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             const avgPing = pingTimes.length > 0 ? Math.round(pingTimes.reduce((a, b) => a + b) / pingTimes.length) : 'Err';
             pingResult.innerText = avgPing;
+            
+            testProgressBar.style.width = '70%';
+            testPercentage.innerText = '70%';
+            testStepText.innerText = currentLang === 'fr' ? 'Test de débit...' : 'Testing Speed...';
             
             // Test Speed (Téléchargement de ~10MB)
             const downloadSize = 10000000;
@@ -854,8 +781,11 @@ document.addEventListener('DOMContentLoaded', () => {
                  speedResult.innerText = 'Err';
             }
             
+            testProgressBar.style.width = '100%';
+            testPercentage.innerText = '100%';
+            testStepText.innerText = currentLang === 'fr' ? 'Test terminé' : 'Test finished';
+            
             startSpeedTestBtn.disabled = false;
-            startSpeedTestBtn.innerText = currentLang === 'fr' ? 'Relancer le test' : 'Restart test';
         });
     }
 
@@ -962,11 +892,6 @@ document.addEventListener('DOMContentLoaded', () => {
             selectedLangText.textContent = i18n[lang][`lang_${lang}`];
         }
 
-        // Title pour le bouton Convert
-        const convertBtn = document.getElementById('heroConvertBtn');
-        if (convertBtn && convertBtn.classList.contains('disabled')) {
-            convertBtn.setAttribute('title', lang === 'fr' ? 'Connexion requise' : 'Login required');
-        }
         const autocBtn = document.getElementById('heroAutocBtn');
         if (autocBtn && autocBtn.classList.contains('disabled')) {
             autocBtn.setAttribute('title', lang === 'fr' ? 'Connexion requise' : 'Login required');

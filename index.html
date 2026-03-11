@@ -79,29 +79,7 @@
 
 
             <div class="hero-features">
-                <a href="#" class="hero-feature-box" id="heroConvertBtn">
-                    <div class="convert-icon-wrapper">
-                        <!-- Download Icon -->
-                        <svg class="download-icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                            <polyline points="7 10 12 15 17 10"></polyline>
-                            <line x1="12" y1="15" x2="12" y2="3"></line>
-                        </svg>
-                    </div>
-                    <div class="convert-text">
-                        <span class="convert-title" data-i18n="btn_convert">Convertir</span>
-                        <span
-                            style="color: #ef4444; font-size: 0.75rem; font-weight: 500; display: flex; align-items: center; gap: 6px; margin-top: 4px; margin-bottom: 2px;">
-                            <span
-                                style="width: 8px; height: 8px; background-color: #ef4444; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);"></span>
-                            ( En cours d'acheminement local )
-                        </span>
-                        <span class="convert-subtitle" data-i18n="btn_convert_desc">Télécharger & Convertir vos
-                            médias</span>
-                    </div>
-                </a>
+
 
                 <a href="#" class="hero-feature-box" id="heroScriptBtn">
                     <div class="convert-icon-wrapper" style="background: rgba(168, 85, 247, 0.1); color: #a855f7;">
@@ -521,31 +499,17 @@
         <div class="script-container">
             <div class="script-header">
                 <h2 data-i18n="script_ytdlp_title">Téléchargeur de vidéos/audio</h2>
-                <p data-i18n="ytdlp_view_desc">Récupérez des vidéos YouTube ou des playlists en haute qualité avec yt-dlp.</p>
+                <p data-i18n="ytdlp_view_desc">Récupérez des vidéos YouTube ou des playlists en haute qualité via notre partenaire NoTube.</p>
             </div>
 
-            <div class="converter-box" style="max-width: 600px; margin: 0 auto; text-align: center;">
-                <input type="text" id="ytUrlInput" placeholder="Collez le lien YouTube ici..." style="width: 100%; padding: 16px; border-radius: 8px; border: 1px solid var(--border-subtle); background: rgba(255,255,255,0.05); color: var(--text-primary); margin-bottom: 24px; font-size: 1.1rem; outline: none;">
-                <button id="ytFetchBtn" class="btn btn-signup" style="width: 100%; font-size: 1.1rem; padding: 14px;">Rechercher la vidéo</button>
-                
-                <div id="ytResultArea" style="display: none; margin-top: 32px; text-align: left; background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px; border: 1px solid var(--border-subtle);">
-                    <img id="ytThumbnail" src="" style="width: 100%; border-radius: 8px; margin-bottom: 16px; object-fit: cover; aspect-ratio: 16/9;">
-                    <h4 id="ytTitle" style="color: var(--text-primary); margin-bottom: 20px; font-size: 1.2rem; font-weight: 600; line-height: 1.4;">Titre de la vidéo</h4>
-                    <div style="display: flex; gap: 16px;">
-                        <button id="ytDownloadMp4" class="btn btn-login" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(59, 130, 246, 0.2); border-color: rgba(59, 130, 246, 0.4); color: #60a5fa;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line>
-                            </svg>
-                            Vidéo (MP4)
-                        </button>
-                        <button id="ytDownloadMp3" class="btn btn-login" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.4); color: #34d399;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle>
-                            </svg>
-                            Audio (MP3)
-                        </button>
-                    </div>
-                </div>
+            <div class="converter-box" style="max-width: 600px; margin: 0 auto; text-align: center; background: rgba(255,255,255,0.02); padding: 40px; border-radius: 16px; border: 1px solid var(--border-subtle);">
+                <button id="ytRedirectBtn" class="btn btn-signup" style="width: 100%; font-size: 1.2rem; padding: 18px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path>
+                        <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                    </svg>
+                    <span>Ouvrir le téléchargeur (NoTube)</span>
+                </button>
             </div>
 
             <button class="back-to-home-btn" id="backFromYtdlpBtn">
@@ -572,7 +536,16 @@
             </div>
 
             <div class="converter-box" style="max-width: 600px; margin: 0 auto; text-align: center; background: rgba(255,255,255,0.02); padding: 40px; border-radius: 16px; border: 1px solid var(--border-subtle);">
-                <div style="display: flex; justify-content: space-around; margin-bottom: 40px;">
+                <div id="ipInfoBox" style="display: flex; flex-direction: column; gap: 12px; background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 12px; padding: 20px; margin-bottom: 30px; text-align: left;">
+                    <h4 style="color: #60a5fa; margin: 0 0 8px 0; font-size: 1.1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;" data-i18n="network_info">Informations Réseau</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 0.95rem; color: var(--text-primary);">
+                        <div><span style="color: var(--text-secondary); font-weight: 500;" data-i18n="ip_address">IP Publique :</span> <span id="ipResult" style="font-weight: 600; color: #fff;">--</span></div>
+                        <div><span style="color: var(--text-secondary); font-weight: 500;" data-i18n="isp">Fournisseur :</span> <span id="ispResult" style="font-weight: 600; color: #fff;">--</span></div>
+                        <div style="grid-column: span 2;"><span style="color: var(--text-secondary); font-weight: 500;" data-i18n="location">Localisation :</span> <span id="locResult" style="font-weight: 600; color: #fff;">--</span></div>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-around; margin-bottom: 30px;">
                     <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
                         <span style="font-size: 0.9rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Ping</span>
                         <div style="display: flex; align-items: baseline; gap: 4px;">
@@ -589,7 +562,18 @@
                         </div>
                     </div>
                 </div>
-                <button id="startSpeedTestBtn" class="btn btn-signup" style="width: 100%; font-size: 1.2rem; padding: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Lancer le test</button>
+
+                <div id="testProgressContainer" style="margin-bottom: 24px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-secondary); font-weight: 500;">
+                        <span id="testStepText" data-i18n="status_ready">Prêt à tester</span>
+                        <span id="testPercentage">0%</span>
+                    </div>
+                    <div style="width: 100%; background: rgba(255,255,255,0.05); border-radius: 8px; height: 10px; overflow: hidden; border: 1px solid var(--border-subtle);">
+                        <div id="testProgressBar" style="width: 0%; height: 100%; background: linear-gradient(90deg, #3b82f6, #10b981); transition: width 0.4s ease, background 0.4s ease; box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);"></div>
+                    </div>
+                </div>
+
+                <button id="startSpeedTestBtn" class="btn btn-signup" style="width: 100%; font-size: 1.2rem; padding: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;"><span data-i18n="start_test">Lancer le test</span></button>
             </div>
 
             <button class="back-to-home-btn" id="backFromPingBtn">
@@ -607,92 +591,7 @@
         <div class="ambient-glow glow-2"></div>
     </main>
 
-    <!-- Vue YouTube Convert -->
-    <main class="convert-view" id="convertView" style="display: none;">
-        <div class="convert-container">
-            <div class="convert-header"
-                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <div style="text-align: left;">
-                    <h2 data-i18n="convert_title">YouTube Converter</h2>
-                    <p data-i18n="convert_desc">Convertissez vos vidéos YouTube préférées en MP3 ou MP4.</p>
-                </div>
-            </div>
 
-            <div class="convert-card">
-                <div class="form-group">
-                    <label for="youtubeUrl" data-i18n="youtube_url_label">Lien de la vidéo YouTube</label>
-                    <div class="url-input-wrapper">
-                        <svg class="url-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-                        </svg>
-                        <input type="text" id="youtubeUrl" placeholder="https://www.youtube.com/watch?v=..."
-                            data-i18n-placeholder="youtube_url_placeholder">
-                    </div>
-                </div>
-
-                <div class="format-selector">
-                    <label data-i18n="format_label">Format de sortie</label>
-                    <div class="segmented-control">
-                        <input type="radio" name="format" id="formatMp3" value="mp3" checked>
-                        <label for="formatMp3">MP3</label>
-                        <input type="radio" name="format" id="formatMp4" value="mp4">
-                        <label for="formatMp4">MP4</label>
-                        <div class="segment-glider"></div>
-                    </div>
-                </div>
-
-                <button class="btn-submit" id="startConvertBtn">
-                    <span data-i18n="convert_submit">Convertir</span>
-                    <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                </button>
-
-                <div class="conversion-status" id="conversionStatus" style="display: none;">
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="progressBar"></div>
-                    </div>
-                    <p class="status-text" id="statusText">Initialisation...</p>
-                </div>
-
-                <div class="result-actions" id="resultActions"
-                    style="display: none; flex-direction: column; gap: 15px;">
-                    <p style="text-align: center; color: var(--text-secondary); margin-bottom: 5px;"
-                        data-i18n="savefrom_title">Conversion SaveFrom.net :</p>
-
-                    <a href="#" class="btn btn-signup" id="directSaveFromBtn" target="_blank"
-                        style="width: 100%; padding: 18px; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            style="margin-right: 10px;">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                            <polyline points="7 10 12 15 17 10" />
-                            <line x1="12" y1="15" x2="12" y2="3" />
-                        </svg>
-                        <span>Télécharger (SaveFrom.net)</span>
-                    </a>
-                </div>
-            </div>
-
-            <button class="back-to-home-btn" id="backFromConvertBtn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    style="margin-right: 8px;">
-                    <line x1="19" y1="12" x2="5" y2="12"></line>
-                    <polyline points="12 19 5 12 12 5"></polyline>
-                </svg>
-                <span data-i18n="back_to_home">Retour à l'accueil</span>
-            </button>
-        </div>
-
-        <div class="ambient-glow glow-1"></div>
-        <div class="ambient-glow glow-2"></div>
-    </main>
 
     <!-- Modal des Paramètres -->
     <div id="settingsModal" class="modal-overlay">
