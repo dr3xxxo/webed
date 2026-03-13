@@ -31,6 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeApexTutoModal = document.getElementById('closeApexTutoModal');
     const closeApexTutoBtn = document.getElementById('closeApexTutoBtn');
     const tutoApexBtn = document.getElementById('tutoApexBtn');
+ 
+    // Nitro Tuto Modal
+    const nitroTutoModal = document.getElementById('nitroTutoModal');
+    const closeNitroTutoModal = document.getElementById('closeNitroTutoModal');
+    const closeNitroTutoBtn = document.getElementById('closeNitroTutoBtn');
+    const tutoNitroBtn = document.getElementById('tutoNitroBtn');
 
     const authButtons = document.getElementById('authButtons');
     const userProfile = document.getElementById('userProfile');
@@ -174,7 +180,24 @@ document.addEventListener('DOMContentLoaded', () => {
             apex_tuto_step14: "Si vous rencontrez un problème, ouvrez un ticket sur notre Discord :",
             discord_ad_title: "Serveur Discord Ouvert",
             discord_ad_desc: "Notre Discord est ouvert mais pas encore finalisé. N'hésitez pas à nous rejoindre !",
-            discord_ad_btn: "Rejoindre"
+            discord_ad_btn: "Rejoindre",
+            btn_nitro: "Discord Nitro KEY 3 month",
+            nitro_desc: "Obtenez votre clé Nitro",
+            nitro_title: "Discord Nitro KEY 3 month",
+            nitro_view_desc: "Récupérez votre clé Nitro de 3 mois gratuitement.",
+            nitro_card_title: "Discord Nitro 3 Months",
+            nitro_card_desc: "Offre exclusive pour les nouveaux utilisateurs de Nitro.",
+            get_key: "Récupérer",
+            nitro_tuto_title: "Activation d’une clé Nitro",
+            nitro_tuto_step1: "Copiez la clé (Key) qui vous a été fournie.",
+            nitro_tuto_step2: "Ouvrez Discord, puis allez dans : Paramètres → Inventaire des cadeaux.",
+            nitro_tuto_step3: "Collez la clé en haut de la page, puis cliquez sur Utiliser.",
+            nitro_tuto_step4: "Un texte bleu apparaîtra en dessous : cliquez dessus.",
+            nitro_tuto_step5: "Vous serez redirigé vers une page Discord. Connectez-vous à votre compte (ou vérifiez que vous êtes connecté au bon compte).",
+            nitro_tuto_step6: "Suivez les étapes affichées une par une. Il vous sera demandé d’ajouter un moyen de paiement et de payer 1 € pour la vérification.",
+            nitro_tuto_step7: "Une fois la clé activée, vérifiez sur Discord que votre Discord Nitro est bien actif.",
+            nitro_tuto_tip_title: "💡 Astuce",
+            nitro_tuto_tip_desc: "Si vous ne voulez pas payer après les 3 mois, vous pouvez annuler l’abonnement immédiatement : Paramètres → Abonnements → Se désabonner. Vous conserverez les avantages."
         },
         en: {
             search_placeholder: "Search...",
@@ -308,7 +331,24 @@ document.addEventListener('DOMContentLoaded', () => {
             apex_tuto_step14: "If you encounter a problem, open a ticket on our Discord:",
             discord_ad_title: "Discord Server Open",
             discord_ad_desc: "Our Discord is open but not yet finalized. Feel free to join us!",
-            discord_ad_btn: "Join"
+            discord_ad_btn: "Join",
+            btn_nitro: "Discord Nitro KEY 3 month",
+            nitro_desc: "Get your Nitro key",
+            nitro_title: "Discord Nitro KEY 3 month",
+            nitro_view_desc: "Get your free 3-month Nitro key.",
+            nitro_card_title: "Discord Nitro 3 Months",
+            nitro_card_desc: "Exclusive offer for new Nitro users.",
+            get_key: "Get Key",
+            nitro_tuto_title: "Nitro Key Activation",
+            nitro_tuto_step1: "Copy the key that has been provided to you.",
+            nitro_tuto_step2: "Open Discord, then go to: Settings → Gift Inventory.",
+            nitro_tuto_step3: "Paste the key at the top of the page, then click Redeem.",
+            nitro_tuto_step4: "Blue text will appear below: click on it.",
+            nitro_tuto_step5: "You will be redirected to a Discord page. Log in (or check you are on the right account).",
+            nitro_tuto_step6: "Follow the steps one by one. You will be asked to add a payment method (1€ for verification).",
+            nitro_tuto_step7: "Once activated, check on Discord that your Nitro is active.",
+            nitro_tuto_tip_title: "💡 Tip",
+            nitro_tuto_tip_desc: "If you don't want to pay after 3 months, cancel the subscription immediately in Settings → Subscriptions → Unsubscribe. You will keep the benefits."
         }
     };
 
@@ -387,6 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroApexBtn = document.getElementById('heroApexBtn');
     const heroYtdlpBtn = document.getElementById('heroYtdlpBtn');
     const heroPingBtn = document.getElementById('heroPingBtn');
+    const heroNitroBtn = document.getElementById('heroNitroBtn');
     const adminView = document.getElementById('adminView');
     const adminDashboardView = document.getElementById('adminDashboardView');
     const adminAccountsView = document.getElementById('adminAccountsView');
@@ -412,6 +453,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const pingView = document.getElementById('pingView');
     const backFromPingBtn = document.getElementById('backFromPingBtn');
+ 
+    const nitroView = document.getElementById('nitroView');
+    const backFromNitroBtn = document.getElementById('backFromNitroBtn');
 
     function hideAllAdminViews() {
         if (adminView) adminView.style.display = 'none';
@@ -423,6 +467,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (apexView) apexView.style.display = 'none';
         if (ytdlpView) ytdlpView.style.display = 'none';
         if (pingView) pingView.style.display = 'none';
+        if (nitroView) nitroView.style.display = 'none';
     }
 
     function navigateHome() {
@@ -463,6 +508,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (hash === '#ping' && pingView) {
             if (heroView) heroView.style.display = 'none';
             pingView.style.display = 'flex';
+        } else if (hash === '#nitro' && nitroView) {
+            if (heroView) heroView.style.display = 'none';
+            nitroView.style.display = 'flex';
         } else if (hash === '#admin' && adminView) {
             if (heroView) heroView.style.display = 'none';
             adminView.style.display = 'flex';
@@ -693,6 +741,14 @@ document.addEventListener('DOMContentLoaded', () => {
             showNotification(currentLang === 'fr' ? "Testeur de Ping Ouvert !" : "Ping Tester Mode Opened!", 'success');
         });
     }
+ 
+    if (heroNitroBtn) {
+        heroNitroBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            navigateTo('#nitro', nitroView);
+            showNotification(currentLang === 'fr' ? "Nitro Ouvert !" : "Nitro Mode Opened!", 'success');
+        });
+    }
 
     if (heroAutocBtn) {
         heroAutocBtn.addEventListener('click', (e) => {
@@ -732,6 +788,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (backFromPingBtn) {
         backFromPingBtn.addEventListener('click', goBack);
+    }
+ 
+    if (backFromNitroBtn) {
+        backFromNitroBtn.addEventListener('click', goBack);
+    }
+ 
+    if (tutoNitroBtn) {
+        tutoNitroBtn.addEventListener('click', () => openModal(nitroTutoModal));
+    }
+    if (closeNitroTutoModal) {
+        closeNitroTutoModal.addEventListener('click', () => closeModal(nitroTutoModal));
+    }
+    if (closeNitroTutoBtn) {
+        closeNitroTutoBtn.addEventListener('click', () => closeModal(nitroTutoModal));
     }
 
     // --- YT Downloader Logic ---

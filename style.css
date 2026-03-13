@@ -2055,3 +2055,32 @@ body {
         display: none;
     }
 }
+ 
+/* =========================================
+   DISCORD NITRO STYLES
+   ========================================= */
+#heroNitroBtn {
+    border: 1px solid rgba(255, 105, 180, 0.2);
+}
+ 
+#heroNitroBtn:hover {
+    background: rgba(255, 105, 180, 0.05);
+    border-color: rgba(255, 105, 180, 0.4);
+    box-shadow: 0 12px 24px rgba(255, 105, 180, 0.1);
+}
+ 
+.nitro-card {
+    transition: all 0.3s ease;
+}
+ 
+.nitro-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(255, 105, 180, 0.2);
+    border-color: rgba(255, 105, 180, 0.6) !important;
+}
+ 
+.nitro-card .btn-signup:hover {
+    background: #ff85c2 !important;
+    border-color: #ff85c2 !important;
+    transform: scale(1.02);
+}
