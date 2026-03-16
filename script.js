@@ -495,7 +495,24 @@
             if (backFromAdminDonationBtn) backFromAdminDonationBtn.addEventListener('click', () => navigateTo('#dashboard', adminDashboardView));
 
             // --- Modals ---
-            const openModal = (m) => { if (!m) return; m.classList.add('show'); document.body.style.overflow = 'hidden'; };
+            const openModal = (m) => { 
+                if (!m) return; 
+                m.classList.add('show'); 
+                document.body.style.overflow = 'hidden'; 
+                // Auto-hide passwords & reset icons
+                m.querySelectorAll('input[type="text"]').forEach(input => {
+                    if (input.name === 'password' || input.id.toLowerCase().includes('password')) {
+                        input.setAttribute('type', 'password');
+                    }
+                });
+                m.querySelectorAll('input[type="password"]').forEach(input => {
+                    const btn = input.parentElement.querySelector('.toggle-password');
+                    if (btn) {
+                        const icon = btn.querySelector('svg');
+                        if (icon) icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
+                    }
+                });
+            };
             const closeModal = (m) => { if (!m) return; m.classList.remove('show'); document.body.style.overflow = ''; };
 
             if (settingsBtn) settingsBtn.addEventListener('click', () => openModal(settingsModal));
@@ -607,39 +624,97 @@
                 const list = get('contributorsList');
                 if (!list) return;
                 const contributors = JSON.parse(localStorage.getItem('webed_contributors')) || [];
-                list.innerHTML = contributors.map(c => `
-                    <div class="contributor-item">
-                        <span class="contributor-pseudo">${c.pseudo}</span>
-                        <span class="contributor-amount">${c.amount}€</span>
+                const total = contributors.reduce((sum, c) => sum + parseFloat(c.amount || 0), 0);
+
+                let html = `
+                    <div class="contributor-total-wrapper" style="display: flex; justify-content: flex-end; margin-bottom: 15px;">
+                        <div class="contributor-total" style="font-size: 0.9rem; font-weight: 700; color: var(--accent-color); background: rgba(0, 191, 255, 0.1); padding: 5px 15px; border-radius: 20px;">
+                            TOTAL: ${total.toFixed(0)}€
+                        </div>
                     </div>
-                `).join('') || '<p style="text-align:center; color:var(--text-secondary);">Aucun contributeur pour le moment.</p>';
+                    <div class="contributor-header" style="display: flex; justify-content: space-between; padding: 0 12px 10px; font-size: 0.75rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; border-bottom: 1px solid var(--border-subtle); margin-bottom: 10px;">
+                        <span>NOM</span>
+                        <span>CONTRIBUTION</span>
+                    </div>
+                `;
+
+                if (contributors.length === 0) {
+                    html += '<p style="text-align:center; color:var(--text-secondary); padding: 20px;">Aucun contributeur pour le moment.</p>';
+                } else {
+                    html += contributors.map(c => `
+                        <div class="contributor-item" style="display: flex; justify-content: space-between; align-items: center; padding: 12px; margin-bottom: 8px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid var(--border-subtle);">
+                            <span class="contributor-pseudo" style="font-weight: 600;">${c.pseudo}</span>
+                            <span class="contributor-amount" style="color: var(--accent-color); font-weight: 700;">${c.amount}€</span>
+                        </div>
+                    `).join('');
+                }
+                list.innerHTML = html;
             };
 
             const renderAdminContributors = () => {
                 const list = get('adminContributorsList');
                 if (!list) return;
                 const contributors = JSON.parse(localStorage.getItem('webed_contributors')) || [];
-                list.innerHTML = contributors.map((c, index) => `
-                    <div class="admin-contributor-item" style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 8px; margin-bottom: 8px;">
-                        <div style="display: flex; flex-direction: column;">
-                            <span style="font-weight: 600; color: var(--text-primary);">${c.pseudo}</span>
-                            <span style="font-size: 0.8rem; color: var(--text-secondary);">${c.amount}€</span>
+                const total = contributors.reduce((sum, c) => sum + parseFloat(c.amount || 0), 0);
+
+                let html = `
+                    <div style="display: flex; justify-content: flex-end; margin-bottom: 15px;">
+                        <div style="font-size: 0.9rem; font-weight: 700; color: var(--accent-color); background: rgba(0, 191, 255, 0.1); padding: 5px 15px; border-radius: 20px;">
+                            TOTAL: ${total.toFixed(0)}€
                         </div>
-                        <button class="btn-delete-contrib" data-index="${index}" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); padding: 4px 8px; border-radius: 4px; cursor: pointer;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
-                        </button>
                     </div>
-                `).join('') || '<p style="text-align:center; color:var(--text-secondary);">Liste vide.</p>';
+                    <div style="display: flex; justify-content: space-between; padding: 0 12px 10px; font-size: 0.75rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; border-bottom: 1px solid var(--border-subtle); margin-bottom: 10px;">
+                        <span>NOM</span>
+                        <span style="margin-left: auto; margin-right: 45px;">CONTRIBUTION</span>
+                    </div>
+                `;
+
+                if (contributors.length === 0) {
+                    html += '<p style="text-align:center; color:var(--text-secondary); padding: 20px;">Liste vide.</p>';
+                } else {
+                    html += contributors.map((c, index) => `
+                        <div class="admin-contributor-item" style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 8px; margin-bottom: 8px;">
+                            <span style="font-weight: 600; color: var(--text-primary);">${c.pseudo}</span>
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <span style="font-weight: 700; color: var(--accent-color);">${c.amount}€</span>
+                                <button class="btn-delete-contrib" data-index="${index}" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); padding: 4px 8px; border-radius: 4px; cursor: pointer;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+                list.innerHTML = html;
 
                 document.querySelectorAll('.btn-delete-contrib').forEach(btn => {
                     btn.addEventListener('click', () => {
-                        if (confirm(i18n[currentLang].confirm_delete_contributor)) {
-                            const idx = btn.getAttribute('data-index');
-                            const contributors = JSON.parse(localStorage.getItem('webed_contributors')) || [];
-                            contributors.splice(idx, 1);
-                            localStorage.setItem('webed_contributors', JSON.stringify(contributors));
-                            renderContributors();
-                            renderAdminContributors();
+                        const idx = btn.getAttribute('data-index');
+                        const confirmModal = get('confirmDeleteModal');
+                        const confirmBtn = get('confirmDeleteBtn');
+                        const cancelBtn = get('cancelDeleteBtn');
+
+                        if (confirmModal && confirmBtn && cancelBtn) {
+                            openModal(confirmModal);
+                            
+                            // Recreate the confirm button to clear all previous listeners
+                            const newConfirmBtn = confirmBtn.cloneNode(true);
+                            confirmBtn.parentNode.replaceChild(newConfirmBtn, confirmBtn);
+                            
+                            const newCancelBtn = cancelBtn.cloneNode(true);
+                            cancelBtn.parentNode.replaceChild(newCancelBtn, cancelBtn);
+
+                            newConfirmBtn.addEventListener('click', () => {
+                                const contributors = JSON.parse(localStorage.getItem('webed_contributors')) || [];
+                                contributors.splice(idx, 1);
+                                localStorage.setItem('webed_contributors', JSON.stringify(contributors));
+                                renderContributors();
+                                renderAdminContributors();
+                                closeModal(confirmModal);
+                            }, { once: true });
+
+                            newCancelBtn.addEventListener('click', () => {
+                                closeModal(confirmModal);
+                            }, { once: true });
                         }
                     });
                 });
@@ -670,9 +745,13 @@
                     e.preventDefault();
                     const current = get('adminCurrentDonation')?.value;
                     const goal = get('adminGoalDonation')?.value;
-                    if (current !== "") localStorage.setItem('webed_total_donated', current);
-                    if (goal !== "") localStorage.setItem('webed_goal_donated', goal);
+                    if (current && current !== "") localStorage.setItem('webed_total_donated', current);
+                    if (goal && goal !== "") localStorage.setItem('webed_goal_donated', goal);
+                    
+                    // Force a robust update of everything
                     updateDonationGoal();
+                    renderAdminContributors(); 
+                    
                     showNotification(i18n[currentLang].donation_updated, "success");
                 });
             }
