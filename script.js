@@ -1,7 +1,8 @@
 if (window.webedInitialized) return;
 window.webedInitialized = true;
 
-document.addEventListener('DOMContentLoaded', () => {
+(function() {
+    const init = () => {
 
     // --- Elements DOM ---
     const navHomeBtn = document.getElementById('navHomeBtn');
@@ -1669,4 +1670,11 @@ document.addEventListener('DOMContentLoaded', () => {
         renderAdminContributors();
         populateAdminDonationFields();
     }
-});
+    };
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
