@@ -264,7 +264,11 @@
                     <span class="card-title" data-i18n="manage_accounts">Gestion des comptes</span>
                 </button>
                 <button class="dashboard-card donation-admin-card" id="openDonationAdminBtn">
-                    <span class="code-icon" style="color: #ff4d4d;">♥</span>
+                    <div class="card-icon-circle" style="background: rgba(236, 72, 153, 0.1); color: #ec4899;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                    </div>
                     <span class="card-title" data-i18n="manage_donations">Gestion des Dons</span>
                 </button>
             </div>
@@ -764,53 +768,72 @@
         <div class="ambient-glow glow-2" style="background: #ec4899;"></div>
     </main>
 
-    <!-- Vue Admin Dons (Missing in HTML, recreated) -->
+    <!-- Vue Gestion des Dons Admin -->
     <main class="admin-view" id="adminDonationView" style="display: none;">
-        <div class="dashboard-container" style="max-width: 800px;">
-            <div class="dashboard-header">
+        <div class="donation-admin-container">
+            <div class="admin-header">
+                <div class="admin-icon-box" style="background: rgba(236, 72, 153, 0.1); color: #ec4899;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                </div>
                 <h2 data-i18n="manage_donations">Gestion des Dons</h2>
-                <p data-i18n="manage_donations_desc">Modifiez l'objectif et gérez le classement des contributeurs.</p>
+                <p data-i18n="donation_admin_desc">Configurez l'objectif et gérez la liste des contributeurs.</p>
             </div>
 
-            <div class="admin-donation-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; text-align: left; width: 100%;">
-                <!-- Goal Management -->
-                <div class="admin-card" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 24px; border-radius: 16px;">
-                    <h3 style="margin-bottom: 20px; font-size: 1.1rem; color: #fff;" data-i18n="goal_settings">Paramètres de l'objectif</h3>
-                    <form id="adminDonationForm" class="auth-form" style="gap: 16px;">
-                        <div class="form-group">
-                            <label for="adminCurrentDonation" data-i18n="current_amount_label">Montant Actuel (€)</label>
-                            <input type="number" id="adminCurrentDonation" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="adminGoalDonation" data-i18n="goal_amount_label">Objectif (€)</label>
-                            <input type="number" id="adminGoalDonation" required>
-                        </div>
-                        <button type="submit" class="btn btn-signup" style="width: 100%;" data-i18n="save_changes">Enregistrer</button>
-                    </form>
+            <div class="donation-admin-layout">
+                <div class="admin-side-panel">
+                    <!-- Configuration Objectif -->
+                    <section class="admin-glass-card">
+                        <h3 class="card-subtitle">Configuration de l'Objectif</h3>
+                        <form id="adminDonationForm" class="admin-modern-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="adminCurrentDonation">Récolté (€)</label>
+                                    <input type="number" id="adminCurrentDonation" placeholder="0.00" step="0.1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="adminGoalDonation">Objectif (€)</label>
+                                    <input type="number" id="adminGoalDonation" placeholder="50.00" step="1">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-primary-gradient">Mettre à jour l'objectif</button>
+                        </form>
+                    </section>
+
+                    <!-- Ajouter Contributeur -->
+                    <section class="admin-glass-card">
+                        <h3 class="card-subtitle">Ajouter un Contributeur</h3>
+                        <form id="addContributorForm" class="admin-modern-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="contribPseudo">Pseudo</label>
+                                    <input type="text" id="contribPseudo" placeholder="Pseudo du donateur" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contribAmount">Montant (€)</label>
+                                    <input type="number" id="contribAmount" placeholder="5" step="0.5" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-secondary-outline">Enregistrer la contribution</button>
+                        </form>
+                    </section>
                 </div>
 
-                <!-- Contributors Management -->
-                <div class="admin-card" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 24px; border-radius: 16px;">
-                    <h3 style="margin-bottom: 20px; font-size: 1.1rem; color: #fff;" data-i18n="manage_contributors">Top Contributeurs</h3>
-                    
-                    <form id="addContributorForm" class="auth-form" style="gap: 12px; margin-bottom: 20px;">
-                        <div style="display: flex; gap: 8px;">
-                            <input type="text" id="contribPseudo" placeholder="Pseudo" required style="flex: 2;">
-                            <input type="number" id="contribAmount" placeholder="€" required style="flex: 1;">
-                            <button type="submit" class="btn btn-signup" style="padding: 0 15px;">+</button>
+                <div class="admin-main-panel">
+                    <!-- Liste des Contributeurs -->
+                    <section class="admin-glass-card full-height">
+                        <h3 class="card-subtitle">Liste des Contributeurs</h3>
+                        <div id="adminContributorsList" class="admin-contributor-list">
+                            <!-- Injected via JS -->
                         </div>
-                    </form>
-
-                    <div id="adminContributorsList" style="max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
-                        <!-- Injected via JS -->
-                    </div>
+                    </section>
                 </div>
             </div>
 
-            <button class="back-to-home-btn" id="backFromAdminDonationBtn" data-i18n="back_to_dashboard" style="margin-top: 30px;">Retour au Tableau de bord</button>
+            <button class="back-to-home-btn" id="backFromAdminDonationBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                <span data-i18n="back_to_dashboard">Retour au Tableau de bord</span>
+            </button>
         </div>
-        <div class="ambient-glow glow-admin-1"></div>
-        <div class="ambient-glow glow-admin-2"></div>
     </main>
 
 

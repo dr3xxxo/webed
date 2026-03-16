@@ -1125,6 +1125,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialisation au lancement
     updateLanguage(currentLang);
 
+    // --- Password Visibility Toggle ---
+    document.querySelectorAll('.toggle-password').forEach(button => {
+        button.addEventListener('click', () => {
+            const input = button.parentElement.querySelector('input');
+            const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+            input.setAttribute('type', type);
+            
+            // Toggle eye icon (optional but recommended)
+            const icon = button.querySelector('svg');
+            if (icon) {
+                if (type === 'text') {
+                    icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
+                } else {
+                    icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
+                }
+            }
+        });
+    });
+
     // =========================================
     // AUTHENTICATION LOGIC (Mock Email & LocalStorage)
     // =========================================
@@ -1436,18 +1455,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const goal = parseFloat(adminGoalDonationInput.value);
 
             try {
-                await fetch(`${API_URL}/api/goal`, {
-                    method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'X-Admin-Key': ADMIN_SECRET
-                    },
-                    body: JSON.stringify({ current, goal })
-                });
-                showNotification(i18n[currentLang].donation_updated, 'success');
                 updateDonationGoal();
             } catch (err) {
-                showNotification("Erreur de connexion serveur", "error");
+                console.error("Erreur sync goal:", err);
+                // Fallback local
+                localStorage.setItem('webed_total_donated', current.toString());
+                localStorage.setItem('webed_goal_donated', goal.toString());
+                showNotification(i18n[currentLang].donation_updated + " (Local)", 'success');
+                updateDonationGoal();
             }
         });
     }
@@ -1550,6 +1565,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 contribAmount.value = btn.dataset.amount;
                 // On peut ajouter un indicateur visuel ou changer le mode
                 addContributorForm.dataset.mode = 'set';
+                addContributorForm.dataset.originalPseudo = btn.dataset.pseudo; // Store original pseudo for update
                 contribPseudo.focus();
             });
         });
@@ -1558,18 +1574,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.delete-contributor-btn').forEach(btn => {
             btn.addEventListener('click', async () => {
                 const pseudo = btn.dataset.pseudo;
-                if (confirm(i18n[currentLang].confirm_delete_contributor)) {
-                    try {
-                        await fetch(`${API_URL}/api/admin/contributors/${pseudo}`, {
-                            method: 'DELETE',
-                            headers: { 'X-Admin-Key': ADMIN_SECRET }
-                        });
-                        renderAdminContributors();
-                        renderContributors();
-                    } catch (e) {
-                        showNotification("Erreur lors de la suppression", "error");
-                    }
-                }
+                deleteContributor(pseudo);
             });
         });
     }
@@ -1577,11 +1582,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (addContributorForm) {
         addContributorForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const pseudo = contribPseudo.value.trim();
-            const amount = parseFloat(contribAmount.value);
-            const mode = addContributorForm.dataset.mode || 'add';
-            
-            if (pseudo && !isNaN(amount)) {
+            if (contribPseudo && contribAmount) {
+                const pseudo = contribPseudo.value;
+                const amount = parseFloat(contribAmount.value);
+                const mode = addContributorForm.dataset.mode || 'add';
+                const originalPseudo = addContributorForm.dataset.originalPseudo;
+
                 try {
                     const response = await fetch(`${API_URL}/api/admin/contributors`, {
                         method: 'POST',
@@ -1589,23 +1595,105 @@ document.addEventListener('DOMContentLoaded', () => {
                             'Content-Type': 'application/json',
                             'X-Admin-Key': ADMIN_SECRET
                         },
-                        body: JSON.stringify({ pseudo, amount, mode })
+                        body: JSON.stringify({ pseudo, amount, mode, originalPseudo })
                     });
-
+                    
                     if (response.ok) {
-                        renderAdminContributors();
-                        renderContributors();
-                        contribPseudo.value = '';
-                        contribAmount.value = '';
-                        addContributorForm.dataset.mode = 'add';
-                        showNotification(currentLang === 'fr' ? "Contributeur mis à jour." : "Contributor updated.", 'success');
+                        showNotification(currentLang === 'fr' ? "Enregistré !" : "Saved!", 'success');
                     } else {
-                        showNotification("Erreur backend", "error");
+                        throw new Error("Backend error");
                     }
                 } catch (err) {
-                    showNotification("Serveur injoignable", "error");
+                    console.error("Local fallback for contributor:", err);
+                    let localContribs = JSON.parse(localStorage.getItem('webed_contributors') || "[]");
+                    
+                    if (mode === 'set' && originalPseudo) {
+                        localContribs = localContribs.map(c => c.pseudo === originalPseudo ? { pseudo, amount } : c);
+                    } else {
+                        const existing = localContribs.find(c => c.pseudo === pseudo);
+                        if (existing) {
+                            existing.amount += amount;
+                        } else {
+                            localContribs.push({ pseudo, amount });
+                        }
+                    }
+                    localStorage.setItem('webed_contributors', JSON.stringify(localContribs));
+                    showNotification(currentLang === 'fr' ? "Enregistré (Local) !" : "Saved (Local)!", 'success');
                 }
+
+                // Refresh UI
+                addContributorForm.reset();
+                delete addContributorForm.dataset.mode;
+                delete addContributorForm.dataset.originalPseudo;
+                renderContributors();
+                renderAdminContributors();
             }
+        });
+    }
+
+    async function deleteContributor(pseudo) {
+        if (!confirm(currentLang === 'fr' ? `Supprimer ${pseudo} ?` : `Delete ${pseudo}?`)) return;
+
+        try {
+            const response = await fetch(`${API_URL}/api/admin/contributors/${encodeURIComponent(pseudo)}`, {
+                method: 'DELETE',
+                headers: { 'X-Admin-Key': ADMIN_SECRET }
+            });
+            if (!response.ok) throw new Error("Delete failed");
+            showNotification(currentLang === 'fr' ? "Supprimé !" : "Deleted!", 'success');
+        } catch (err) {
+            console.error("Delete fallback:", err);
+            let localContribs = JSON.parse(localStorage.getItem('webed_contributors') || "[]");
+            localContribs = localContribs.filter(c => c.pseudo !== pseudo);
+            localStorage.setItem('webed_contributors', JSON.stringify(localContribs));
+            showNotification(currentLang === 'fr' ? "Supprimé (Local) !" : "Deleted (Local)!", 'info');
+        }
+        renderAdminContributors();
+        renderContributors();
+    }
+
+    async function renderAdminContributors() {
+        if (!adminContributorsList) return;
+        const contribs = await getContributors();
+        contribs.sort((a, b) => b.amount - a.amount);
+
+        adminContributorsList.innerHTML = '';
+        contribs.forEach(c => {
+            const card = document.createElement('div');
+            card.className = 'admin-contributor-card';
+            card.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="font-weight: 800; color: #ec4899; min-width: 24px;">€</div>
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-weight: 700; color: #fff;">${c.pseudo}</span>
+                        <span style="font-size: 0.8rem; color: var(--text-secondary);">${c.amount.toFixed(2)}€</span>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn edit-contributor-btn" data-pseudo="${c.pseudo}" data-amount="${c.amount}" style="padding: 6px; background: rgba(255,255,255,0.05); color: #fff; border-radius: 8px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                    </button>
+                    <button class="btn delete-contributor-btn" data-pseudo="${c.pseudo}" style="padding: 6px; background: rgba(239, 68, 68, 0.1); color: #ef4444; border-radius: 8px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                    </button>
+                </div>
+            `;
+            adminContributorsList.appendChild(card);
+        });
+
+        // Re-attach listeners
+        document.querySelectorAll('.edit-contributor-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                contribPseudo.value = btn.dataset.pseudo;
+                contribAmount.value = btn.dataset.amount;
+                addContributorForm.dataset.mode = 'set';
+                addContributorForm.dataset.originalPseudo = btn.dataset.pseudo;
+                contribPseudo.focus();
+            });
+        });
+
+        document.querySelectorAll('.delete-contributor-btn').forEach(btn => {
+            btn.addEventListener('click', () => deleteContributor(btn.dataset.pseudo));
         });
     }
 
