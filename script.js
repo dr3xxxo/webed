@@ -230,7 +230,7 @@
                     nitro_tuto_tip_desc: "Si vous ne voulez pas payer après les 3 mois, vous pouvez annuler l’abonnement immédiatement : Paramètres → Abonnements → Se désabonner. Vous conserverez les avantages.",
                     donation_title: "Soutenir Webed",
                     donation_desc: "Contribuez au développement de la plateforme et aidez-nous à atteindre nos objectifs.",
-                    goal_text: "Objectif",
+                    goal_text: "Notre 1er Objectif",
                     donate_with_stripe: "Payer avec Stripe",
                     hero_donation_text: "Faite nous un petit dons pour nous soutenir",
                     donation_success: "Merci pour votre générosité ! Don de {amount}€ reçu.",
@@ -397,7 +397,7 @@
                     nitro_tuto_tip_desc: "If you don't want to pay after 3 months, cancel the subscription immediately in Settings → Subscriptions → Unsubscribe. You will keep the benefits.",
                     donation_title: "Support Webed",
                     donation_desc: "Contribute to the development of the platform and help us reach our goals.",
-                    goal_text: "Goal",
+                    goal_text: "Our First Goal",
                     donate_with_stripe: "Pay with Stripe",
                     hero_donation_text: "Give us a small donation to support us",
                     donation_success: "Thank you for your generosity! Donation of {amount}€ received.",
@@ -743,15 +743,17 @@
             if (adminDonationForm) {
                 adminDonationForm.addEventListener('submit', (e) => {
                     e.preventDefault();
-                    const current = get('adminCurrentDonation')?.value;
-                    const goal = get('adminGoalDonation')?.value;
-                    if (current && current !== "") localStorage.setItem('webed_total_donated', current);
-                    if (goal && goal !== "") localStorage.setItem('webed_goal_donated', goal);
+                    const currentVal = get('adminCurrentDonation')?.value;
+                    const goalVal = get('adminGoalDonation')?.value;
                     
-                    // Force a robust update of everything
+                    if (currentVal !== "" && currentVal !== undefined) 
+                        localStorage.setItem('webed_total_donated', currentVal);
+                    
+                    if (goalVal !== "" && goalVal !== undefined) 
+                        localStorage.setItem('webed_goal_donated', goalVal);
+                    
                     updateDonationGoal();
                     renderAdminContributors(); 
-                    
                     showNotification(i18n[currentLang].donation_updated, "success");
                 });
             }
