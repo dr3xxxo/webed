@@ -43,9 +43,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const profileName = document.getElementById('profileName');
     const logoutBtn = document.getElementById('logoutBtn');
 
-    // Auth State Variables
     let currentAuthAction = null; // 'login' or 'signup'
     let pendingUser = null;
+
+    // Leaderboard & Admin Donation
+    const contributorsList = document.getElementById('contributorsList');
+    const adminContributorsList = document.getElementById('adminContributorsList');
+    const addContributorForm = document.getElementById('addContributorForm');
+    const contribPseudo = document.getElementById('contribPseudo');
+    const contribAmount = document.getElementById('contribAmount');
 
     // Custom Select Langues
     const langSelector = document.getElementById('langSelector');
@@ -65,6 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
             hero_title: "Bienvenue",
             hero_desc: "Nous mettons a disposition nos usages.",
             hero_btn: "Commencer l'expérience",
+            public_tools_label: "Accès Libre",
+            private_tools_label: "Accès Membres",
             // Nouveaux termes pour l'authentification
             login_title: "Connexion",
             signup_title: "Inscription",
@@ -197,7 +205,27 @@ document.addEventListener('DOMContentLoaded', () => {
             nitro_tuto_step6: "Suivez les étapes affichées une par une. Il vous sera demandé d’ajouter un moyen de paiement et de payer 1 € pour la vérification.",
             nitro_tuto_step7: "Une fois la clé activée, vérifiez sur Discord que votre Discord Nitro est bien actif.",
             nitro_tuto_tip_title: "💡 Astuce",
-            nitro_tuto_tip_desc: "Si vous ne voulez pas payer après les 3 mois, vous pouvez annuler l’abonnement immédiatement : Paramètres → Abonnements → Se désabonner. Vous conserverez les avantages."
+            nitro_tuto_tip_desc: "Si vous ne voulez pas payer après les 3 mois, vous pouvez annuler l’abonnement immédiatement : Paramètres → Abonnements → Se désabonner. Vous conserverez les avantages.",
+            donation_title: "Soutenir Webed",
+            donation_desc: "Contribuez au développement de la plateforme et aidez-nous à atteindre nos objectifs.",
+            goal_text: "Objectif",
+            donate_with_stripe: "Payer avec Stripe",
+            hero_donation_text: "Faite nous un petit dons pour nous soutenir",
+            donation_success: "Merci pour votre générosité ! Don de {amount}€ reçu.",
+            donation_processing: "Redirection vers Stripe...",
+            manage_donations: "Gestion des Dons",
+            admin_donation_title: "Gestion des Objectifs",
+            admin_donation_desc: "Gérez manuellement le montant des dons et l'objectif mensuel.",
+            current_amount_label: "Montant Actuel (€)",
+            goal_amount_label: "Objectif Total (€)",
+            save_changes: "Enregistrer",
+            back_to_dashboard: "Retour au Tableau de bord",
+            donation_updated: "Objectifs mis à jour avec succès !",
+            leaderboard_title: "Top Contributeurs",
+            manage_donations_desc: "Modifiez l'objectif et gérez le classement des contributeurs.",
+            goal_settings: "Paramètres de l'objectif",
+            manage_contributors: "Top Contributeurs",
+            confirm_delete_contributor: "Voulez-vous vraiment supprimer ce contributeur ?"
         },
         en: {
             search_placeholder: "Search...",
@@ -210,6 +238,8 @@ document.addEventListener('DOMContentLoaded', () => {
             hero_title: "Welcome",
             hero_desc: "We make our usages available.",
             hero_btn: "Start the experience",
+            public_tools_label: "Public Access",
+            private_tools_label: "Member Access",
             // Nouveaux termes pour l'authentification
             login_title: "Login",
             signup_title: "Sign up",
@@ -348,7 +378,27 @@ document.addEventListener('DOMContentLoaded', () => {
             nitro_tuto_step6: "Follow the steps one by one. You will be asked to add a payment method (1€ for verification).",
             nitro_tuto_step7: "Once activated, check on Discord that your Nitro is active.",
             nitro_tuto_tip_title: "💡 Tip",
-            nitro_tuto_tip_desc: "If you don't want to pay after 3 months, cancel the subscription immediately in Settings → Subscriptions → Unsubscribe. You will keep the benefits."
+            nitro_tuto_tip_desc: "If you don't want to pay after 3 months, cancel the subscription immediately in Settings → Subscriptions → Unsubscribe. You will keep the benefits.",
+            donation_title: "Support Webed",
+            donation_desc: "Contribute to the development of the platform and help us reach our goals.",
+            goal_text: "Goal",
+            donate_with_stripe: "Pay with Stripe",
+            hero_donation_text: "Give us a small donation to support us",
+            donation_success: "Thank you for your generosity! Donation of {amount}€ received.",
+            donation_processing: "Redirecting to Stripe...",
+            manage_donations: "Manage Donations",
+            admin_donation_title: "Goal Management",
+            admin_donation_desc: "Manually manage donation amount and monthly goal.",
+            current_amount_label: "Current Amount (€)",
+            goal_amount_label: "Total Goal (€)",
+            save_changes: "Save",
+            back_to_dashboard: "Back to Dashboard",
+            donation_updated: "Goals updated successfully !",
+            leaderboard_title: "Top Contributors",
+            manage_donations_desc: "Modify the goal and manage the donor leaderboard.",
+            goal_settings: "Goal Settings",
+            manage_contributors: "Top Contributors",
+            confirm_delete_contributor: "Are you sure you want to delete this contributor?"
         }
     };
 
@@ -430,6 +480,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroNitroBtn = document.getElementById('heroNitroBtn');
     const adminView = document.getElementById('adminView');
     const adminDashboardView = document.getElementById('adminDashboardView');
+    const heroDonationBtn = document.getElementById('heroDonationBtn');
     const adminAccountsView = document.getElementById('adminAccountsView');
     const scriptView = document.getElementById('scriptView');
     const backToHomeFromAdminBtn = document.getElementById('backToHomeFromAdminBtn');
@@ -457,6 +508,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const nitroView = document.getElementById('nitroView');
     const backFromNitroBtn = document.getElementById('backFromNitroBtn');
 
+    const donationView = document.getElementById('donationView');
+    const backFromDonationBtn = document.getElementById('backFromDonationBtn');
+    const heartBtn = document.querySelector('.heart-btn');
+    const amountBtns = document.querySelectorAll('.amount-btn');
+    const goalProgressBar = document.getElementById('goalProgressBar');
+    const currentGoalAmountElem = document.getElementById('currentGoalAmount');
+
+    const adminDonationView = document.getElementById('adminDonationView');
+    const openDonationAdminBtn = document.getElementById('openDonationAdminBtn');
+    const backFromAdminDonationBtn = document.getElementById('backFromAdminDonationBtn');
+    const adminDonationForm = document.getElementById('adminDonationForm');
+    const adminCurrentDonationInput = document.getElementById('adminCurrentDonation');
+    const adminGoalDonationInput = document.getElementById('adminGoalDonation');
+
     function hideAllAdminViews() {
         if (adminView) adminView.style.display = 'none';
         if (adminDashboardView) adminDashboardView.style.display = 'none';
@@ -468,6 +533,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (ytdlpView) ytdlpView.style.display = 'none';
         if (pingView) pingView.style.display = 'none';
         if (nitroView) nitroView.style.display = 'none';
+        if (donationView) donationView.style.display = 'none';
+        if (adminDonationView) adminDonationView.style.display = 'none';
     }
 
     function navigateHome() {
@@ -511,6 +578,14 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (hash === '#nitro' && nitroView) {
             if (heroView) heroView.style.display = 'none';
             nitroView.style.display = 'flex';
+        } else if (hash === '#donation' && donationView) {
+            if (heroView) heroView.style.display = 'none';
+            donationView.style.display = 'flex';
+            updateDonationGoal();
+        } else if (hash === '#admin-donation' && adminDonationView) {
+            if (heroView) heroView.style.display = 'none';
+            adminDonationView.style.display = 'flex';
+            populateAdminDonationFields();
         } else if (hash === '#admin' && adminView) {
             if (heroView) heroView.style.display = 'none';
             adminView.style.display = 'flex';
@@ -1255,4 +1330,258 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Logique de Donation ---
+    const stripePaymentLinks = {
+        1: "https://buy.stripe.com/test_28E00c1CaeFs6Sr7PZds400",
+        2: "https://buy.stripe.com/test_bJe7sE0y6fJw5On6LVds401",
+        5: "https://buy.stripe.com/test_placeholder_5",
+        10: "https://buy.stripe.com/test_placeholder_10",
+        15: "https://buy.stripe.com/test_placeholder_15",
+        20: "https://buy.stripe.com/test_placeholder_20"
+    };
+
+    let selectedDonationAmount = 0;
+
+    if (heartBtn) {
+        heartBtn.addEventListener('click', () => {
+            navigateTo('#donation', donationView);
+        });
+    }
+
+    if (heroDonationBtn) {
+        heroDonationBtn.addEventListener('click', () => {
+            navigateTo('#donation', donationView);
+        });
+    }
+
+    if (backFromDonationBtn) {
+        backFromDonationBtn.addEventListener('click', goBack);
+    }
+
+    amountBtns.forEach(btn => {
+        btn.addEventListener('click', async () => {
+            amountBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedDonationAmount = parseInt(btn.dataset.amount);
+
+            // Redirection via Backend (pour automatisation)
+            showNotification(i18n[currentLang].donation_processing, 'info');
+
+            try {
+                const activeUser = JSON.parse(sessionStorage.getItem('webed_active_user') || 'null');
+                const pseudo = activeUser ? activeUser.username : 'Anonyme';
+
+                const response = await fetch(`${API_URL}/api/create-checkout-session`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        amount: selectedDonationAmount,
+                        pseudo: pseudo
+                    })
+                });
+
+                const data = await response.json();
+                if (data.url) {
+                    window.location.href = data.url;
+                } else {
+                    showNotification("Erreur configuration Stripe", "error");
+                    console.error("Stripe Error:", data.error);
+                }
+            } catch (err) {
+                console.error("Fetch error:", err);
+                showNotification("Serveur backend injoignable", 'error');
+                
+                // Fallback aux liens directs si le serveur est down
+                const paymentUrl = stripePaymentLinks[selectedDonationAmount];
+                if (paymentUrl && !paymentUrl.includes('placeholder')) {
+                    setTimeout(() => window.open(paymentUrl, '_blank'), 1000);
+                }
+            }
+        });
+    });
+
+    // --- Logique Admin Donation ---
+    if (openDonationAdminBtn) {
+        openDonationAdminBtn.addEventListener('click', () => {
+            navigateTo('#admin-donation', adminDonationView);
+        });
+    }
+
+    if (backFromAdminDonationBtn) {
+        backFromAdminDonationBtn.addEventListener('click', () => {
+            navigateTo('#dashboard', adminDashboardView);
+        });
+    }
+
+    function populateAdminDonationFields() {
+        if (!adminCurrentDonationInput || !adminGoalDonationInput) return;
+        const current = localStorage.getItem('webed_total_donated') || "0";
+        const goal = localStorage.getItem('webed_goal_donated') || "100";
+        adminCurrentDonationInput.value = current;
+        adminGoalDonationInput.value = goal;
+    }
+
+    if (adminDonationForm) {
+        adminDonationForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const current = adminCurrentDonationInput.value;
+            const goal = adminGoalDonationInput.value;
+
+            localStorage.setItem('webed_total_donated', current);
+            localStorage.setItem('webed_goal_donated', goal);
+
+            showNotification(i18n[currentLang].donation_updated, 'success');
+            updateDonationGoal();
+        });
+    }
+
+    function updateDonationGoal() {
+        if (!goalProgressBar || !currentGoalAmountElem) return;
+        
+        let totalDonated = parseFloat(localStorage.getItem('webed_total_donated') || "0");
+        let goal = parseFloat(localStorage.getItem('webed_goal_donated') || "100");
+        
+        const percentage = Math.min((totalDonated / goal) * 100, 100);
+        
+        goalProgressBar.style.width = `${percentage}%`;
+        currentGoalAmountElem.textContent = totalDonated.toFixed(0);
+        
+        // Mettre à jour le texte du goal si besoin (on a juste le current pour l'instant dans le HTML)
+        // Pour être propre on va mettre à jour le texte "X€ / Goal€"
+        const goalTotalElem = currentGoalAmountElem.parentElement;
+        if (goalTotalElem) {
+            goalTotalElem.innerHTML = `<span id="currentGoalAmount">${totalDonated.toFixed(0)}</span>€ / ${goal.toFixed(0)}€`;
+            // On doit refresh la ref car on vient de réécrire l'innerHTML
+            const newCurrentElem = document.getElementById('currentGoalAmount');
+            // updateDonationGoal est appelée à nouveau par le hashchange donc ça va.
+        }
+        
+        if (percentage >= 100) {
+            goalProgressBar.style.background = 'linear-gradient(90deg, #10b981, #34d399)';
+        } else {
+            goalProgressBar.style.background = 'linear-gradient(90deg, var(--accent-color), #818cf8, #ec4899)';
+        }
+    }
+
+    // --- Reset Donation Goal (One-time reset requested by user) ---
+    if (!localStorage.getItem('webed_donation_reset_v3')) {
+        localStorage.setItem('webed_total_donated', '0');
+        localStorage.setItem('webed_goal_donated', '50');
+        localStorage.setItem('webed_donation_reset_v3', 'true');
+    }
+
+    // --- Backend API Config ---
+    const API_URL = 'http://localhost:5000'; // Change to deployment URL later
+    const ADMIN_SECRET = 'webed_admin_2026'; // Match .env
+
+    // --- Logic Leaderboard (Connected to Backend) ---
+    async function getContributors() {
+        try {
+            const response = await fetch(`${API_URL}/api/contributors`);
+            return await response.json();
+        } catch (error) {
+            console.error("Erreur backend:", error);
+            // Fallback to local if backend is down (optional)
+            return JSON.parse(localStorage.getItem('webed_contributors') || "[]");
+        }
+    }
+
+    async function renderContributors() {
+        if (!contributorsList) return;
+        const list = (await getContributors()).sort((a, b) => b.amount - a.amount);
+        
+        if (list.length === 0) {
+            contributorsList.innerHTML = `<p style="color: var(--text-secondary); font-size: 0.9rem;">Aucun contributeur pour le moment.</p>`;
+            return;
+        }
+
+        contributorsList.innerHTML = list.map((c, index) => `
+            <div class="contributor-item" style="animation-delay: ${index * 0.1}s">
+                <div class="contributor-rank">${index + 1}</div>
+                <div class="contributor-info">
+                    <span class="contributor-name">${c.pseudo}</span>
+                    <span class="contributor-amount">${c.amount}€</span>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    async function renderAdminContributors() {
+        if (!adminContributorsList) return;
+        const list = (await getContributors()).sort((a, b) => b.amount - a.amount);
+        
+        adminContributorsList.innerHTML = list.map(c => `
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <div style="display: flex; flex-direction: column;">
+                    <span style="color: #fff; font-weight: 600;">${c.pseudo}</span>
+                    <span style="color: var(--text-secondary); font-size: 0.8rem;">${c.amount}€</span>
+                </div>
+                <button class="delete-contributor-btn" data-pseudo="${c.pseudo}" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">×</button>
+            </div>
+        `).join('');
+
+        // Listeners pour la suppression
+        document.querySelectorAll('.delete-contributor-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const pseudo = btn.dataset.pseudo;
+                if (confirm(i18n[currentLang].confirm_delete_contributor)) {
+                    try {
+                        await fetch(`${API_URL}/api/admin/contributors/${pseudo}`, {
+                            method: 'DELETE',
+                            headers: { 'X-Admin-Key': ADMIN_SECRET }
+                        });
+                        renderAdminContributors();
+                        renderContributors();
+                    } catch (e) {
+                        showNotification("Erreur lors de la suppression", "error");
+                    }
+                }
+            });
+        });
+    }
+
+    if (addContributorForm) {
+        addContributorForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const pseudo = contribPseudo.value.trim();
+            const amount = parseFloat(contribAmount.value);
+            
+            if (pseudo && !isNaN(amount)) {
+                try {
+                    const response = await fetch(`${API_URL}/api/admin/contributors`, {
+                        method: 'POST',
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'X-Admin-Key': ADMIN_SECRET
+                        },
+                        body: JSON.stringify({ pseudo, amount })
+                    });
+
+                    if (response.ok) {
+                        renderAdminContributors();
+                        renderContributors();
+                        contribPseudo.value = '';
+                        contribAmount.value = '';
+                        showNotification(currentLang === 'fr' ? "Contributeur ajouté." : "Contributor added.", 'success');
+                    } else {
+                        showNotification("Erreur backend", "error");
+                    }
+                } catch (err) {
+                    showNotification("Serveur injoignable", "error");
+                }
+            }
+        });
+    }
+
+    // Hook into hashchange to refresh lists
+    window.addEventListener('hashchange', () => {
+        const hash = window.location.hash;
+        if (hash === '#donation') renderContributors();
+        if (hash === '#admin-donation') renderAdminContributors();
+    });
+
+    // Initial update
+    updateDonationGoal();
+    renderContributors();
+    if (window.location.hash === '#admin-donation') renderAdminContributors();
 });

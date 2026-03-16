@@ -74,124 +74,127 @@
 
     <main class="hero">
         <div class="hero-content">
-            <h1 data-i18n="hero_title">Bienvenue</h1>
-            <p data-i18n="hero_desc">Nous mettons a disposition nos usages.</p>
+                <div class="donation-hero-box" id="heroDonationBtn" data-i18n="hero_donation_text">
+                    Faite nous un petit dons pour nous soutenir
+                </div>
+                <h1 data-i18n="hero_title">Bienvenue</h1>
+            <p data-i18n="hero_desc">Nous mettons a disposition nos usages.<            <div class="hero-features">
+                <!-- Ligne 1: Accès Libre -->
+                <div class="feature-section">
+                    <h3 class="feature-section-title" data-i18n="public_tools_label">Accès Libre</h3>
+                    <div class="feature-row">
+                        <a href="#" class="hero-feature-box" id="heroGamesBtn">
+                            <div class="convert-icon-wrapper" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
+                                <!-- Gamepad Icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="6" y1="12" x2="10" y2="12"></line>
+                                    <line x1="8" y1="10" x2="8" y2="14"></line>
+                                    <line x1="15" y1="13" x2="15.01" y2="13"></line>
+                                    <line x1="18" y1="11" x2="18.01" y2="11"></line>
+                                    <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                                </svg>
+                            </div>
+                            <div class="convert-text">
+                                <span class="convert-title" data-i18n="btn_games">Games</span>
+                            </div>
+                        </a>
 
+                        <a href="#" class="hero-feature-box" id="heroAutocBtn">
+                            <div class="convert-icon-wrapper" style="background: rgba(234, 179, 8, 0.1); color: #eab308;">
+                                <!-- Mouse Click Icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="5" y="2" width="14" height="20" rx="7" ry="7"></rect>
+                                    <line x1="12" y1="6" x2="12" y2="10"></line>
+                                </svg>
+                            </div>
+                            <div class="convert-text">
+                                <span class="convert-title" data-i18n="btn_autoc">AutoC</span>
+                            </div>
+                        </a>
 
-            <div class="hero-features">
+                        <a href="#" class="hero-feature-box" id="heroApexBtn">
+                            <div class="convert-icon-wrapper" style="background: rgba(217, 70, 239, 0.1); color: #d946ef;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                                </svg>
+                            </div>
+                            <div class="convert-text">
+                                <span class="convert-title" data-i18n="btn_apex">Apex Legends</span>
+                            </div>
+                        </a>
 
+                        <a href="#" class="hero-feature-box" id="heroYtdlpBtn">
+                            <div class="convert-icon-wrapper" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path>
+                                    <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                                </svg>
+                            </div>
+                            <div class="convert-text">
+                                <span class="convert-title" data-i18n="script_ytdlp_title">YT-DLP</span>
+                            </div>
+                        </a>
 
-                <a href="#" class="hero-feature-box disabled" id="heroScriptBtn">
-                    <div class="convert-icon-wrapper" style="background: rgba(168, 85, 247, 0.1); color: #a855f7;">
-                        <!-- Terminal Icon -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="4 17 10 11 4 5"></polyline>
-                            <line x1="12" y1="19" x2="20" y2="19"></line>
-                        </svg>
-                    </div>
-                    <div class="convert-text">
-                        <span class="convert-title" data-i18n="btn_script_macro">Script / macro</span>
-                        <span class="convert-subtitle" data-i18n="script_macro_desc">Automatisez vos tâches
-                            répétitives</span>
-                    </div>
-                    <svg class="lock-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                    </svg>
-                </a>
+                        <a href="#" class="hero-feature-box" id="heroPingBtn">
+                            <div class="convert-icon-wrapper" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                                    <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                                    <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                                    <line x1="12" y1="20" x2="12.01" y2="20"></line>
+                                </svg>
+                            </div>
+                            <div class="convert-text">
+                                <span class="convert-title" data-i18n="script_ping_title">Ping</span>
+                            </div>
+                        </a>
 
-                <a href="#" class="hero-feature-box" id="heroGamesBtn">
-                    <div class="convert-icon-wrapper" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
-                        <!-- Gamepad Icon -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="6" y1="12" x2="10" y2="12"></line>
-                            <line x1="8" y1="10" x2="8" y2="14"></line>
-                            <line x1="15" y1="13" x2="15.01" y2="13"></line>
-                            <line x1="18" y1="11" x2="18.01" y2="11"></line>
-                            <rect x="2" y="6" width="20" height="12" rx="2"></rect>
-                        </svg>
+                        <a href="#" class="hero-feature-box" id="heroNitroBtn">
+                            <div class="convert-icon-wrapper" style="background: rgba(255, 105, 180, 0.1); color: #ff69b4;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 127.14 96.36" fill="currentColor">
+                                    <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.31,60,73.31,53s5-12.74,11.43-12.74S96.2,46,96.12,53,91.08,65.69,84.69,65.69Z" />
+                                </svg>
+                            </div>
+                            <div class="convert-text">
+                                <span class="convert-title" data-i18n="btn_nitro">Nitro</span>
+                            </div>
+                        </a>
                     </div>
-                    <div class="convert-text">
-                        <span class="convert-title" data-i18n="btn_games">Games</span>
-                        <span class="convert-subtitle" data-i18n="games_desc">Découvrez notre bibliothèque de
-                            jeux</span>
-                    </div>
-                </a>
+                </div>
 
-                <a href="#" class="hero-feature-box" id="heroAutocBtn">
-                    <div class="convert-icon-wrapper" style="background: rgba(234, 179, 8, 0.1); color: #eab308;">
-                        <!-- Mouse Click Icon -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="5" y="2" width="14" height="20" rx="7" ry="7"></rect>
-                            <line x1="12" y1="6" x2="12" y2="10"></line>
-                        </svg>
+                <!-- Ligne 2: Accès Restreint -->
+                <div class="feature-section">
+                    <h3 class="feature-section-title" data-i18n="private_tools_label">Accès Membres</h3>
+                    <div class="feature-row">
+                        <a href="#" class="hero-feature-box disabled" id="heroScriptBtn">
+                            <div class="convert-icon-wrapper" style="background: rgba(168, 85, 247, 0.1); color: #a855f7;">
+                                <!-- Terminal Icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="4 17 10 11 4 5"></polyline>
+                                    <line x1="12" y1="19" x2="20" y2="19"></line>
+                                </svg>
+                            </div>
+                            <div class="convert-text">
+                                <span class="convert-title" data-i18n="btn_script_macro">Script / macro</span>
+                            </div>
+                            <svg class="lock-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                        </a>
                     </div>
-                    <div class="convert-text">
-                        <span class="convert-title" data-i18n="btn_autoc">AutoC</span>
-                        <span class="convert-subtitle" data-i18n="autoc_desc">Outils de clics automatiques</span>
-                    </div>
-                </a>
+                </div>
+            </div>
 
-                <a href="#" class="hero-feature-box" id="heroApexBtn">
-                    <div class="convert-icon-wrapper" style="background: rgba(217, 70, 239, 0.1); color: #d946ef;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                            <line x1="8" y1="21" x2="16" y2="21"></line>
-                            <line x1="12" y1="17" x2="12" y2="21"></line>
-                        </svg>
-                    </div>
-                    <div class="convert-text">
-                        <span class="convert-title" data-i18n="btn_apex">Apex Legends property screen stretch</span>
-                        <span class="convert-subtitle" data-i18n="apex_desc">Ajustez la résolution de l'écran</span>
-                    </div>
-                </a>
-
-                <a href="#" class="hero-feature-box" id="heroYtdlpBtn">
-                    <div class="convert-icon-wrapper" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path>
-                            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
-                        </svg>
-                    </div>
-                    <div class="convert-text">
-                        <span class="convert-title" data-i18n="script_ytdlp_title">Téléchargeur de vidéos/audio</span>
-                        <span class="convert-subtitle" data-i18n="script_ytdlp_desc">Outil basé sur yt-dlp.</span>
-                    </div>
-                </a>
-
-                <a href="#" class="hero-feature-box" id="heroPingBtn">
-                    <div class="convert-icon-wrapper" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
-                            <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
-                            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
-                            <line x1="12" y1="20" x2="12.01" y2="20"></line>
-                        </svg>
-                    </div>
-                    <div class="convert-text">
-                        <span class="convert-title" data-i18n="script_ping_title">Testeur de connexion</span>
-                        <span class="convert-subtitle" data-i18n="ping_desc">Testez vos ms et débit.</span>
-                    </div>
-                </a>
- 
-                <a href="#" class="hero-feature-box" id="heroNitroBtn">
-                    <div class="convert-icon-wrapper" style="background: rgba(255, 105, 180, 0.1); color: #ff69b4;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 127.14 96.36" fill="currentColor">
-                            <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.31,60,73.31,53s5-12.74,11.43-12.74S96.2,46,96.12,53,91.08,65.69,84.69,65.69Z" />
-                        </svg>
-                    </div>
-                    <div class="convert-text">
-                        <span class="convert-title" data-i18n="btn_nitro">Discord Nitro KEY 3 month</span>
-                        <span class="convert-subtitle" data-i18n="nitro_desc">Obtenez votre clé Nitro</span>
-                    </div>
-                </a>
             </div>
         </div>
         </div>
@@ -258,6 +261,10 @@
                 <button class="dashboard-card accounts-card" id="openAccountsBtn">
                     <span class="code-icon">&lt;/&gt;</span>
                     <span class="card-title" data-i18n="manage_accounts">Gestion des comptes</span>
+                </button>
+                <button class="dashboard-card donation-admin-card" id="openDonationAdminBtn">
+                    <span class="code-icon" style="color: #ff4d4d;">♥</span>
+                    <span class="card-title" data-i18n="manage_donations">Gestion des Dons</span>
                 </button>
             </div>
             <button class="back-to-home-btn" id="backFromDashboardBtn" data-i18n="admin_logout">Déconnexion
@@ -703,6 +710,106 @@
  
         <div class="ambient-glow glow-1" style="background: #ff69b4;"></div>
         <div class="ambient-glow glow-2" style="background: #883aea;"></div>
+    </main>
+
+    <!-- Vue Dons -->
+    <main class="script-view" id="donationView" style="display: none;">
+        <div class="script-container">
+            <div class="script-header">
+                <h2 data-i18n="donation_title">Soutenir Webed</h2>
+                <p data-i18n="donation_desc">Contribuez au développement de la plateforme et aidez-nous à atteindre nos objectifs.</p>
+            </div>
+
+            <div class="donation-card-main">
+                <div class="donation-goal-section">
+                    <div class="goal-header">
+                        <span data-i18n="goal_text">Objectif du mois</span>
+                        <span class="goal-amount"><span id="currentGoalAmount">0</span>€ / 100€</span>
+                    </div>
+                    <div class="goal-progress-container">
+                        <div id="goalProgressBar" class="goal-progress-bar" style="width: 0%;"></div>
+                    </div>
+                </div>
+
+                <div class="donation-amounts-grid">
+                    <button class="amount-btn" data-amount="1">1€</button>
+                    <button class="amount-btn" data-amount="2">2€</button>
+                    <button class="amount-btn" data-amount="5">5€</button>
+                    <button class="amount-btn" data-amount="10">10€</button>
+                    <button class="amount-btn" data-amount="15">15€</button>
+                    <button class="amount-btn" data-amount="20">20€</button>
+                </div>
+
+                <div class="leaderboard-section">
+                    <h3 data-i18n="leaderboard_title">Top Contributeurs</h3>
+                    <div id="contributorsList" class="contributors-list">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <button class="back-to-home-btn" id="backFromDonationBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    style="margin-right: 8px;">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                <span data-i18n="back_to_home">Retour à l'accueil</span>
+            </button>
+        </div>
+
+        <div class="ambient-glow glow-1" style="background: #6366f1;"></div>
+        <div class="ambient-glow glow-2" style="background: #ec4899;"></div>
+    </main>
+
+    <!-- Vue Admin Dons (Missing in HTML, recreated) -->
+    <main class="admin-view" id="adminDonationView" style="display: none;">
+        <div class="dashboard-container" style="max-width: 800px;">
+            <div class="dashboard-header">
+                <h2 data-i18n="manage_donations">Gestion des Dons</h2>
+                <p data-i18n="manage_donations_desc">Modifiez l'objectif et gérez le classement des contributeurs.</p>
+            </div>
+
+            <div class="admin-donation-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; text-align: left; width: 100%;">
+                <!-- Goal Management -->
+                <div class="admin-card" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 24px; border-radius: 16px;">
+                    <h3 style="margin-bottom: 20px; font-size: 1.1rem; color: #fff;" data-i18n="goal_settings">Paramètres de l'objectif</h3>
+                    <form id="adminDonationForm" class="auth-form" style="gap: 16px;">
+                        <div class="form-group">
+                            <label for="adminCurrentDonation" data-i18n="current_amount_label">Montant Actuel (€)</label>
+                            <input type="number" id="adminCurrentDonation" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="adminGoalDonation" data-i18n="goal_amount_label">Objectif (€)</label>
+                            <input type="number" id="adminGoalDonation" required>
+                        </div>
+                        <button type="submit" class="btn btn-signup" style="width: 100%;" data-i18n="save_changes">Enregistrer</button>
+                    </form>
+                </div>
+
+                <!-- Contributors Management -->
+                <div class="admin-card" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 24px; border-radius: 16px;">
+                    <h3 style="margin-bottom: 20px; font-size: 1.1rem; color: #fff;" data-i18n="manage_contributors">Top Contributeurs</h3>
+                    
+                    <form id="addContributorForm" class="auth-form" style="gap: 12px; margin-bottom: 20px;">
+                        <div style="display: flex; gap: 8px;">
+                            <input type="text" id="contribPseudo" placeholder="Pseudo" required style="flex: 2;">
+                            <input type="number" id="contribAmount" placeholder="€" required style="flex: 1;">
+                            <button type="submit" class="btn btn-signup" style="padding: 0 15px;">+</button>
+                        </div>
+                    </form>
+
+                    <div id="adminContributorsList" style="max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <button class="back-to-home-btn" id="backFromAdminDonationBtn" data-i18n="back_to_dashboard" style="margin-top: 30px;">Retour au Tableau de bord</button>
+        </div>
+        <div class="ambient-glow glow-admin-1"></div>
+        <div class="ambient-glow glow-admin-2"></div>
     </main>
 
 
