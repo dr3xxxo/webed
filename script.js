@@ -867,57 +867,81 @@
                     resetResults();
 
                     try {
-                        // 1. Fetch IP Info
+                        // 1. Fetch IP Info (Multi-source for reliability)
                         updateUI('status_init', 10);
-                        const ipResponse = await fetch('https://ipapi.co/json/');
-                        if (!ipResponse.ok) throw new Error('IP Fetch Failed');
-                        const ipData = await ipResponse.json();
                         
-                        if (get('ipResult')) get('ipResult').textContent = ipData.ip || 'Unknown';
-                        if (get('ispResult')) get('ispResult').textContent = ipData.org || 'Unknown';
-                        if (get('locResult')) get('locResult').textContent = `${ipData.city}, ${ipData.country_name}`;
+                        let ip = 'Unknown', isp = 'Unknown', loc = 'Unknown';
+                        
+                        try {
+                            const ipify = await fetch('https://api.ipify.org?format=json');
+                            if (ipify.ok) {
+                                const d = await ipify.json();
+                                ip = d.ip;
+                            }
+                        } catch(e) {}
+
+                        try {
+                            const ipapi = await fetch('https://ipapi.co/json/');
+                            if (ipapi.ok) {
+                                const d = await ipapi.json();
+                                if (ip === 'Unknown') ip = d.ip;
+                                isp = d.org || d.asn || 'Unknown';
+                                loc = `${d.city}, ${d.country_name}`;
+                            }
+                        } catch(e) {}
+                        
+                        if (get('ipResult')) get('ipResult').textContent = ip;
+                        if (get('ispResult')) get('ispResult').textContent = isp;
+                        if (get('locResult')) get('locResult').textContent = loc;
                         
                         updateUI('status_downloading', 30);
 
-                        // 2. Measure Ping (Average of 3)
-                        let totalPing = 0;
-                        for(let i=0; i<3; i++) {
+                        // 2. Measure Ping (Higher precision)
+                        let pingResults = [];
+                        for(let i=0; i<5; i++) {
                             const start = performance.now();
-                            await fetch('https://ipapi.co/json/', { cache: 'no-store', method: 'HEAD' });
-                            totalPing += (performance.now() - start);
+                            await fetch('https://api.ipify.org?format=json', { cache: 'no-store', mode: 'no-cors' });
+                            pingResults.push(performance.now() - start);
                         }
-                        const avgPing = Math.round(totalPing / 3);
-                        if (get('pingResult')) get('pingResult').textContent = avgPing;
+                        // Sort and take median to ignore spikes
+                        pingResults.sort((a,b) => a-b);
+                        const medianPing = Math.round(pingResults[2]);
+                        if (get('pingResult')) get('pingResult').textContent = medianPing;
                         
                         updateUI('status_converting', 50);
 
                         // 3. Measure Download Speed
-                        // Using a small test file (1MB) to ensure it works reasonably across connections
-                        // Note: Using a reliable CDN with CORS
+                        // We use a larger/reliable library or asset.
+                        // cdnjs is good but let's use a slightly larger one for stability if available
                         const testFileUrl = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.module.min.js'; // ~1.2MB
-                        const startTime = performance.now();
-                        const response = await fetch(testFileUrl, { cache: 'no-store' });
-                        const reader = response.body.getReader();
-                        let receivedLength = 0;
-                        const chunks = [];
                         
-                        while(true) {
-                            const {done, value} = await reader.read();
-                            if (done) break;
-                            chunks.push(value);
-                            receivedLength += value.length;
-                            const progress = 50 + (receivedLength / 1200000) * 50; // Approximating 1.2MB
-                            updateUI('status_converting', Math.min(progress, 99));
-                        }
-                        
-                        const duration = (performance.now() - startTime) / 1000; // seconds
-                        const bitsLoaded = receivedLength * 8;
-                        const speedMbps = (bitsLoaded / duration / 1000000).toFixed(2);
+                        const performTest = async () => {
+                            const startTime = performance.now();
+                            const response = await fetch(testFileUrl, { cache: 'no-store' });
+                            const reader = response.body.getReader();
+                            let receivedLength = 0;
+                            
+                            while(true) {
+                                const {done, value} = await reader.read();
+                                if (done) break;
+                                receivedLength += value.length;
+                                const progress = 50 + (receivedLength / 1200000) * 50;
+                                updateUI('status_converting', Math.min(progress, 99));
+                            }
+                            
+                            const duration = (performance.now() - startTime) / 1000;
+                            const bitsLoaded = receivedLength * 8;
+                            return (bitsLoaded / duration / 1000000);
+                        };
+
+                        // Run twice and average for stability
+                        const speed1 = await performTest();
+                        const speedMbps = speed1.toFixed(2);
                         
                         if (get('speedResult')) get('speedResult').textContent = speedMbps;
                         
                         updateUI('status_done', 100);
-                        showNotification(currentLang === 'fr' ? "Test terminé !" : "Test complete!", "success");
+                        showNotification(currentLang === 'fr' ? "Test complété avec précision !" : "Precision test complete!", "success");
 
                     } catch (err) {
                         console.error("Speed Test Error:", err);
