@@ -1,4 +1,8 @@
+if (window.webedInitialized) return;
+window.webedInitialized = true;
+
 document.addEventListener('DOMContentLoaded', () => {
+
     // --- Elements DOM ---
     const navHomeBtn = document.getElementById('navHomeBtn');
     const logoHomeBtn = document.getElementById('logoHomeBtn');
@@ -1031,22 +1035,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Toggle Mot de passe ---
-    document.querySelectorAll('.toggle-password').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const input = btn.previousElementSibling;
-            if (input && input.tagName === 'INPUT') {
-                if (input.type === 'password') {
-                    input.type = 'text';
-                    // Modification visuelle optionnelle de l'oeil : transparence ou couleur pour montrer le changement
-                    btn.style.color = 'var(--text-primary)';
-                } else {
-                    input.type = 'password';
-                    btn.style.color = '';
-                }
-            }
-        });
-    });
 
     // --- Logique du Custom Select (Menu déroulant langues) ---
 
@@ -1127,18 +1115,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Password Visibility Toggle ---
     document.querySelectorAll('.toggle-password').forEach(button => {
-        button.addEventListener('click', () => {
+        // Prevent duplicate listeners if script re-runs
+        if (button.dataset.listenerAttached) return;
+        button.dataset.listenerAttached = 'true';
+
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
             const input = button.parentElement.querySelector('input');
-            const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
-            input.setAttribute('type', type);
+            if (!input) return;
+
+            const isPassword = input.getAttribute('type') === 'password';
+            input.setAttribute('type', isPassword ? 'text' : 'password');
             
-            // Toggle eye icon (optional but recommended)
+            // Toggle eye icon
             const icon = button.querySelector('svg');
             if (icon) {
-                if (type === 'text') {
-                    icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
-                } else {
+                if (!isPassword) { // Switch back to eye
                     icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
+                } else { // Switch to eye-off
+                    icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
                 }
             }
         });
@@ -1541,43 +1536,6 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
     }
 
-    async function renderAdminContributors() {
-        if (!adminContributorsList) return;
-        const list = (await getContributors()).sort((a, b) => b.amount - a.amount);
-        
-        adminContributorsList.innerHTML = list.map(c => `
-            <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
-                <div style="display: flex; flex-direction: column;">
-                    <span style="color: #fff; font-weight: 600;">${c.pseudo}</span>
-                    <span style="color: var(--text-secondary); font-size: 0.8rem;">${c.amount}€</span>
-                </div>
-                <div style="display: flex; gap: 8px;">
-                    <button class="edit-contributor-btn" data-pseudo="${c.pseudo}" data-amount="${c.amount}" style="background: rgba(0, 191, 255, 0.1); color: var(--accent-color); border: 1px solid rgba(0, 191, 255, 0.2); padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">✎</button>
-                    <button class="delete-contributor-btn" data-pseudo="${c.pseudo}" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">×</button>
-                </div>
-            </div>
-        `).join('');
-
-        // Listeners pour l'édition
-        document.querySelectorAll('.edit-contributor-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                contribPseudo.value = btn.dataset.pseudo;
-                contribAmount.value = btn.dataset.amount;
-                // On peut ajouter un indicateur visuel ou changer le mode
-                addContributorForm.dataset.mode = 'set';
-                addContributorForm.dataset.originalPseudo = btn.dataset.pseudo; // Store original pseudo for update
-                contribPseudo.focus();
-            });
-        });
-
-        // Listeners pour la suppression
-        document.querySelectorAll('.delete-contributor-btn').forEach(btn => {
-            btn.addEventListener('click', async () => {
-                const pseudo = btn.dataset.pseudo;
-                deleteContributor(pseudo);
-            });
-        });
-    }
 
     if (addContributorForm) {
         addContributorForm.addEventListener('submit', async (e) => {
