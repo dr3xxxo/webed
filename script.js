@@ -845,57 +845,87 @@
                 });
             });
 
-            // --- Speed Test Simulation ---
+            // --- Real Speed Test ---
             if (startSpeedTestBtn) {
                 startSpeedTestBtn.addEventListener('click', async () => {
+                    if (startSpeedTestBtn.disabled) return;
                     startSpeedTestBtn.disabled = true;
-                    const btnText = startSpeedTestBtn.querySelector('span') || startSpeedTestBtn;
-                    const originalBtnText = btnText.textContent;
                     
-                    const steps = [
-                        { text: 'status_init', progress: 0 },
-                        { text: 'status_downloading', progress: 30 },
-                        { text: 'status_converting', progress: 60 },
-                        { text: 'status_finalizing', progress: 90 },
-                        { text: 'status_done', progress: 100 }
-                    ];
-
-                    const updateUI = (stepIdx, percentage) => {
-                        const step = steps[stepIdx] || steps[steps.length - 1];
-                        get('testStepText').textContent = i18n[currentLang][step.text] || step.text;
-                        get('testPercentage').textContent = `${percentage}%`;
-                        get('testProgressBar').style.width = `${percentage}%`;
+                    const updateUI = (stepTextKey, percentage) => {
+                        if (get('testStepText')) get('testStepText').textContent = i18n[currentLang][stepTextKey] || stepTextKey;
+                        if (get('testPercentage')) get('testPercentage').textContent = `${Math.round(percentage)}%`;
+                        if (get('testProgressBar')) get('testProgressBar').style.width = `${percentage}%`;
                     };
 
-                    // Initial Info
-                    get('ipResult').textContent = 'Fetching...';
-                    get('ispResult').textContent = 'Fetching...';
-                    get('locResult').textContent = 'Fetching...';
+                    const resetResults = () => {
+                        ['ipResult', 'ispResult', 'locResult', 'pingResult', 'speedResult'].forEach(id => {
+                            if (get(id)) get(id).textContent = '--';
+                        });
+                        updateUI('status_init', 0);
+                    };
 
-                    // Mock data
-                    setTimeout(() => {
-                        get('ipResult').textContent = '82.124.56.210';
-                        get('ispResult').textContent = 'Orange SA';
-                        get('locResult').textContent = 'Paris, France';
-                    }, 1000);
+                    resetResults();
 
-                    for (let i = 0; i <= 100; i++) {
-                        let stepIdx = 0;
-                        if (i >= 90) stepIdx = 4;
-                        else if (i >= 60) stepIdx = 3;
-                        else if (i >= 30) stepIdx = 2;
-                        else if (i >= 10) stepIdx = 1;
-
-                        updateUI(stepIdx, i);
+                    try {
+                        // 1. Fetch IP Info
+                        updateUI('status_init', 10);
+                        const ipResponse = await fetch('https://ipapi.co/json/');
+                        if (!ipResponse.ok) throw new Error('IP Fetch Failed');
+                        const ipData = await ipResponse.json();
                         
-                        if (i === 40) get('pingResult').textContent = Math.floor(Math.random() * 20 + 10);
-                        if (i === 80) get('speedResult').textContent = (Math.random() * 500 + 100).toFixed(1);
+                        if (get('ipResult')) get('ipResult').textContent = ipData.ip || 'Unknown';
+                        if (get('ispResult')) get('ispResult').textContent = ipData.org || 'Unknown';
+                        if (get('locResult')) get('locResult').textContent = `${ipData.city}, ${ipData.country_name}`;
+                        
+                        updateUI('status_downloading', 30);
 
-                        await new Promise(r => setTimeout(r, 40));
+                        // 2. Measure Ping (Average of 3)
+                        let totalPing = 0;
+                        for(let i=0; i<3; i++) {
+                            const start = performance.now();
+                            await fetch('https://ipapi.co/json/', { cache: 'no-store', method: 'HEAD' });
+                            totalPing += (performance.now() - start);
+                        }
+                        const avgPing = Math.round(totalPing / 3);
+                        if (get('pingResult')) get('pingResult').textContent = avgPing;
+                        
+                        updateUI('status_converting', 50);
+
+                        // 3. Measure Download Speed
+                        // Using a small test file (1MB) to ensure it works reasonably across connections
+                        // Note: Using a reliable CDN with CORS
+                        const testFileUrl = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.module.min.js'; // ~1.2MB
+                        const startTime = performance.now();
+                        const response = await fetch(testFileUrl, { cache: 'no-store' });
+                        const reader = response.body.getReader();
+                        let receivedLength = 0;
+                        const chunks = [];
+                        
+                        while(true) {
+                            const {done, value} = await reader.read();
+                            if (done) break;
+                            chunks.push(value);
+                            receivedLength += value.length;
+                            const progress = 50 + (receivedLength / 1200000) * 50; // Approximating 1.2MB
+                            updateUI('status_converting', Math.min(progress, 99));
+                        }
+                        
+                        const duration = (performance.now() - startTime) / 1000; // seconds
+                        const bitsLoaded = receivedLength * 8;
+                        const speedMbps = (bitsLoaded / duration / 1000000).toFixed(2);
+                        
+                        if (get('speedResult')) get('speedResult').textContent = speedMbps;
+                        
+                        updateUI('status_done', 100);
+                        showNotification(currentLang === 'fr' ? "Test terminé !" : "Test complete!", "success");
+
+                    } catch (err) {
+                        console.error("Speed Test Error:", err);
+                        showNotification(currentLang === 'fr' ? "Erreur lors du test." : "Test failed.", "error");
+                        updateUI('status_init', 0);
+                    } finally {
+                        startSpeedTestBtn.disabled = false;
                     }
-
-                    showNotification(currentLang === 'fr' ? "Test terminé !" : "Test complete!", "success");
-                    startSpeedTestBtn.disabled = false;
                 });
             }
 
