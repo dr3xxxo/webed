@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const navHomeBtn = document.getElementById('navHomeBtn');
     const logoHomeBtn = document.getElementById('logoHomeBtn');
 
+    // --- Backend API Config ---
+    const API_URL = 'http://localhost:5000'; // Change to deployment URL later
+    const ADMIN_SECRET = 'webed_admin_2026'; // Match your admin pass
+
     // Modals & Paramètres
     const settingsBtn = document.getElementById('settingsBtn');
     const settingsModal = document.getElementById('settingsModal');
@@ -1413,47 +1417,66 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function populateAdminDonationFields() {
+    async function populateAdminDonationFields() {
         if (!adminCurrentDonationInput || !adminGoalDonationInput) return;
-        const current = localStorage.getItem('webed_total_donated') || "0";
-        const goal = localStorage.getItem('webed_goal_donated') || "100";
-        adminCurrentDonationInput.value = current;
-        adminGoalDonationInput.value = goal;
+        try {
+            const response = await fetch(`${API_URL}/api/goal`);
+            const data = await response.json();
+            adminCurrentDonationInput.value = data.current;
+            adminGoalDonationInput.value = data.goal;
+        } catch (e) {
+            console.error("Erreur sync goal:", e);
+        }
     }
 
     if (adminDonationForm) {
-        adminDonationForm.addEventListener('submit', (e) => {
+        adminDonationForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const current = adminCurrentDonationInput.value;
-            const goal = adminGoalDonationInput.value;
+            const current = parseFloat(adminCurrentDonationInput.value);
+            const goal = parseFloat(adminGoalDonationInput.value);
 
-            localStorage.setItem('webed_total_donated', current);
-            localStorage.setItem('webed_goal_donated', goal);
-
-            showNotification(i18n[currentLang].donation_updated, 'success');
-            updateDonationGoal();
+            try {
+                await fetch(`${API_URL}/api/goal`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'X-Admin-Key': ADMIN_SECRET
+                    },
+                    body: JSON.stringify({ current, goal })
+                });
+                showNotification(i18n[currentLang].donation_updated, 'success');
+                updateDonationGoal();
+            } catch (err) {
+                showNotification("Erreur de connexion serveur", "error");
+            }
         });
     }
 
-    function updateDonationGoal() {
+    async function updateDonationGoal() {
         if (!goalProgressBar || !currentGoalAmountElem) return;
         
-        let totalDonated = parseFloat(localStorage.getItem('webed_total_donated') || "0");
-        let goal = parseFloat(localStorage.getItem('webed_goal_donated') || "100");
+        let totalDonated = 0;
+        let goal = 100;
+
+        try {
+            const response = await fetch(`${API_URL}/api/goal`);
+            const data = await response.json();
+            totalDonated = data.current;
+            goal = data.goal;
+        } catch (e) {
+            // Fallback local if needed
+            totalDonated = parseFloat(localStorage.getItem('webed_total_donated') || "0");
+            goal = parseFloat(localStorage.getItem('webed_goal_donated') || "100");
+        }
         
         const percentage = Math.min((totalDonated / goal) * 100, 100);
         
         goalProgressBar.style.width = `${percentage}%`;
         currentGoalAmountElem.textContent = totalDonated.toFixed(0);
         
-        // Mettre à jour le texte du goal si besoin (on a juste le current pour l'instant dans le HTML)
-        // Pour être propre on va mettre à jour le texte "X€ / Goal€"
         const goalTotalElem = currentGoalAmountElem.parentElement;
         if (goalTotalElem) {
             goalTotalElem.innerHTML = `<span id="currentGoalAmount">${totalDonated.toFixed(0)}</span>€ / ${goal.toFixed(0)}€`;
-            // On doit refresh la ref car on vient de réécrire l'innerHTML
-            const newCurrentElem = document.getElementById('currentGoalAmount');
-            // updateDonationGoal est appelée à nouveau par le hashchange donc ça va.
         }
         
         if (percentage >= 100) {
@@ -1470,9 +1493,6 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('webed_donation_reset_v3', 'true');
     }
 
-    // --- Backend API Config ---
-    const API_URL = 'http://localhost:5000'; // Change to deployment URL later
-    const ADMIN_SECRET = 'webed_admin_2026'; // Match .env
 
     // --- Logic Leaderboard (Connected to Backend) ---
     async function getContributors() {
@@ -1516,9 +1536,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span style="color: #fff; font-weight: 600;">${c.pseudo}</span>
                     <span style="color: var(--text-secondary); font-size: 0.8rem;">${c.amount}€</span>
                 </div>
-                <button class="delete-contributor-btn" data-pseudo="${c.pseudo}" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">×</button>
+                <div style="display: flex; gap: 8px;">
+                    <button class="edit-contributor-btn" data-pseudo="${c.pseudo}" data-amount="${c.amount}" style="background: rgba(0, 191, 255, 0.1); color: var(--accent-color); border: 1px solid rgba(0, 191, 255, 0.2); padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">✎</button>
+                    <button class="delete-contributor-btn" data-pseudo="${c.pseudo}" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">×</button>
+                </div>
             </div>
         `).join('');
+
+        // Listeners pour l'édition
+        document.querySelectorAll('.edit-contributor-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                contribPseudo.value = btn.dataset.pseudo;
+                contribAmount.value = btn.dataset.amount;
+                // On peut ajouter un indicateur visuel ou changer le mode
+                addContributorForm.dataset.mode = 'set';
+                contribPseudo.focus();
+            });
+        });
 
         // Listeners pour la suppression
         document.querySelectorAll('.delete-contributor-btn').forEach(btn => {
@@ -1545,6 +1579,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const pseudo = contribPseudo.value.trim();
             const amount = parseFloat(contribAmount.value);
+            const mode = addContributorForm.dataset.mode || 'add';
             
             if (pseudo && !isNaN(amount)) {
                 try {
@@ -1554,7 +1589,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             'Content-Type': 'application/json',
                             'X-Admin-Key': ADMIN_SECRET
                         },
-                        body: JSON.stringify({ pseudo, amount })
+                        body: JSON.stringify({ pseudo, amount, mode })
                     });
 
                     if (response.ok) {
@@ -1562,7 +1597,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         renderContributors();
                         contribPseudo.value = '';
                         contribAmount.value = '';
-                        showNotification(currentLang === 'fr' ? "Contributeur ajouté." : "Contributor added.", 'success');
+                        addContributorForm.dataset.mode = 'add';
+                        showNotification(currentLang === 'fr' ? "Contributeur mis à jour." : "Contributor updated.", 'success');
                     } else {
                         showNotification("Erreur backend", "error");
                     }
@@ -1583,5 +1619,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial update
     updateDonationGoal();
     renderContributors();
-    if (window.location.hash === '#admin-donation') renderAdminContributors();
+    if (window.location.hash === '#admin-donation') {
+        renderAdminContributors();
+        populateAdminDonationFields();
+    }
 });
