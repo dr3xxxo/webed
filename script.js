@@ -74,6 +74,7 @@
             const loginForm = get('loginForm');
             const adminLoginForm = get('adminLoginForm');
             const adminDonationForm = get('adminDonationForm');
+            const ytRedirectBtn = get('ytRedirectBtn');
 
             // --- Config ---
             const API_URL = 'http://localhost:5000';
@@ -843,6 +844,67 @@
                     }
                 });
             });
+
+            // --- Speed Test Simulation ---
+            if (startSpeedTestBtn) {
+                startSpeedTestBtn.addEventListener('click', async () => {
+                    startSpeedTestBtn.disabled = true;
+                    const btnText = startSpeedTestBtn.querySelector('span') || startSpeedTestBtn;
+                    const originalBtnText = btnText.textContent;
+                    
+                    const steps = [
+                        { text: 'status_init', progress: 0 },
+                        { text: 'status_downloading', progress: 30 },
+                        { text: 'status_converting', progress: 60 },
+                        { text: 'status_finalizing', progress: 90 },
+                        { text: 'status_done', progress: 100 }
+                    ];
+
+                    const updateUI = (stepIdx, percentage) => {
+                        const step = steps[stepIdx] || steps[steps.length - 1];
+                        get('testStepText').textContent = i18n[currentLang][step.text] || step.text;
+                        get('testPercentage').textContent = `${percentage}%`;
+                        get('testProgressBar').style.width = `${percentage}%`;
+                    };
+
+                    // Initial Info
+                    get('ipResult').textContent = 'Fetching...';
+                    get('ispResult').textContent = 'Fetching...';
+                    get('locResult').textContent = 'Fetching...';
+
+                    // Mock data
+                    setTimeout(() => {
+                        get('ipResult').textContent = '82.124.56.210';
+                        get('ispResult').textContent = 'Orange SA';
+                        get('locResult').textContent = 'Paris, France';
+                    }, 1000);
+
+                    for (let i = 0; i <= 100; i++) {
+                        let stepIdx = 0;
+                        if (i >= 90) stepIdx = 4;
+                        else if (i >= 60) stepIdx = 3;
+                        else if (i >= 30) stepIdx = 2;
+                        else if (i >= 10) stepIdx = 1;
+
+                        updateUI(stepIdx, i);
+                        
+                        if (i === 40) get('pingResult').textContent = Math.floor(Math.random() * 20 + 10);
+                        if (i === 80) get('speedResult').textContent = (Math.random() * 500 + 100).toFixed(1);
+
+                        await new Promise(r => setTimeout(r, 40));
+                    }
+
+                    showNotification(currentLang === 'fr' ? "Test terminé !" : "Test complete!", "success");
+                    startSpeedTestBtn.disabled = false;
+                });
+            }
+
+            // --- YouTube Redirect ---
+            if (ytRedirectBtn) {
+                ytRedirectBtn.addEventListener('click', () => {
+                    window.open('https://notube.net/fr/youtube-app-v19', '_blank');
+                });
+            }
 
             // Mark as initialized
             window.webedInitialized = true;
