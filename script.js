@@ -49,6 +49,11 @@
             const closeSubnauticaTutoModal = get('closeSubnauticaTutoModal');
             const closeSubnauticaTutoBtn = get('closeSubnauticaTutoBtn');
             const tutoSubnauticaBtn = get('tutoSubnauticaBtn');
+
+            const gtaVTutoModal = get('gtaVTutoModal');
+            const closeGtaVTutoModal = get('closeGtaVTutoModal');
+            const closeGtaVTutoBtn = get('closeGtaVTutoBtn');
+            const tutoGtaVBtn = get('tutoGtaVBtn');
             const authButtons = get('authButtons');
             const userProfile = get('userProfile');
             const profileName = get('profileName');
@@ -230,6 +235,11 @@
                     subnautica_tuto_title: "Tutoriel Subnautica",
                     subnautica_tuto_intro: "Voici comment lancer Subnautica:",
                     subnautica_tuto_step3: "Lancez le jeu et profitez de l'aventure sous-marine !",
+                    gta_v_title: "Grand Theft Auto V (Enhanced)",
+                    gta_v_desc: "Vivez l'histoire de Los Santos. ⚠️ Pas de mode Online ⚠️",
+                    gta_v_tuto_title: "Tutoriel Grand Theft Auto V (Enhanced)",
+                    gta_v_tuto_intro: "Voici comment lancer Grand Theft Auto V (Enhanced):",
+                    gta_v_no_online: "Attention : Le mode Online n'est PAS disponible pour cette version.",
                     btn_autoc: "AutoC",
                     autoc_desc: "Outils de clics automatiques",
                     autoc_title: "AutoClickers",
@@ -419,6 +429,11 @@
                     subnautica_tuto_title: "Subnautica Tutorial",
                     subnautica_tuto_intro: "Here is how to launch Subnautica:",
                     subnautica_tuto_step3: "Launch the game and enjoy the underwater adventure!",
+                    gta_v_title: "Grand Theft Auto V (Enhanced)",
+                    gta_v_desc: "Experience the story of Los Santos. ⚠️ No Online mode ⚠️",
+                    gta_v_tuto_title: "Grand Theft Auto V (Enhanced) Tutorial",
+                    gta_v_tuto_intro: "Here is how to launch Grand Theft Auto V (Enhanced):",
+                    gta_v_no_online: "Attention: Online mode is NOT available for this version.",
                     btn_autoc: "AutoC",
                     autoc_desc: "Auto-clicking tools",
                     autoc_title: "AutoClickers",
@@ -651,6 +666,10 @@
             if (tutoSubnauticaBtn) tutoSubnauticaBtn.addEventListener('click', () => openModal(subnauticaTutoModal));
             if (closeSubnauticaTutoModal) closeSubnauticaTutoModal.addEventListener('click', () => closeModal(subnauticaTutoModal));
             if (closeSubnauticaTutoBtn) closeSubnauticaTutoBtn.addEventListener('click', () => closeModal(subnauticaTutoModal));
+
+            if (tutoGtaVBtn) tutoGtaVBtn.addEventListener('click', () => openModal(gtaVTutoModal));
+            if (closeGtaVTutoModal) closeGtaVTutoModal.addEventListener('click', () => closeModal(gtaVTutoModal));
+            if (closeGtaVTutoBtn) closeGtaVTutoBtn.addEventListener('click', () => closeModal(gtaVTutoModal));
 
             const usageHardNukeBtn = get('usageHardNukeBtn');
             if (usageHardNukeBtn) usageHardNukeBtn.addEventListener('click', () => openModal(usageModal));

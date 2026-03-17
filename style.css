@@ -1348,6 +1348,39 @@ body {
     width: 100%;
 }
 
+.card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, 
+        rgba(0, 0, 0, 0.95) 0%, 
+        rgba(0, 0, 0, 0.8) 30%, 
+        rgba(0, 0, 0, 0.4) 60%, 
+        transparent 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.script-card-content {
+    position: relative;
+    z-index: 2;
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    backdrop-filter: blur(2px);
+    padding: 8px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.script-card-content h3 {
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 1), 0 0 12px rgba(0, 0, 0, 0.5) !important;
+}
+
+.script-card-content p {
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 1) !important;
+}
+
 .game-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--border-subtle);
