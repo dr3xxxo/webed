@@ -24,6 +24,14 @@
             const closeRustTutoModal = get('closeRustTutoModal');
             const closeRustTutoBtn = get('closeRustTutoBtn');
             const tutoRustBtn = get('tutoRustBtn');
+            const mimesisTutoModal = get('mimesisTutoModal');
+            const closeMimesisTutoModal = get('closeMimesisTutoModal');
+            const closeMimesisTutoBtn = get('closeMimesisTutoBtn');
+            const tutoMimesisBtn = get('tutoMimesisBtn');
+            const backroomsTutoModal = get('backroomsTutoModal');
+            const closeBackroomsTutoModal = get('closeBackroomsTutoModal');
+            const closeBackroomsTutoBtn = get('closeBackroomsTutoBtn');
+            const tutoBackroomsBtn = get('tutoBackroomsBtn');
             const apexTutoModal = get('apexTutoModal');
             const closeApexTutoModal = get('closeApexTutoModal');
             const closeApexTutoBtn = get('closeApexTutoBtn');
@@ -32,6 +40,10 @@
             const closeNitroTutoModal = get('closeNitroTutoModal');
             const closeNitroTutoBtn = get('closeNitroTutoBtn');
             const tutoNitroBtn = get('tutoNitroBtn');
+            const codWWIITutoModal = get('codWWIITutoModal');
+            const closeCodWWIITutoModal = get('closeCodWWIITutoModal');
+            const closeCodWWIITutoBtn = get('closeCodWWIITutoBtn');
+            const tutoCodWWIIBtn = get('tutoCodWWIIBtn');
             const authButtons = get('authButtons');
             const userProfile = get('userProfile');
             const profileName = get('profileName');
@@ -75,6 +87,7 @@
             const adminLoginForm = get('adminLoginForm');
             const adminDonationForm = get('adminDonationForm');
             const ytRedirectBtn = get('ytRedirectBtn');
+            const gameSearchInput = get('gameSearchInput');
 
             // --- Config ---
             const API_URL = 'http://localhost:5000';
@@ -185,6 +198,19 @@
                     rust_tuto_step2: "Regarder le Tuto Vidéo du jeu",
                     tuto_video_btn: "Tuto Vidéo",
                     pre_dl_tuto_btn: "Tuto Préparation avant téléchargement",
+                    mimesis_title: "Mimesis",
+                    mimesis_desc: "Jeu de survie horreur en coopération.",
+                    mimesis_tuto_title: "Tutoriel Mimesis",
+                    mimesis_tuto_intro: "Voici comment lancer Mimesis:",
+                    backrooms_title: "Backrooms: Escape Together",
+                    backrooms_desc: "Jeu de survie horreur coopératif.",
+                    backrooms_tuto_title: "Tutoriel Backrooms",
+                    backrooms_tuto_intro: "Voici comment lancer Backrooms: Escape Together:",
+                    cod_wwii_title: "Call of Duty WWII",
+                    cod_wwii_desc: "Plongez au cœur de la Seconde Guerre Mondiale. ⚠️ Campagne uniquement ⚠️",
+                    cod_wwii_tuto_title: "Tutoriel COD WWII",
+                    cod_wwii_tuto_intro: "Voici comment lancer Call of Duty WWII:",
+                    cod_wwii_tuto_step3: "Lancez le jeu via l'exécutable s2_sp64_ship.exe.",
                     btn_autoc: "AutoC",
                     autoc_desc: "Outils de clics automatiques",
                     autoc_title: "AutoClickers",
@@ -248,7 +274,10 @@
                     manage_donations_desc: "Modifiez l'objectif et gérez le classement des contributeurs.",
                     goal_settings: "Paramètres de l'objectif",
                     manage_contributors: "Top Contributeurs",
-                    confirm_delete_contributor: "Voulez-vous vraiment supprimer ce contributeur ?"
+                    confirm_delete_contributor: "Voulez-vous vraiment supprimer ce contributeur ?",
+                    tuto_video_same: "Note: Le tuto vidéo est normalement le même pour tous.",
+                    tuto_discord_support: "Si vous rencontrez un problème, rejoignez notre Discord :",
+                    join_discord_btn: "Rejoindre Discord"
                 },
                 en: {
                     search_placeholder: "Search...",
@@ -352,6 +381,19 @@
                     rust_tuto_step2: "Watch the Video Tutorial of the game",
                     tuto_video_btn: "Video Tutorial",
                     pre_dl_tuto_btn: "Pre-download Preparation Tutorial",
+                    mimesis_title: "Mimesis",
+                    mimesis_desc: "Cooperative survival horror game.",
+                    mimesis_tuto_title: "Mimesis Tutorial",
+                    mimesis_tuto_intro: "Here is how to launch Mimesis:",
+                    backrooms_title: "Backrooms: Escape Together",
+                    backrooms_desc: "Cooperative survival horror game.",
+                    backrooms_tuto_title: "Backrooms Tutorial",
+                    backrooms_tuto_intro: "Here is how to launch Backrooms: Escape Together:",
+                    cod_wwii_title: "Call of Duty WWII",
+                    cod_wwii_desc: "Plunge into the heart of WWII. ⚠️ Campaign only ⚠️",
+                    cod_wwii_tuto_title: "COD WWII Tutorial",
+                    cod_wwii_tuto_intro: "Here is how to launch Call of Duty WWII:",
+                    cod_wwii_tuto_step3: "Launch the game via the s2_sp64_ship.exe executable.",
                     btn_autoc: "AutoC",
                     autoc_desc: "Auto-clicking tools",
                     autoc_title: "AutoClickers",
@@ -415,7 +457,10 @@
                     manage_donations_desc: "Modify the goal and manage the donor leaderboard.",
                     goal_settings: "Goal Settings",
                     manage_contributors: "Top Contributors",
-                    confirm_delete_contributor: "Are you sure you want to delete this contributor?"
+                    confirm_delete_contributor: "Are you sure you want to delete this contributor?",
+                    tuto_video_same: "Note: The video tutorial is normally the same for all.",
+                    tuto_discord_support: "If you encounter a problem, join our Discord:",
+                    join_discord_btn: "Join Discord"
                 }
             };
 
@@ -557,13 +602,23 @@
             if (closeRustTutoModal) closeRustTutoModal.addEventListener('click', () => closeModal(rustTutoModal));
             if (closeRustTutoBtn) closeRustTutoBtn.addEventListener('click', () => closeModal(rustTutoModal));
             
+            if (tutoMimesisBtn) tutoMimesisBtn.addEventListener('click', () => openModal(mimesisTutoModal));
+            if (closeMimesisTutoModal) closeMimesisTutoModal.addEventListener('click', () => closeModal(mimesisTutoModal));
+            if (closeMimesisTutoBtn) closeMimesisTutoBtn.addEventListener('click', () => closeModal(mimesisTutoModal));
+
+            if (tutoBackroomsBtn) tutoBackroomsBtn.addEventListener('click', () => openModal(backroomsTutoModal));
+            if (closeBackroomsTutoModal) closeBackroomsTutoModal.addEventListener('click', () => closeModal(backroomsTutoModal));
+            if (closeBackroomsTutoBtn) closeBackroomsTutoBtn.addEventListener('click', () => closeModal(backroomsTutoModal));
+
             if (tutoApexBtn) tutoApexBtn.addEventListener('click', () => openModal(apexTutoModal));
             if (closeApexTutoModal) closeApexTutoModal.addEventListener('click', () => closeModal(apexTutoModal));
             if (closeApexTutoBtn) closeApexTutoBtn.addEventListener('click', () => closeModal(apexTutoModal));
 
-            if (tutoNitroBtn) tutoNitroBtn.addEventListener('click', () => openModal(nitroTutoModal));
-            if (closeNitroTutoModal) closeNitroTutoModal.addEventListener('click', () => closeModal(nitroTutoModal));
             if (closeNitroTutoBtn) closeNitroTutoBtn.addEventListener('click', () => closeModal(nitroTutoModal));
+
+            if (tutoCodWWIIBtn) tutoCodWWIIBtn.addEventListener('click', () => openModal(codWWIITutoModal));
+            if (closeCodWWIITutoModal) closeCodWWIITutoModal.addEventListener('click', () => closeModal(codWWIITutoModal));
+            if (closeCodWWIITutoBtn) closeCodWWIITutoBtn.addEventListener('click', () => closeModal(codWWIITutoModal));
 
             const usageHardNukeBtn = get('usageHardNukeBtn');
             if (usageHardNukeBtn) usageHardNukeBtn.addEventListener('click', () => openModal(usageModal));
@@ -969,6 +1024,27 @@
             if (ytRedirectBtn) {
                 ytRedirectBtn.addEventListener('click', () => {
                     window.open('https://notube.net/fr/youtube-app-v19', '_blank');
+                });
+            }
+
+            // --- Game Search Logic ---
+            if (gameSearchInput) {
+                gameSearchInput.addEventListener('input', (e) => {
+                    const query = e.target.value.toLowerCase().trim();
+                    const cards = gamesView.querySelectorAll('.script-card');
+                    
+                    cards.forEach(card => {
+                        const titleTag = card.querySelector('h3');
+                        if (titleTag) {
+                            const title = titleTag.textContent.toLowerCase().trim();
+                            // Filtrer si le titre commence par la requête (comme demandé)
+                            if (title.startsWith(query)) {
+                                card.style.display = 'flex';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        }
+                    });
                 });
             }
 

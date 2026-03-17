@@ -1091,11 +1091,11 @@ body {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--border-subtle);
     border-radius: 20px;
-    padding: 32px;
+    padding: 20px; /* Reduced from 32px */
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 15px; /* Reduced gap */
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
 }
@@ -1192,11 +1192,12 @@ body {
 .games-view {
     flex: 1;
     display: flex;
-    align-items: center;
+    align-items: flex-start; /* Changed from center to allow scrolling from top */
     justify-content: center;
     position: relative;
-    padding: 0 2rem;
+    padding: 2rem;
     text-align: center;
+    overflow-y: auto; /* Enable mouse wheel scrolling */
     animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
@@ -1230,8 +1231,8 @@ body {
 
 .games-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Reduced min-width for 4 columns */
+    gap: 20px; /* Slightly reduced gap */
     margin-bottom: 24px;
     width: 100%;
 }
