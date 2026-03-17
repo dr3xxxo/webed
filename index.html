@@ -302,6 +302,30 @@
                 <p data-i18n="accounts_desc">Liste de tous les comptes enregistrés sur la plateforme.</p>
             </div>
 
+            <div class="account-actions-bar" style="display: flex; flex-direction: column; gap: 20px; margin-bottom: 25px; background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid var(--border-subtle);">
+                <form id="addAccountForm" style="display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 15px; align-items: flex-end;">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="newAccountEmail" style="font-size: 0.8rem; color: var(--text-secondary);">Pseudo / Email</label>
+                        <input type="text" id="newAccountEmail" placeholder="Pseudo" required style="width: 100%; padding: 8px 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-subtle); border-radius: 6px; color: #fff;">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="newAccountName" style="font-size: 0.8rem; color: var(--text-secondary);">Nom (Optionnel)</label>
+                        <input type="text" id="newAccountName" placeholder="Nom" style="width: 100%; padding: 8px 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-subtle); border-radius: 6px; color: #fff;">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label for="newAccountPassword" style="font-size: 0.8rem; color: var(--text-secondary);">Mot de passe</label>
+                        <input type="password" id="newAccountPassword" placeholder="••••••••" required style="width: 100%; padding: 8px 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-subtle); border-radius: 6px; color: #fff;">
+                    </div>
+                    <button type="submit" class="btn btn-signup" style="padding: 10px 20px; height: fit-content; align-self: flex-end;">Créer</button>
+                </form>
+
+                <div class="db-management-buttons" style="display: flex; gap: 10px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.05);">
+                    <button id="importDBBtn" class="btn btn-login" style="font-size: 0.8rem; padding: 6px 12px; background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.2); color: #60a5fa;">Importer DB</button>
+                    <button id="exportDBBtn" class="btn btn-login" style="font-size: 0.8rem; padding: 6px 12px; background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.2); color: #34d399;">Exporter DB</button>
+                    <input type="file" id="importDBFile" style="display: none;" accept=".json">
+                </div>
+            </div>
+
             <div class="accounts-list-content" id="accountsListContainer">
                 <!-- Injected via JS -->
             </div>

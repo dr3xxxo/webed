@@ -58,6 +58,14 @@
             const addContributorForm = get('addContributorForm');
             const contribPseudo = get('contribPseudo');
             const contribAmount = get('contribAmount');
+            const addAccountForm = get('addAccountForm');
+            const newAccountEmail = get('newAccountEmail');
+            const newAccountName = get('newAccountName');
+            const newAccountPassword = get('newAccountPassword');
+            const accountsListContainer = get('accountsListContainer');
+            const importDBBtn = get('importDBBtn');
+            const exportDBBtn = get('exportDBBtn');
+            const importDBFile = get('importDBFile');
             const langSelector = get('langSelector');
             const customOptions = document.querySelectorAll('.custom-option');
             const selectedLangText = get('selectedLangText');
@@ -546,7 +554,10 @@
 
             // Admin Dashboard Navigation
             const openAccountsBtn = get('openAccountsBtn');
-            if (openAccountsBtn) openAccountsBtn.addEventListener('click', () => navigateTo('#accounts', adminAccountsView));
+            if (openAccountsBtn) openAccountsBtn.addEventListener('click', () => {
+                navigateTo('#accounts', adminAccountsView);
+                renderAccounts();
+            });
 
             const openDonationAdminBtn = get('openDonationAdminBtn');
             if (openDonationAdminBtn) openDonationAdminBtn.addEventListener('click', () => navigateTo('#admin-donation', adminDonationView));
@@ -708,6 +719,132 @@
                         showNotification("Accès autorisé", "success");
                         navigateTo('#dashboard', adminDashboardView);
                     } else showNotification("Identifiants incorrects", "error");
+                });
+            }
+
+            // --- User Account Management ---
+            const renderAccounts = () => {
+                if (!accountsListContainer) return;
+                const users = JSON.parse(localStorage.getItem('webed_users')) || {};
+                const userEmails = Object.keys(users);
+
+                let html = `
+                    <div style="display: flex; justify-content: space-between; padding: 0 12px 10px; font-size: 0.75rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; border-bottom: 1px solid var(--border-subtle); margin-bottom: 10px;">
+                        <span>UTILISATEUR</span>
+                        <span>ACTIONS</span>
+                    </div>
+                `;
+
+                if (userEmails.length === 0) {
+                    html += '<p style="text-align:center; color:var(--text-secondary); padding: 20px;">Aucun compte pour le moment.</p>';
+                } else {
+                    html += userEmails.map(email => {
+                        const u = users[email];
+                        return `
+                            <div class="account-item" style="display: flex; justify-content: space-between; align-items: center; padding: 12px; margin-bottom: 8px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid var(--border-subtle);">
+                                <div style="display: flex; flex-direction: column;">
+                                    <span style="font-weight: 600; color: #fff;">${u.name || email}</span>
+                                    <span style="font-size: 0.8rem; color: var(--text-secondary);">${email}</span>
+                                </div>
+                                <div style="display: flex; gap: 8px;">
+                                    <button class="btn-delete-account" data-email="${email}" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); padding: 6px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+                accountsListContainer.innerHTML = html;
+
+                // Add delete listeners
+                accountsListContainer.querySelectorAll('.btn-delete-account').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const email = btn.getAttribute('data-email');
+                        if (confirm(`Supprimer le compte ${email} ?`)) {
+                            const users = JSON.parse(localStorage.getItem('webed_users')) || {};
+                            delete users[email];
+                            localStorage.setItem('webed_users', JSON.stringify(users));
+                            renderAccounts();
+                            showNotification("Compte supprimé", "info");
+                        }
+                    });
+                });
+            };
+
+            if (addAccountForm) {
+                addAccountForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const email = newAccountEmail.value.trim();
+                    const name = newAccountName.value.trim();
+                    const password = newAccountPassword.value;
+
+                    if (!email || !password) return;
+
+                    const users = JSON.parse(localStorage.getItem('webed_users')) || {};
+                    if (users[email]) {
+                        showNotification("Cet utilisateur existe déjà", "error");
+                        return;
+                    }
+
+                    users[email] = { email, name, password, createdAt: new Date().toISOString() };
+                    localStorage.setItem('webed_users', JSON.stringify(users));
+                    
+                    showNotification("Compte créé avec succès !", "success");
+                    addAccountForm.reset();
+                    renderAccounts();
+                });
+            }
+
+            // --- Database Import / Export (Sharing) ---
+            if (exportDBBtn) {
+                exportDBBtn.addEventListener('click', () => {
+                    const data = {
+                        users: JSON.parse(localStorage.getItem('webed_users')) || {},
+                        contributors: JSON.parse(localStorage.getItem('webed_contributors')) || [],
+                        total_donated: localStorage.getItem('webed_total_donated') || "0",
+                        goal_donated: localStorage.getItem('webed_goal_donated') || "50"
+                    };
+                    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `webed_database_${new Date().toISOString().split('T')[0]}.json`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    showNotification("Base de données exportée", "success");
+                });
+            }
+
+            if (importDBBtn) importDBBtn.addEventListener('click', () => importDBFile.click());
+
+            if (importDBFile) {
+                importDBFile.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        try {
+                            const data = JSON.parse(event.target.result);
+                            if (data.users) localStorage.setItem('webed_users', JSON.stringify(data.users));
+                            if (data.contributors) localStorage.setItem('webed_contributors', JSON.stringify(data.contributors));
+                            if (data.total_donated) localStorage.setItem('webed_total_donated', data.total_donated);
+                            if (data.goal_donated) localStorage.setItem('webed_goal_donated', data.goal_donated);
+                            
+                            showNotification("Base de données importée !", "success");
+                            renderAccounts();
+                            renderContributors();
+                            updateDonationGoal();
+                            updateAuthState();
+                        } catch (err) {
+                            showNotification("Erreur lors de l'import : fichier invalide", "error");
+                        }
+                    };
+                    reader.readAsText(file);
+                    importDBFile.value = ''; // Reset for next time
                 });
             }
 
@@ -917,6 +1054,30 @@
                 localStorage.setItem('webed_goal_donated', '50');
                 localStorage.setItem('webed_donation_reset_v3', 'true');
             }
+
+            // --- Default Accounts Initialization ---
+            const initDefaultAccounts = () => {
+                const users = JSON.parse(localStorage.getItem('webed_users')) || {};
+                
+                // Remove legacy user1 if exists
+                if (users['user1']) {
+                    delete users['user1'];
+                }
+
+                // Add test/test account if not present
+                if (!users['test']) {
+                    users['test'] = {
+                        email: 'test',
+                        name: 'Test Account',
+                        password: 'test',
+                        createdAt: new Date().toISOString()
+                    };
+                }
+
+                localStorage.setItem('webed_users', JSON.stringify(users));
+                updateAuthState();
+            };
+            initDefaultAccounts();
 
             // --- Password Toggles ---
             document.querySelectorAll('.toggle-password').forEach(button => {
