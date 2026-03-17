@@ -44,6 +44,11 @@
             const closeCodWWIITutoModal = get('closeCodWWIITutoModal');
             const closeCodWWIITutoBtn = get('closeCodWWIITutoBtn');
             const tutoCodWWIIBtn = get('tutoCodWWIIBtn');
+
+            const subnauticaTutoModal = get('subnauticaTutoModal');
+            const closeSubnauticaTutoModal = get('closeSubnauticaTutoModal');
+            const closeSubnauticaTutoBtn = get('closeSubnauticaTutoBtn');
+            const tutoSubnauticaBtn = get('tutoSubnauticaBtn');
             const authButtons = get('authButtons');
             const userProfile = get('userProfile');
             const profileName = get('profileName');
@@ -189,6 +194,7 @@
                     discord_games_title: "Discord Webed",
                     discord_games_desc: "Rejoignez le serveur discord pour proposer des jeux crackés à ajouter !",
                     join_discord_games: "Rejoindre le Discord",
+                    member_info_text: "L'accès membres est gratuit ! Rejoignez notre Discord, ouvrez un ticket et faites une demande de compte pour y accéder.",
                     rust_title: "Rv there yet ?",
                     rust_desc: "Jeu de survie et d'aventure sur la route.",
                     tuto_btn: "Tuto",
@@ -211,6 +217,11 @@
                     cod_wwii_tuto_title: "Tutoriel COD WWII",
                     cod_wwii_tuto_intro: "Voici comment lancer Call of Duty WWII:",
                     cod_wwii_tuto_step3: "Lancez le jeu via l'exécutable s2_sp64_ship.exe.",
+                    subnautica_title: "Subnautica",
+                    subnautica_desc: "Explorez un monde sous-marin extraterrestre.",
+                    subnautica_tuto_title: "Tutoriel Subnautica",
+                    subnautica_tuto_intro: "Voici comment lancer Subnautica:",
+                    subnautica_tuto_step3: "Lancez le jeu et profitez de l'aventure sous-marine !",
                     btn_autoc: "AutoC",
                     autoc_desc: "Outils de clics automatiques",
                     autoc_title: "AutoClickers",
@@ -379,6 +390,7 @@
                     rust_tuto_intro: "Here is how to launch Rv there yet ?:",
                     rust_tuto_step1: "Watch the Pre-download Preparation Tutorial",
                     rust_tuto_step2: "Watch the Video Tutorial of the game",
+                    member_info_text: "Member access is free! Join our Discord, open a ticket, and request an account to get access.",
                     tuto_video_btn: "Video Tutorial",
                     pre_dl_tuto_btn: "Pre-download Preparation Tutorial",
                     mimesis_title: "Mimesis",
@@ -394,6 +406,11 @@
                     cod_wwii_tuto_title: "COD WWII Tutorial",
                     cod_wwii_tuto_intro: "Here is how to launch Call of Duty WWII:",
                     cod_wwii_tuto_step3: "Launch the game via the s2_sp64_ship.exe executable.",
+                    subnautica_title: "Subnautica",
+                    subnautica_desc: "Explore an alien underwater world.",
+                    subnautica_tuto_title: "Subnautica Tutorial",
+                    subnautica_tuto_intro: "Here is how to launch Subnautica:",
+                    subnautica_tuto_step3: "Launch the game and enjoy the underwater adventure!",
                     btn_autoc: "AutoC",
                     autoc_desc: "Auto-clicking tools",
                     autoc_title: "AutoClickers",
@@ -572,7 +589,7 @@
             // --- Feature Buttons ---
             const featureConfigs = [
                 { id: 'heroScriptBtn', hash: '#script', view: scriptView, requiresLogin: true },
-                { id: 'heroGamesBtn', hash: '#games', view: gamesView, requiresLogin: false },
+                { id: 'heroGamesBtn', hash: '#games', view: gamesView, requiresLogin: true },
                 { id: 'heroAutocBtn', hash: '#autoc', view: autocView, requiresLogin: false },
                 { id: 'heroApexBtn', hash: '#apex', view: apexView, requiresLogin: false },
                 { id: 'heroYtdlpBtn', hash: '#ytdlp', view: ytdlpView, requiresLogin: false },
@@ -620,8 +637,27 @@
             if (closeCodWWIITutoModal) closeCodWWIITutoModal.addEventListener('click', () => closeModal(codWWIITutoModal));
             if (closeCodWWIITutoBtn) closeCodWWIITutoBtn.addEventListener('click', () => closeModal(codWWIITutoModal));
 
+            if (tutoSubnauticaBtn) tutoSubnauticaBtn.addEventListener('click', () => openModal(subnauticaTutoModal));
+            if (closeSubnauticaTutoModal) closeSubnauticaTutoModal.addEventListener('click', () => closeModal(subnauticaTutoModal));
+            if (closeSubnauticaTutoBtn) closeSubnauticaTutoBtn.addEventListener('click', () => closeModal(subnauticaTutoModal));
+
             const usageHardNukeBtn = get('usageHardNukeBtn');
             if (usageHardNukeBtn) usageHardNukeBtn.addEventListener('click', () => openModal(usageModal));
+
+            // Info Member Box Toggle
+            const memberInfoBtn = get('memberInfoBtn');
+            const memberInfoTooltip = get('memberInfoTooltip');
+            if (memberInfoBtn && memberInfoTooltip) {
+                memberInfoBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    memberInfoTooltip.classList.toggle('show');
+                });
+                document.addEventListener('click', (e) => {
+                    if (!memberInfoTooltip.contains(e.target) && !memberInfoBtn.contains(e.target)) {
+                        memberInfoTooltip.classList.remove('show');
+                    }
+                });
+            }
 
             // --- Auth Logic ---
             const updateAuthState = () => {
